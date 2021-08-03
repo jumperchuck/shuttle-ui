@@ -2,6 +2,10 @@
 
 > react / react native 移动端组件库
 
+[**Website**](https://jumperchuck.github.io/shuttle-ui-docs)
+<br/>
+[**Documentation**](https://jumperchuck.github.io/shuttle-ui-docs/docs/test)
+
 ## Installation
 
 ```
