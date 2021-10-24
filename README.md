@@ -1,17 +1,34 @@
-# shuttle-ui
+# Shuttle-UI
 
-> react / react native 移动端组件库
+> Mobile component library, build consistent design system for React Native & Web
 
-[**Website**](https://jumperchuck.github.io/shuttle-ui-docs)
+[**Website**](https://jumperchuck.github.io/shuttle-ui)
 <br/>
-[**Documentation**](https://jumperchuck.github.io/shuttle-ui-docs/docs/test)
+[**Documentation**](https://jumperchuck.github.io/shuttle-ui)
 
 ## Installation
 
 ```
-npm install --save shuttle-ui
-# or
-yarn add shuttle-ui
+// with npm
+npm install --save @shuttle-ui/components
+
+// with yarn
+yarn add @shuttle-ui/components
+```
+
+## Usage
+
+```tsx
+import React from 'react';
+import { Provider } from '@shuttle-ui/components';
+
+const App = () => {
+  return (
+    <Provider>
+      <Button>Hello World</Button>
+    </Provider>
+  )
+}
 ```
 
 ## Using on the Web
@@ -49,39 +66,12 @@ yarn add -D @craco/craco
 
 ...to be continued
 
-#### Load the React-Native-Vector-Icons
-
-Install
-```
-yarn add react-native-vector-icons
-```
-
-```jsx
-import { Platform } from 'react-native';
-import { Provider } from 'peregi-ui-mobile';
-import 'peregi-ui-mobile/src/registerRNIcons';
-
-<Provider>
-  <>
-    {Platform.OS === 'web' ? (  
-      <style type="text/css">{`
-        @font-face {
-          font-family: 'MaterialCommunityIcons';
-          src: url(${require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf')}) format('truetype');
-        }
-        ...other icons
-      `}</style>
-    ) : null}
-    <App />
-  </>
-</Provider>
-```
-
 ## Components
 
 - [ ] Accordion
 - [ ] ActionSheet
 - [x] Avatar
+  - [ ] AvatarGroup
 - [x] Badge
 - [x] Box
 - [x] Button

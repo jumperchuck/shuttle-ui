@@ -2,8 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { array, boolean, object, radios, select } from '@storybook/addon-knobs';
-import { Button, Space, IconProps } from 'shuttle-ui';
+import { Button, IconProps } from '@shuttle-ui/components';
 
+import Basic from '../../../demo/button/Basic';
 import { StoryScreen, UseCase } from '../views';
 import { colorOptions } from './knbos';
 import { spaceProps } from './Space.stories';
@@ -55,12 +56,7 @@ storiesOf('Button', module)
   .add('with basic', () => (
     <>
       <UseCase title="Basic" usage="The basic button">
-        <Space direction="column" align={null}>
-          <Button {...buttonProps()}>德玛西亚</Button>
-          <Button {...buttonProps()} loading>
-            德玛西亚
-          </Button>
-        </Space>
+        <Basic {...buttonProps()} />
       </UseCase>
     </>
   ))

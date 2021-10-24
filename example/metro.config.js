@@ -1,14 +1,23 @@
 const path = require('path');
 const blacklist = require('metro-config/src/defaults/blacklist');
 const escape = require('escape-string-regexp');
+const fs = require('fs');
 const pak = require('../package.json');
 
 const root = path.resolve(__dirname, '..');
 
+const repos = path.resolve(__dirname, '../packages');
+
+const paks = fs
+  .readdirSync(repos)
+  .map((dir) => require(path.resolve(repos, `${dir}/package.json`)));
+
 const modules = [
   '@expo/vector-icons',
   'expo-constants',
+  'react-native-vector-icons',
   ...Object.keys(pak.peerDependencies),
+  ...paks.flatMap((item) => Object.keys(item.peerDependencies)),
 ];
 
 module.exports = {

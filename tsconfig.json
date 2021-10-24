@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "shuttle-ui": ["./src/index"]
-    },
-    "target": "esnext",
+    "baseUrl": "./",
+    "target": "es2018",
     "module": "esnext",
     "jsx": "react",
     "lib": ["esnext"],
@@ -12,7 +9,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": false,
+    "paths": {
+      "@shuttle-ui/components": ["./packages/components/src"],
+      "@shuttle-ui/system": ["./packages/system/src"],
+      "@shuttle-ui/theme": ["./packages/theme/src"],
+      "@shuttle-ui/utils": ["./packages/utils/src"]
+    }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/dist", "**/node_modules"]
 }

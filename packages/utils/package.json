@@ -1,0 +1,43 @@
+{
+  "name": "@shuttle-ui/utils",
+  "version": "0.1.0",
+  "description": "React Native component library toolkit",
+  "author": "Dennis Chuck <ck_125s@163.com>",
+  "homepage": "https://jumperchuck.github.io/shuttle-ui",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "react-native": "src/index.tsx",
+  "source": "src/index.tsx",
+  "keywords": [
+    "react",
+    "react-native",
+    "react-component",
+    "utils"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jumperchuck/shuttle-ui.git",
+    "directory": "packages/utils"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "bugs": {
+    "url": "https://github.com/jumperchuck/shuttle-ui/issues"
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "dependencies": {
+    "deepmerge": "^4.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

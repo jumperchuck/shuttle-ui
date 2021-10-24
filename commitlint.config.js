@@ -12,6 +12,8 @@ module.exports = {
         'style',
         'refactor',
         'test',
+        'build',
+        'ci',
         'chore',
         'revert',
         'merge',

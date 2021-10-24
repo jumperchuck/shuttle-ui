@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { object, radios } from '@storybook/addon-knobs';
-import { Button, Space } from 'shuttle-ui';
+import { Button, Space } from '@shuttle-ui/components';
 
 import { StoryScreen, UseCase } from '../views';
 import { spacingOptions } from './knbos';

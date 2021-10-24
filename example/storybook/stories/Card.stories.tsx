@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { object } from '@storybook/addon-knobs';
-import { Card, Text, Divider, Button } from 'shuttle-ui';
+import { Card, Text, Divider, Button } from '@shuttle-ui/components';
 
 import { StoryScreen, UseCase } from '../views';
 import bgBlank from '../assets/bg_blank.png';

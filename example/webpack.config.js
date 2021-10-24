@@ -10,7 +10,13 @@ module.exports = async function (env, argv) {
 
   config.module.rules.push({
     test: /\.(js|ts|tsx)$/,
-    include: path.resolve(root, 'src'),
+    include: path.resolve(root, 'packages'),
+    use: 'babel-loader',
+  });
+
+  config.module.rules.push({
+    test: /\.(js|ts|tsx)$/,
+    include: path.resolve(root, 'demo'),
     use: 'babel-loader',
   });
 

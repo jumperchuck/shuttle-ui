@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, TextInputProps } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { number, radios, select } from '@storybook/addon-knobs';
-import { Box } from 'shuttle-ui';
+import { Box } from '@shuttle-ui/components';
 
 import { colorOptions, radiusOptions, spacingOptions } from './knbos';
 import { StoryScreen, UseCase } from '../views';

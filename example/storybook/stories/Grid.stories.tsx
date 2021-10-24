@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { Button, Grid, Text } from 'shuttle-ui';
+import { Button, Grid, Text } from '@shuttle-ui/components';
 
 import { StoryScreen, UseCase } from '../views';
 

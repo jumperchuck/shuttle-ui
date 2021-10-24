@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { color, number } from '@storybook/addon-knobs';
-import { Space, Badge, Text } from 'shuttle-ui';
+import { Space, Badge, Text } from '@shuttle-ui/components';
 
 import { StoryScreen, UseCase } from '../views';
 

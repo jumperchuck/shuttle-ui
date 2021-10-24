@@ -1,21 +1,8 @@
-import { createTheme } from 'shuttle-ui';
+import { createTheme } from '@shuttle-ui/theme';
 
 export default createTheme({
-  text: {
-    fonts: {
-      cochin: { fontFamily: 'Cochin' },
-    },
-    sizes: {
-      xl: 24,
-      lg: 20,
-      md: 16,
-      sm: 12,
-      xs: 8,
-    },
+  fontFamilies: {
+    cochin: 'Cochin',
   },
-  props: {
-    Text: {
-      // size: 'xl',
-    },
-  },
+  props: {},
 });

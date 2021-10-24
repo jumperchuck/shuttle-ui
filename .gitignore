@@ -57,3 +57,6 @@ jsconfig.json
 #
 coverage/
 
+# Build
+#
+dist/

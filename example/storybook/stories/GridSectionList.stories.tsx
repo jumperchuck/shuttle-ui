@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { SectionList, View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
-import { Button, Card, Divider, Text, GridSectionList } from 'shuttle-ui';
+import { Button, Card, Divider, Text, GridSectionList } from '@shuttle-ui/components';
 
 import { UseCase } from '../views';
 

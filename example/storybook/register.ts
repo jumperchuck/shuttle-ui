@@ -1,4 +1,4 @@
-import { Icon } from 'shuttle-ui';
+import { Icon } from '@shuttle-ui/components';
 
 import call from './assets/ic_call.png';
 import info from './assets/ic_info.png';

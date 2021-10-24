@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { Button, Dialog, Space } from 'shuttle-ui';
+import { Button, Dialog, Space } from '@shuttle-ui/components';
 
 import { StoryScreen, UseCase } from '../views';
 

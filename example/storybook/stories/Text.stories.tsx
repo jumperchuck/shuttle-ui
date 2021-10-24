@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { boolean, number, select, text } from '@storybook/addon-knobs';
-import { Text } from 'shuttle-ui';
+import { Text } from '@shuttle-ui/components';
 
 import { StoryScreen, UseCase } from '../views';
 import { colorOptions, fontOptions, fontSizeOptions, fontWeightOptions } from './knbos';
@@ -11,7 +11,7 @@ const groupId = 'text';
 
 export const textProps = () => {
   return {
-    color: select('color', colorOptions, 'error', groupId),
+    color: select('color', colorOptions, 'blue.100', groupId),
     font: select('font', fontOptions, undefined, groupId),
     size: select('size', fontSizeOptions, 'md', groupId),
     weight: select('weight', fontWeightOptions, 'normal', groupId),

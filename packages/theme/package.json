@@ -1,0 +1,44 @@
+{
+  "name": "@shuttle-ui/theme",
+  "version": "0.1.0",
+  "description": "Customize theme in React Native",
+  "author": "Dennis Chuck <ck_125s@163.com>",
+  "homepage": "https://jumperchuck.github.io/shuttle-ui",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.tsx",
+  "keywords": [
+    "react",
+    "react-native",
+    "react-component",
+    "theme"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jumperchuck/shuttle-ui.git",
+    "directory": "packages/theme"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "bugs": {
+    "url": "https://github.com/jumperchuck/shuttle-ui/issues"
+  },
+  "peerDependencies": {
+    "react": "*"
+  },
+  "dependencies": {
+    "@shuttle-ui/utils": "^0.1.0",
+    "@types/hoist-non-react-statics": "^3.3.1",
+    "hoist-non-react-statics": "^3.3.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
