@@ -5,7 +5,7 @@ import Button from '../';
 
 describe('Button Component', () => {
   it('should match snapshot', () => {
-    const { toJSON } = render(<Button>Button</Button>);
+    const { toJSON } = render(<Button padding="xxs">Button</Button>);
     expect(toJSON()).toMatchSnapshot();
   });
 });

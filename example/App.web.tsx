@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from '@shuttle-ui/components';
-// import '@shuttle-ui/core/src/registerRNIcons';
+import '@shuttle-ui/components/dist/registerRNIcons';
 
 import StorybookUIRoot from './storybook';
 import theme from './storybook/theme';
