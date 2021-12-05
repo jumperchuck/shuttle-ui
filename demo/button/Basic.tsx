@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonProps, Space } from '@shuttle-ui/components';
 
-const Basic: React.FC<ButtonProps> = (props) => {
+export const Example: React.FC<ButtonProps> = (props) => {
   return (
     <Space direction="column" align={null}>
       <Button {...props}>德玛西亚</Button>
@@ -11,5 +11,3 @@ const Basic: React.FC<ButtonProps> = (props) => {
     </Space>
   );
 };
-
-export default Basic;

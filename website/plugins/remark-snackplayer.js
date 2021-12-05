@@ -10,14 +10,12 @@ const parseParams = (paramString = '') => {
   if (!params.platform) {
     params.platform = 'web';
   }
-
   return params;
 };
 
 const simplifyMeta = (meta) => {
-  let variables = null;
-  variables = meta.split(' ');
-  let objectifiedMeta = {};
+  const variables = meta.split(' ');
+  const objectifiedMeta = {};
 
   variables.map((variable) => {
     if (variable) {
@@ -33,6 +31,7 @@ const processNode = (node, parent) => {
     try {
       const params = parseParams(node.meta);
       const simplifedMeta = simplifyMeta(node.meta);
+
       // Gather necessary Params
       const name = simplifedMeta.name
         ? decodeURIComponent(simplifedMeta.name)
@@ -40,7 +39,9 @@ const processNode = (node, parent) => {
       const description = simplifedMeta.description
         ? decodeURIComponent(simplifedMeta.description)
         : 'Example usage';
-      const sampleCode = node.value;
+      const sampleCode = simplifedMeta.path
+        ? getSnackPlayerCode(simplifedMeta.path)
+        : node.value;
       const encodedSampleCode = encodeURIComponent(sampleCode);
       const platform = params.platform || 'web';
       const supportedPlatforms = params.supportedPlatforms || 'ios,android,web';
@@ -88,23 +89,6 @@ const SnackPlayer = () => {
       visit(tree, 'code', (node, parent) => {
         // Add SnackPlayer CodeBlocks to processing queue
         if (node.lang === 'SnackPlayer') {
-          nodesToProcess.push(processNode(node, parent));
-        } else if (node.lang === 'ComponentSnackPlayer') {
-          const path = node.meta.split('path=')[1];
-          const code = getSnackPlayerCode(path);
-          node.value = `${code}
-          import { Provider, Box } from '@shuttle-ui/components';
-          
-          export default () => {
-            return (
-              <Provider>
-                <Box flex={1} center>
-                  <Example/>
-                </Box>
-              </Provider>
-            )
-          }
-          `;
           nodesToProcess.push(processNode(node, parent));
         }
       });

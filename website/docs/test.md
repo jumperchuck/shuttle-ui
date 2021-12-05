@@ -13,6 +13,6 @@ const App = () => {
 export default App;
 ```
 
-```ComponentSnackPlayer name=TTT path=/demo/button/Basic.tsx
+```SnackPlayer name=TTT path=demo/button/Basic.tsx
 
 ```
