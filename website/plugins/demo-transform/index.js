@@ -1,8 +1,8 @@
 const { parse } = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
 const generate = require('@babel/generator').default;
+const types = require('@babel/types');
 const prettier = require('prettier');
-const prettierrc = require('../../.prettierrc');
 
 const getImportSpecifier = (name) => {
   return {
@@ -25,6 +25,8 @@ const getImportSpecifier = (name) => {
 };
 
 const transform = (ast) => {
+  let title = '';
+  let description = '';
   traverse(ast, {
     ImportDeclaration({ node }) {
       let isBoxImported = false;
@@ -46,8 +48,24 @@ const transform = (ast) => {
         }
       }
     },
+    ExportNamedDeclaration({ parent, node }) {
+      let needRemove = false;
+      node.declaration.declarations.forEach((d) => {
+        if (d.id.name === 'Title') {
+          title = d.init.value;
+          needRemove = true;
+        } else if (d.id.name === 'Description') {
+          description = d.init.value;
+          needRemove = true;
+        }
+      });
+      if (needRemove) {
+        parent.body.splice(parent.body.indexOf(node), 1);
+      }
+    },
     enter(path) {},
   });
+  return { title, description };
 };
 
 const endingTemplate = `
@@ -62,17 +80,21 @@ export default () => {
 }
 `;
 
-const transformStorybookToDocExample = (code) => {
+const transformDemoToDocExample = (code) => {
   const ast = parse(code, {
     sourceType: 'module',
     plugins: ['jsx', 'typescript'],
   });
-  transform(ast);
+  const { title, description } = transform(ast);
   const output = generate(ast);
   const finalTemplate = output.code + '\n' + endingTemplate;
-  return prettier.format(finalTemplate, prettierrc);
+  return {
+    title,
+    description,
+    content: prettier.format(finalTemplate, { parser: 'babel' }),
+  };
 };
 
 module.exports = {
-  transformStorybookToDocExample,
+  transformDemoToDocExample,
 };

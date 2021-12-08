@@ -3,7 +3,7 @@ const visit = require('unist-util-visit-parents');
 const u = require('unist-builder');
 const dedent = require('dedent');
 const fromEntries = require('object.fromentries');
-const { getSnackPlayerCode } = require('./util');
+const { getSnackPlayerCode } = require('../util');
 
 const parseParams = (paramString = '') => {
   const params = fromEntries(new URLSearchParams(paramString));
@@ -26,6 +26,31 @@ const simplifyMeta = (meta) => {
   return { ...objectifiedMeta };
 };
 
+const getMarkdownHeading = (value, depth) => {
+  return {
+    type: 'heading',
+    depth,
+    children: [
+      {
+        type: 'text',
+        value,
+      },
+    ],
+  };
+};
+
+const getMarkdownBlockquote = (value) => {
+  return {
+    type: 'blockquote',
+    children: [
+      {
+        type: 'text',
+        value,
+      },
+    ],
+  };
+};
+
 const processNode = (node, parent) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -33,15 +58,20 @@ const processNode = (node, parent) => {
       const simplifedMeta = simplifyMeta(node.meta);
 
       // Gather necessary Params
+      const pathContent = simplifedMeta.path
+        ? getSnackPlayerCode(simplifedMeta.path)
+        : null;
+      const sampleCode = pathContent ? pathContent.content : node.value;
       const name = simplifedMeta.name
         ? decodeURIComponent(simplifedMeta.name)
+        : pathContent && pathContent.title
+        ? pathContent.title
         : 'Example';
       const description = simplifedMeta.description
         ? decodeURIComponent(simplifedMeta.description)
+        : pathContent && pathContent.description
+        ? pathContent.description
         : 'Example usage';
-      const sampleCode = simplifedMeta.path
-        ? getSnackPlayerCode(simplifedMeta.path)
-        : node.value;
       const encodedSampleCode = encodeURIComponent(sampleCode);
       const platform = params.platform || 'web';
       const supportedPlatforms = params.supportedPlatforms || 'ios,android,web';
@@ -74,6 +104,16 @@ const processNode = (node, parent) => {
       // Replace code block with SnackPlayer Node
       const index = parent[0].children.indexOf(node);
       parent[0].children.splice(index, 1, snackPlayerDiv);
+
+      if (pathContent && pathContent.description) {
+        const blockquote = getMarkdownBlockquote(pathContent.description);
+        parent[0].children.splice(index, 0, blockquote);
+      }
+
+      if (pathContent && pathContent.title) {
+        const heading = getMarkdownHeading(pathContent.title, 2);
+        parent[0].children.splice(index, 0, heading);
+      }
     } catch (e) {
       return reject(e);
     }

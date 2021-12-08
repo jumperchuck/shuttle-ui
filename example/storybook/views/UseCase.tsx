@@ -2,13 +2,24 @@ import React from 'react';
 import { View, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
 export interface UseCaseProps {
-  title: string;
+  title?: string;
   usage?: string;
+  demo?: {
+    Title: string;
+    Description: string;
+    Example: any;
+  };
   style?: StyleProp<ViewStyle>;
 }
 
 const UseCase: React.FC<UseCaseProps> = (props) => {
-  const { title, usage, style, children } = props;
+  const { title, usage, demo, style, children, ...rest } = props;
+  const caseTitle = title || demo?.Title;
+  const caseUsage = usage || demo?.Description;
+  let caseContent = children;
+  if (!caseContent && demo?.Example) {
+    caseContent = <demo.Example {...rest} />;
+  }
   return (
     <View style={[styles.container, style]}>
       <View style={styles.header}>
@@ -16,11 +27,11 @@ const UseCase: React.FC<UseCaseProps> = (props) => {
           <Text style={styles.useCase}>Use Case</Text>
         </View>
         <View style={styles.titleWrapper}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{caseTitle}</Text>
         </View>
-        {usage ? <Text style={styles.usage}>{usage}</Text> : null}
+        {caseUsage ? <Text style={styles.usage}>{caseUsage}</Text> : null}
       </View>
-      <View style={styles.content}>{children}</View>
+      <View style={styles.content}>{caseContent}</View>
     </View>
   );
 };

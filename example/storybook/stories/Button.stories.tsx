@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions';
 import { array, boolean, object, radios, select } from '@storybook/addon-knobs';
 import { Button, IconProps } from '@shuttle-ui/components';
 
-import Basic from '../../../demo/button/Basic';
+import * as Basic from '../../../demo/button/Basic';
 import { StoryScreen, UseCase } from '../views';
 import { colorOptions } from './knbos';
 import { spaceProps } from './Space.stories';
@@ -55,9 +55,7 @@ storiesOf('Button', module)
   .addDecorator((getStory) => <StoryScreen>{getStory()}</StoryScreen>)
   .add('with basic', () => (
     <>
-      <UseCase title="Basic" usage="The basic button">
-        <Basic {...buttonProps()} />
-      </UseCase>
+      <UseCase demo={Basic} {...buttonProps()} />
     </>
   ))
   .add('with group', () => (
