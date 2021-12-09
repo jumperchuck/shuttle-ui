@@ -1,12 +1,14 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const gitHubHref = 'https://github.com/jumperchuck/shuttle-ui';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Shuttle-UI',
+  title: 'Shuttle UI',
   tagline: 'React Native & Web 移动端组件库',
   url: 'https://jumperchuck.github.io',
-  baseUrl: '/shuttle-ui/',
+  baseUrl: process.env.NODE_ENV === 'development' ? '/' : '/shuttle-ui/',
   clientModules: [require.resolve('./snackPlayerInitializer.js')],
   scripts: [{ src: 'https://snack.expo.io/embed.js', defer: true }],
   onBrokenLinks: 'throw',
@@ -17,101 +19,82 @@ const config = {
 
   presets: [
     [
-      '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      '@docusaurus/preset-classic',
+      {
         docs: {
+          path: 'docs',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+          editUrl: `${gitHubHref}/edit/master/website/`,
           remarkPlugins: [require('./plugins/remark-snackplayer')],
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      }),
+      },
     ],
   ],
 
-  themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      navbar: {
-        title: 'Shuttle-UI',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/docusaurus.png',
+  /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+  themeConfig: {
+    navbar: {
+      title: 'Shuttle UI',
+      logo: {
+        alt: 'Shuttle UI Logo',
+        src: 'img/logo.svg',
+      },
+      items: [
+        { to: '/docs', label: '文档', position: 'right' },
+        { to: '/docs/components/button', label: '组件', position: 'right' },
+        {
+          href: gitHubHref,
+          label: 'GitHub',
+          position: 'right',
         },
-        items: [
-          {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          { to: '/blog', label: 'Blog', position: 'left' },
-          {
-            href: 'https://github.com/jumperchuck/shuttle-ui',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
-    }),
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: '文档',
+          items: [
+            {
+              label: '快速上手',
+              to: '/docs',
+            },
+          ],
+        },
+        {
+          title: '社区',
+          items: [
+            {
+              label: '提交bug或feature',
+              to: `${gitHubHref}/issues/`,
+            },
+          ],
+        },
+        {
+          title: '更多',
+          items: [
+            {
+              label: 'Blog',
+              to: '/blog',
+            },
+            {
+              label: 'GitHub',
+              href: gitHubHref,
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} Shuttle UI`,
+    },
+    prism: {
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
+    },
+  },
 };
 
 module.exports = config;

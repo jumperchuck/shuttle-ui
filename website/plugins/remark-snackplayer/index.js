@@ -14,7 +14,7 @@ const parseParams = (paramString = '') => {
 };
 
 const simplifyMeta = (meta) => {
-  const variables = meta.split(' ');
+  const variables = meta ? meta.split(' ') : [];
   const objectifiedMeta = {};
 
   variables.map((variable) => {
@@ -64,13 +64,9 @@ const processNode = (node, parent) => {
       const sampleCode = pathContent ? pathContent.content : node.value;
       const name = simplifedMeta.name
         ? decodeURIComponent(simplifedMeta.name)
-        : pathContent && pathContent.title
-        ? pathContent.title
         : 'Example';
       const description = simplifedMeta.description
         ? decodeURIComponent(simplifedMeta.description)
-        : pathContent && pathContent.description
-        ? pathContent.description
         : 'Example usage';
       const encodedSampleCode = encodeURIComponent(sampleCode);
       const platform = params.platform || 'web';
@@ -78,8 +74,8 @@ const processNode = (node, parent) => {
       const theme = params.theme || 'light';
       const preview = params.preview || 'true';
       const loading = params.loading || 'lazy';
-      const dependencies = `@shuttle-ui/components,${
-        simplifedMeta.dependencies ? simplifedMeta.dependencies : null
+      const dependencies = `@shuttle-ui/components,@shuttle-ui/theme,${
+        simplifedMeta.dependencies ? simplifedMeta.dependencies : ''
       }`;
 
       // Generate Node for SnackPlayer
@@ -111,7 +107,7 @@ const processNode = (node, parent) => {
       }
 
       if (pathContent && pathContent.title) {
-        const heading = getMarkdownHeading(pathContent.title, 2);
+        const heading = getMarkdownHeading(pathContent.title, 3);
         parent[0].children.splice(index, 0, heading);
       }
     } catch (e) {
