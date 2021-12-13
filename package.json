@@ -6,7 +6,8 @@
     "test": "jest",
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
-    "example": "yarn --cwd example"
+    "example": "yarn --cwd example",
+    "website": "yarn --cwd website"
   },
   "workspaces": [
     "packages/*"

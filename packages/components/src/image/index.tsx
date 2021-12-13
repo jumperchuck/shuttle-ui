@@ -32,6 +32,7 @@ export const Image: React.FC<ImageProps & { theme: ShuttleUI.Theme }> = (props) 
     height,
     borderRadius,
     onLayout,
+    children,
     ...rest
   } = props;
 
@@ -56,6 +57,7 @@ export const Image: React.FC<ImageProps & { theme: ShuttleUI.Theme }> = (props) 
     >
       {loading ? <View style={styles.placeholder}>{Placeholder}</View> : null}
       <RNImage style={[styles.image, style]} source={source} onLoad={onLoad} {...rest} />
+      {children}
     </Box>
   );
 };

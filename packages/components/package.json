@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "source": "src/index.tsx",
+  "source": "src/index.ts",
   "keywords": [
     "android",
     "ios",
@@ -27,7 +27,8 @@
   },
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "yarn build -w"
   },
   "bugs": {
     "url": "https://github.com/jumperchuck/shuttle-ui/issues"

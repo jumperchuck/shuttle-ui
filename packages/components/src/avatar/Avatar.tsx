@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageProps, ImageSourcePropType, StyleSheet } from 'react-native';
 import { withTheme } from '@shuttle-ui/theme';
-import { renderNode } from '@shuttle-ui/utils';
+import { renderNode, RenderProps } from '@shuttle-ui/utils';
 
 import { Box, BoxProps } from '../box';
 import { Icon, IconProps } from '../icon';
@@ -9,16 +9,16 @@ import { Text, TextProps } from '../text';
 import { Image } from '../image';
 
 export interface AvatarProps extends BoxProps {
-  title?: string;
+  title?: RenderProps<TextProps>;
   titleStyle?: TextProps['style'];
-  icon?: string | IconProps;
+  icon?: RenderProps<IconProps>;
   iconStyle?: IconProps['style'];
   source?: ImageSourcePropType;
   imageStyle?: ImageProps['style'];
   size?: number;
 }
 
-export const Avatar: React.FC<AvatarProps & { theme: ShuttleUI.Theme }> = (props) => {
+export const Avatar = (props: AvatarProps & { theme: ShuttleUI.Theme }) => {
   const {
     title,
     titleStyle,
@@ -26,7 +26,7 @@ export const Avatar: React.FC<AvatarProps & { theme: ShuttleUI.Theme }> = (props
     iconStyle,
     source,
     imageStyle,
-    size = 64,
+    size = 40,
     style: styleProp,
     children,
     ...rest
@@ -66,7 +66,7 @@ export const Avatar: React.FC<AvatarProps & { theme: ShuttleUI.Theme }> = (props
         containerStyle={style}
         bgColor="grey.400"
         Placeholder={Placeholder}
-        style={imageStyle}
+        style={[{ borderRadius: size / 2 }, imageStyle]}
         {...rest}
       >
         {children}
@@ -88,5 +88,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'visible',
   },
 });
