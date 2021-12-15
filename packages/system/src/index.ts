@@ -12,6 +12,7 @@ export * from './compose';
 export * from './style';
 export * from './createBox';
 export * from './createText';
+export * from './utils';
 
 export * from './types';
 

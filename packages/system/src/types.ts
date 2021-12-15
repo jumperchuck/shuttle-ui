@@ -1,19 +1,8 @@
 import { FontVariant, TextStyle } from 'react-native';
 
-export type ColorPropObject = {
-  value: keyof ShuttleUI.ThemeColors | string;
-  lighten?: number;
-  darken?: number;
-  saturate?: number;
-  desaturate?: number;
-  whiten?: number;
-  blacken?: number;
-  fade?: number;
-  opaquer?: number;
-  rotate?: number;
-};
+export type BreakpointPropType<T> = Partial<Record<keyof ShuttleUI.ThemeBreakpoints, T>>;
 
-export type ColorPropType = keyof ShuttleUI.ThemeColors | string | ColorPropObject;
+export type ColorPropType = keyof ShuttleUI.ThemeColors | string;
 
 export type FontVariantPropType =
   | keyof ShuttleUI.ThemeFontVariants
@@ -38,6 +27,8 @@ export type ShadowPropType = keyof ShuttleUI.ThemeShadows | string | number;
 
 declare global {
   namespace ShuttleUI {
+    interface ThemeBreakpoints {}
+
     interface ThemeColors {}
 
     interface ThemeFontVariants {}

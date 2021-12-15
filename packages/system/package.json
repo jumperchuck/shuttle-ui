@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "source": "src/index.tsx",
+  "source": "src/index.ts",
   "keywords": [
     "react",
     "react-native",
@@ -25,7 +25,8 @@
   },
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "yarn build -w"
   },
   "bugs": {
     "url": "https://github.com/jumperchuck/shuttle-ui/issues"
@@ -34,8 +35,7 @@
     "react": "*"
   },
   "dependencies": {
-    "@shuttle-ui/utils": "^0.1.0",
-    "color": "^3.2.1"
+    "@shuttle-ui/utils": "^0.1.0"
   },
   "publishConfig": {
     "access": "public"
