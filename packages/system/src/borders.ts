@@ -11,9 +11,15 @@ export interface BordersStyleProps {
   borderBottom?: BorderPropType;
   borderLeft?: BorderPropType;
   borderRight?: BorderPropType;
+  borderX?: BorderPropType;
+  borderY?: BorderPropType;
   borderRadius?: RadiusPropType;
   borderTopRadius?: RadiusPropType;
+  borderTopLeftRadius?: RadiusPropType;
+  borderTopRightRadius?: RadiusPropType;
   borderBottomRadius?: RadiusPropType;
+  borderBottomLeftRadius?: RadiusPropType;
+  borderBottomRightRadius?: RadiusPropType;
   borderLeftRadius?: RadiusPropType;
   borderRightRadius?: RadiusPropType;
   borderColor?: ColorPropType;
@@ -21,75 +27,94 @@ export interface BordersStyleProps {
   borderStyle?: ViewStyle['borderStyle'];
 }
 
-type Dir = 'Top' | 'Bottom' | 'Left' | 'Right';
+type BorderDir = 'Top' | 'Bottom' | 'Left' | 'Right';
+type RadiusDir = 'TopLeft' | 'TopRight' | 'BottomLeft' | 'BottomRight';
 
-function borderTransform(value: unknown, dir?: Dir) {
-  if (typeof value !== 'object' || value == null) {
-    return undefined;
-  }
-  if (!dir) {
-    return value;
-  }
-  return {
-    [`border${dir}Width`]: (value as ViewStyle).borderWidth,
-    [`border${dir}Color`]: (value as ViewStyle).borderColor,
-  };
-}
-
-function radiusTransform(value: unknown, dir?: Dir) {
-  if (typeof value !== 'number') {
-    return undefined;
-  }
-  if (!dir) {
-    return value;
-  }
-  if (dir === 'Top' || dir === 'Bottom') {
-    return {
-      [`border${dir}LeftRadius`]: value,
-      [`border${dir}RightRadius`]: value,
-    };
-  }
-  return {
-    [`borderTop${dir}Radius`]: value,
-    [`borderBottom${dir}Radius`]: value,
-  };
-}
-
-const createBorderStyle = (prop: string[], dir?: Dir) => {
+const createBorder = (prop: string[], dir?: BorderDir[]) => {
   return style<ViewStyle>({
     prop,
     themeKey: 'borders',
-    transform: (value) => borderTransform(value, dir),
+    transform: (value) => {
+      if (typeof value !== 'object' || value == null) {
+        return undefined;
+      }
+      if (!dir) {
+        return value;
+      }
+      return dir.reduce((acc, key) => {
+        acc[`border${key}Width`] = (value as ViewStyle).borderWidth;
+        acc[`border${key}Color`] = (value as ViewStyle).borderColor;
+        return acc;
+      }, {} as ViewStyle);
+    },
   });
 };
 
-const createRadiusStyle = (prop: string[], dir?: Dir) => {
+const createRadius = (prop: string[], dir?: RadiusDir[]) => {
   return style<ViewStyle | number>({
     prop,
     themeKey: 'radius',
-    transform: (value) => radiusTransform(value, dir),
+    transform: (value) => {
+      if (typeof value !== 'number') {
+        return undefined;
+      }
+      if (!dir) {
+        return value;
+      }
+      return dir.reduce((acc, key) => {
+        acc[`border${key}Radius`] = value;
+        return acc;
+      }, {} as ViewStyle);
+    },
   });
 };
 
-export const border = createBorderStyle(['border']);
+export const border = createBorder(['border']);
 
-export const borderTop = createBorderStyle(['borderTop'], 'Top');
+export const borderTop = createBorder(['borderTop'], ['Top']);
 
-export const borderBottom = createBorderStyle(['borderBottom'], 'Bottom');
+export const borderBottom = createBorder(['borderBottom'], ['Bottom']);
 
-export const borderLeft = createBorderStyle(['borderLeft'], 'Left');
+export const borderLeft = createBorder(['borderLeft'], ['Left']);
 
-export const borderRight = createBorderStyle(['borderRight'], 'Right');
+export const borderRight = createBorder(['borderRight'], ['Right']);
 
-export const borderRadius = createRadiusStyle(['borderRadius']);
+export const borderX = createBorder(['borderX'], ['Left', 'Right']);
 
-export const borderTopRadius = createRadiusStyle(['borderTopRadius'], 'Top');
+export const borderY = createBorder(['borderY'], ['Top', 'Bottom']);
 
-export const borderBottomRadius = createRadiusStyle(['borderBottomRadius'], 'Bottom');
+export const borderRadius = createRadius(['borderRadius']);
 
-export const borderLeftRadius = createRadiusStyle(['borderLeftRadius'], 'Left');
+export const borderTopRadius = createRadius(['borderTopRadius'], ['TopLeft', 'TopRight']);
 
-export const borderRightRadius = createRadiusStyle(['borderRightRadius'], 'Right');
+export const borderTopLeftRadius = createRadius(['borderTopLeftRadius'], ['TopLeft']);
+
+export const borderTopRightRadius = createRadius(['borderTopRightRadius'], ['TopRight']);
+
+export const borderBottomRadius = createRadius(
+  ['borderBottomRadius'],
+  ['BottomLeft', 'BottomRight'],
+);
+
+export const borderBottomLeftRadius = createRadius(
+  ['borderBottomLeftRadius'],
+  ['BottomLeft'],
+);
+
+export const borderBottomRightRadius = createRadius(
+  ['borderBottomRightRadius'],
+  ['BottomRight'],
+);
+
+export const borderLeftRadius = createRadius(
+  ['borderLeftRadius'],
+  ['TopLeft', 'BottomLeft'],
+);
+
+export const borderRightRadius = createRadius(
+  ['borderRightRadius'],
+  ['TopRight', 'BottomRight'],
+);
 
 export const borderColor = style<string>({
   prop: ['borderColor'],
@@ -111,9 +136,15 @@ export default compose(
   borderBottom,
   borderLeft,
   borderRight,
+  borderX,
+  borderY,
   borderRadius,
   borderTopRadius,
+  borderTopLeftRadius,
+  borderTopRightRadius,
   borderBottomRadius,
+  borderBottomLeftRadius,
+  borderBottomRightRadius,
   borderLeftRadius,
   borderRightRadius,
   borderColor,

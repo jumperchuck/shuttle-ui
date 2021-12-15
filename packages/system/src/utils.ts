@@ -38,5 +38,5 @@ export const colorTransform: Transform<string> = (value, props) => {
   if (typeof value !== 'object' || value === null) {
     return undefined;
   }
-  return getValueByColorMode(value, props);
+  return getValueByColorMode(value, props.colorMode);
 };

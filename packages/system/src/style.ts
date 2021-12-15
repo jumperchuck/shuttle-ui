@@ -30,7 +30,7 @@ export default function style<T = PropType>(options: StyleOptions<T>) {
   const { prop, styleKey = prop[0], themeKey, transform } = options;
 
   const fn: StyleFunction<T> = (props) => {
-    const propValue = props[prop[0]] ?? props[prop[1]];
+    const propValue = props[prop[0]] ?? props[prop[1]] ?? props[prop[2]];
     if (propValue === null || propValue === undefined) {
       return undefined;
     }
