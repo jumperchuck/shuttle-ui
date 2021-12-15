@@ -1,17 +1,17 @@
 import { ViewStyle } from 'react-native';
 
-import { SpacingPropType } from './types';
+import { ResponsiveProps, SpacingPropType } from './types';
 import style from './style';
 import compose from './compose';
 
-export interface PositionsStyleProps {
-  position?: ViewStyle['position'];
-  zIndex?: ViewStyle['zIndex'];
-  top?: SpacingPropType;
-  bottom?: SpacingPropType;
-  left?: SpacingPropType;
-  right?: SpacingPropType;
-}
+export type PositionsStyleProps = ResponsiveProps<{
+  position: ViewStyle['position'];
+  zIndex: ViewStyle['zIndex'];
+  top: SpacingPropType;
+  bottom: SpacingPropType;
+  left: SpacingPropType;
+  right: SpacingPropType;
+}>;
 
 export const position = style<ViewStyle['position']>({
   prop: ['position'],

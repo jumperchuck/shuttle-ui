@@ -1,31 +1,31 @@
 import { ViewStyle } from 'react-native';
 
-import { BorderPropType, ColorPropType, RadiusPropType } from './types';
+import { BorderPropType, ColorPropType, RadiusPropType, ResponsiveProps } from './types';
 import style from './style';
 import compose from './compose';
 import { colorTransform } from './utils';
 
-export interface BordersStyleProps {
-  border?: BorderPropType;
-  borderTop?: BorderPropType;
-  borderBottom?: BorderPropType;
-  borderLeft?: BorderPropType;
-  borderRight?: BorderPropType;
-  borderX?: BorderPropType;
-  borderY?: BorderPropType;
-  borderRadius?: RadiusPropType;
-  borderTopRadius?: RadiusPropType;
-  borderTopLeftRadius?: RadiusPropType;
-  borderTopRightRadius?: RadiusPropType;
-  borderBottomRadius?: RadiusPropType;
-  borderBottomLeftRadius?: RadiusPropType;
-  borderBottomRightRadius?: RadiusPropType;
-  borderLeftRadius?: RadiusPropType;
-  borderRightRadius?: RadiusPropType;
-  borderColor?: ColorPropType;
-  borderWidth?: number;
-  borderStyle?: ViewStyle['borderStyle'];
-}
+export type BordersStyleProps = ResponsiveProps<{
+  border: BorderPropType;
+  borderTop: BorderPropType;
+  borderBottom: BorderPropType;
+  borderLeft: BorderPropType;
+  borderRight: BorderPropType;
+  borderX: BorderPropType;
+  borderY: BorderPropType;
+  borderRadius: RadiusPropType;
+  borderTopRadius: RadiusPropType;
+  borderTopLeftRadius: RadiusPropType;
+  borderTopRightRadius: RadiusPropType;
+  borderBottomRadius: RadiusPropType;
+  borderBottomLeftRadius: RadiusPropType;
+  borderBottomRightRadius: RadiusPropType;
+  borderLeftRadius: RadiusPropType;
+  borderRightRadius: RadiusPropType;
+  borderColor: ColorPropType;
+  borderWidth: number;
+  borderStyle: ViewStyle['borderStyle'];
+}>;
 
 type BorderDir = 'Top' | 'Bottom' | 'Left' | 'Right';
 type RadiusDir = 'TopLeft' | 'TopRight' | 'BottomLeft' | 'BottomRight';

@@ -6,33 +6,34 @@ import {
   FontSizePropType,
   FontVariantPropType,
   FontWeightPropType,
+  ResponsiveProps,
 } from './types';
 import { colorTransform } from './utils';
 import style from './style';
 import compose from './compose';
 
-export interface TypographyStyleProps {
-  color?: ColorPropType;
-  fontVariant?: FontVariantPropType;
-  variant?: FontVariantPropType;
-  fontFamily?: FontFamilyPropType;
-  font?: FontFamilyPropType;
-  fontSize?: FontSizePropType;
-  size?: FontSizePropType;
-  fontWeight?: FontWeightPropType;
-  weight?: FontWeightPropType;
-  letterSpacing?: TextStyle['letterSpacing'];
-  lineHeight?: TextStyle['lineHeight'];
-  textAlign?: TextStyle['textAlign'];
-  align?: TextStyle['textAlign'];
-  textDecorationLine?: TextStyle['textDecorationLine'];
-  decorationLine?: TextStyle['textDecorationLine'];
-  textDecorationStyle?: TextStyle['textDecorationStyle'];
-  decorationStyle?: TextStyle['textDecorationStyle'];
-  uppercase?: boolean;
-  lowercase?: boolean;
-  capitalize?: boolean;
-}
+export type TypographyStyleProps = ResponsiveProps<{
+  color: ColorPropType;
+  fontVariant: FontVariantPropType;
+  variant: FontVariantPropType;
+  fontFamily: FontFamilyPropType;
+  font: FontFamilyPropType;
+  fontSize: FontSizePropType;
+  size: FontSizePropType;
+  fontWeight: FontWeightPropType;
+  weight: FontWeightPropType;
+  letterSpacing: TextStyle['letterSpacing'];
+  lineHeight: TextStyle['lineHeight'];
+  textAlign: TextStyle['textAlign'];
+  align: TextStyle['textAlign'];
+  textDecorationLine: TextStyle['textDecorationLine'];
+  decorationLine: TextStyle['textDecorationLine'];
+  textDecorationStyle: TextStyle['textDecorationStyle'];
+  decorationStyle: TextStyle['textDecorationStyle'];
+  uppercase: boolean;
+  lowercase: boolean;
+  capitalize: boolean;
+}>;
 
 export const color = style({
   prop: ['color'],

@@ -1,16 +1,17 @@
 import style, { PropType } from './style';
 import compose from './compose';
+import { ResponsiveProps } from './types';
 
-export interface SizingStyleProps {
-  w?: PropType;
-  width?: PropType;
-  maxWidth?: PropType;
-  minWidth?: PropType;
-  h?: PropType;
-  height?: PropType;
-  maxHeight?: PropType;
-  minHeight?: PropType;
-}
+export type SizingStyleProps = ResponsiveProps<{
+  w: PropType;
+  width: PropType;
+  maxWidth: PropType;
+  minWidth: PropType;
+  h: PropType;
+  height: PropType;
+  maxHeight: PropType;
+  minHeight: PropType;
+}>;
 
 function transform(value: any) {
   if (value < 0) return undefined;

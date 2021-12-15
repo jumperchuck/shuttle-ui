@@ -2,22 +2,23 @@ import { ViewStyle } from 'react-native';
 
 import style from './style';
 import compose from './compose';
+import { ResponsiveProps } from './types';
 
-export interface TransformStyleProps {
-  perspective?: number;
-  rotate?: string;
-  rotateX?: string;
-  rotateY?: string;
-  rotateZ?: string;
-  scale?: number;
-  scaleX?: number;
-  scaleY?: number;
-  translateX?: number;
-  translateY?: number;
-  skewX?: string;
-  skewY?: string;
-  matrix?: number[];
-}
+export type TransformStyleProps = ResponsiveProps<{
+  perspective: number;
+  rotate: string;
+  rotateX: string;
+  rotateY: string;
+  rotateZ: string;
+  scale: number;
+  scaleX: number;
+  scaleY: number;
+  translateX: number;
+  translateY: number;
+  skewX: string;
+  skewY: string;
+  matrix: number[];
+}>;
 
 const create = (prop: string[]) => {
   return style<ViewStyle>({

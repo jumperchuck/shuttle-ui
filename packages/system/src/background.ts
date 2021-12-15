@@ -1,17 +1,17 @@
 import React from 'react';
 import { ImageBackground, ImageSourcePropType, StyleSheet } from 'react-native';
 
-import { ColorPropType } from './types';
+import { ColorPropType, ResponsiveProps } from './types';
 import { colorTransform } from './utils';
 import style from './style';
 import compose from './compose';
 
-export interface BackgroundStyleProps {
-  backgroundColor?: ColorPropType;
-  bgColor?: ColorPropType;
-  backgroundImage?: ImageSourcePropType;
-  bgImage?: ImageSourcePropType;
-}
+export type BackgroundStyleProps = ResponsiveProps<{
+  backgroundColor: ColorPropType;
+  bgColor: ColorPropType;
+  backgroundImage: ImageSourcePropType;
+  bgImage: ImageSourcePropType;
+}>;
 
 export const bgColor = style<string>({
   prop: ['backgroundColor', 'bgColor'],

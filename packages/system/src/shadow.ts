@@ -1,14 +1,14 @@
 import { ShadowStyleIOS, TextStyle } from 'react-native';
 
 import style from './style';
-import { ShadowPropType } from './types';
+import { ResponsiveProps, ShadowPropType } from './types';
 import compose from './compose';
 
-export interface ShadowStyleProps {
-  boxShadow?: ShadowPropType | BoxShadowStyle;
-  textShadow?: ShadowPropType | TextShadowStyle;
-  elevation?: number;
-}
+export type ShadowStyleProps = ResponsiveProps<{
+  boxShadow: ShadowPropType | BoxShadowStyle;
+  textShadow: ShadowPropType | TextShadowStyle;
+  elevation: number;
+}>;
 
 export interface BoxShadowStyle extends ShadowStyleIOS {
   elevation?: number;

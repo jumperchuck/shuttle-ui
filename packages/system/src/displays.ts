@@ -2,12 +2,13 @@ import { ViewStyle } from 'react-native';
 
 import style from './style';
 import compose from './compose';
+import { ResponsiveProps } from './types';
 
-export interface DisplaysStyleProps {
-  display?: ViewStyle['display'];
-  overflow?: ViewStyle['overflow'];
-  opacity?: number;
-}
+export type DisplaysStyleProps = ResponsiveProps<{
+  display: ViewStyle['display'];
+  overflow: ViewStyle['overflow'];
+  opacity: number;
+}>;
 
 export const display = style<ViewStyle['display']>({
   prop: ['display'],

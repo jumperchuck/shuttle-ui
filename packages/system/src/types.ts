@@ -1,6 +1,10 @@
 import { FontVariant, TextStyle } from 'react-native';
 
-export type BreakpointPropType<T> = Partial<Record<keyof ShuttleUI.ThemeBreakpoints, T>>;
+export type ResponsiveValue<T> = T | { [key in keyof ShuttleUI.ThemeBreakpoints]?: T };
+
+export type ResponsiveProps<T extends {}> = {
+  [key in keyof T]?: ResponsiveValue<T[key]>;
+};
 
 export type ColorPropType = keyof ShuttleUI.ThemeColors | string;
 

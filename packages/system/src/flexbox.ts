@@ -2,20 +2,21 @@ import { ViewStyle } from 'react-native';
 
 import style from './style';
 import compose from './compose';
+import { ResponsiveProps } from './types';
 
-export interface FlexboxStyleProps {
-  center?: boolean;
-  flex?: ViewStyle['flex'];
-  flexWrap?: ViewStyle['flexWrap'];
-  flexDirection?: ViewStyle['flexDirection'];
-  flexBasis?: ViewStyle['flexBasis'];
-  flexGrow?: ViewStyle['flexGrow'];
-  flexShrink?: ViewStyle['flexShrink'];
-  justifyContent?: ViewStyle['justifyContent'];
-  alignItems?: ViewStyle['alignItems'];
-  alignContent?: ViewStyle['alignContent'];
-  alignSelf?: ViewStyle['alignSelf'];
-}
+export type FlexboxStyleProps = ResponsiveProps<{
+  center: boolean;
+  flex: ViewStyle['flex'];
+  flexWrap: ViewStyle['flexWrap'];
+  flexDirection: ViewStyle['flexDirection'];
+  flexBasis: ViewStyle['flexBasis'];
+  flexGrow: ViewStyle['flexGrow'];
+  flexShrink: ViewStyle['flexShrink'];
+  justifyContent: ViewStyle['justifyContent'];
+  alignItems: ViewStyle['alignItems'];
+  alignContent: ViewStyle['alignContent'];
+  alignSelf: ViewStyle['alignSelf'];
+}>;
 
 export const center = style<ViewStyle>({
   prop: ['center'],

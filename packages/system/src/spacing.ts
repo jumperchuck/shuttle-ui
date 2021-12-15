@@ -1,41 +1,41 @@
-import { SpacingPropType } from './types';
+import { ResponsiveProps, SpacingPropType } from './types';
 import style from './style';
 import compose from './compose';
 
-export interface SpacingStyleProps {
-  m?: SpacingPropType;
-  margin?: SpacingPropType;
-  mt?: SpacingPropType;
-  marginTop?: SpacingPropType;
-  mb?: SpacingPropType;
-  marginBottom?: SpacingPropType;
-  ml?: SpacingPropType;
-  marginLeft?: SpacingPropType;
-  mr?: SpacingPropType;
-  marginRight?: SpacingPropType;
-  marginHorizontal?: SpacingPropType;
-  mx?: SpacingPropType;
-  marginX?: SpacingPropType;
-  marginVertical?: SpacingPropType;
-  my?: SpacingPropType;
-  marginY?: SpacingPropType;
-  p?: SpacingPropType;
-  padding?: SpacingPropType;
-  pt?: SpacingPropType;
-  paddingTop?: SpacingPropType;
-  pb?: SpacingPropType;
-  paddingBottom?: SpacingPropType;
-  pl?: SpacingPropType;
-  paddingLeft?: SpacingPropType;
-  pr?: SpacingPropType;
-  paddingRight?: SpacingPropType;
-  paddingHorizontal?: SpacingPropType;
-  px?: SpacingPropType;
-  paddingX?: SpacingPropType;
-  paddingVertical?: SpacingPropType;
-  py?: SpacingPropType;
-  paddingY?: SpacingPropType;
-}
+export type SpacingStyleProps = ResponsiveProps<{
+  m: SpacingPropType;
+  margin: SpacingPropType;
+  mt: SpacingPropType;
+  marginTop: SpacingPropType;
+  mb: SpacingPropType;
+  marginBottom: SpacingPropType;
+  ml: SpacingPropType;
+  marginLeft: SpacingPropType;
+  mr: SpacingPropType;
+  marginRight: SpacingPropType;
+  marginHorizontal: SpacingPropType;
+  mx: SpacingPropType;
+  marginX: SpacingPropType;
+  marginVertical: SpacingPropType;
+  my: SpacingPropType;
+  marginY: SpacingPropType;
+  p: SpacingPropType;
+  padding: SpacingPropType;
+  pt: SpacingPropType;
+  paddingTop: SpacingPropType;
+  pb: SpacingPropType;
+  paddingBottom: SpacingPropType;
+  pl: SpacingPropType;
+  paddingLeft: SpacingPropType;
+  pr: SpacingPropType;
+  paddingRight: SpacingPropType;
+  paddingHorizontal: SpacingPropType;
+  px: SpacingPropType;
+  paddingX: SpacingPropType;
+  paddingVertical: SpacingPropType;
+  py: SpacingPropType;
+  paddingY: SpacingPropType;
+}>;
 
 export const margin = style({
   prop: ['margin', 'm'],
