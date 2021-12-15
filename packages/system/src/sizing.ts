@@ -2,9 +2,11 @@ import style, { PropType } from './style';
 import compose from './compose';
 
 export interface SizingStyleProps {
+  w?: PropType;
   width?: PropType;
   maxWidth?: PropType;
   minWidth?: PropType;
+  h?: PropType;
   height?: PropType;
   maxHeight?: PropType;
   minHeight?: PropType;
@@ -16,7 +18,7 @@ function transform(value: any) {
 }
 
 export const width = style<string | number>({
-  prop: ['width'],
+  prop: ['width', 'w'],
   transform,
 });
 
@@ -31,7 +33,7 @@ export const minWidth = style<string | number>({
 });
 
 export const height = style<string | number>({
-  prop: ['height'],
+  prop: ['height', 'h'],
   transform,
 });
 
