@@ -1,14 +1,8 @@
 import React, { ComponentType, useContext } from 'react';
 import hoistNonReactStatics from 'hoist-non-react-statics';
-import { mergeProps, getPath } from '@shuttle-ui/utils';
+import { mergeProps, getPath, isClassComponent, isRefComponent } from '@shuttle-ui/utils';
 
 import { ThemeContextType, WithThemeComponent } from './types';
-
-const isClassComponent = (Component: any) =>
-  Component.prototype && Component.prototype.isReactComponent;
-
-const isRefComponent = (Component: any) =>
-  Component.$$typeof === Symbol.for('react.forward_ref');
 
 export const createThemeWrapper = <T,>(Context: React.Context<ThemeContextType<T>>) => {
   function useTheme(): ThemeContextType<T>;

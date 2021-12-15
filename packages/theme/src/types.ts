@@ -9,18 +9,28 @@ export type WithThemeComponent<C extends ComponentType> = FC<
 
 export type WithThemeProps<P> = Omit<P, keyof ThemeContextType<any>>;
 
-export type ThemeContextType<T> = {
+export type ThemeContextType<T = ShuttleUI.Theme> = {
   theme: T;
+  colorMode?: string | null;
   updateTheme: (updates: RecursivePartial<T>) => void;
   replaceTheme: (updates: RecursivePartial<T>) => void;
 };
 
 export interface ThemeProviderProps<T> {
   theme: T;
+  colorMode?: string | null;
 }
 
 declare global {
   namespace ShuttleUI {
+    interface ThemeBreakpoints {
+      xl: number;
+      lg: number;
+      md: number;
+      sm: number;
+      xs: number;
+    }
+
     interface ThemeSizes {
       xxl: number;
       xl: number;
@@ -31,19 +41,23 @@ declare global {
       xxs: number;
     }
 
+    interface ThemeColor {
+      main: string;
+      light?: string;
+      dark?: string;
+    }
+
     interface ThemeColors {
-      primary: string;
-      secondary: string;
-      accent: string;
-      success: string;
-      error: string;
-      danger: string;
-      warning: string;
-      disabled: string;
-      background: string;
-      surface: string;
-      foreground: string;
-      text: string;
+      primary: ThemeColor;
+      secondary: ThemeColor;
+      accent: ThemeColor;
+      success: ThemeColor;
+      error: ThemeColor;
+      warning: ThemeColor;
+      disabled: ThemeColor;
+      background: ThemeColor;
+      surface: ThemeColor;
+      text: ThemeColor;
     }
 
     interface ThemeFontFamilies {
@@ -88,6 +102,7 @@ declare global {
     }
 
     interface Theme {
+      breakpoints: ThemeBreakpoints;
       colors: ThemeColors;
       spacings: ThemeSpacings;
       radius: ThemeRadius;
