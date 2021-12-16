@@ -25,7 +25,6 @@ export const createThemeProvider = <T,>(Context: React.Context<ThemeContextType<
       <Context.Provider
         value={{
           theme: theme,
-          colorMode: props.colorMode,
           updateTheme,
           replaceTheme,
         }}

@@ -11,14 +11,12 @@ export type WithThemeProps<P> = Omit<P, keyof ThemeContextType<any>>;
 
 export type ThemeContextType<T = ShuttleUI.Theme> = {
   theme: T;
-  colorMode?: string | null;
   updateTheme: (updates: RecursivePartial<T>) => void;
   replaceTheme: (updates: RecursivePartial<T>) => void;
 };
 
 export interface ThemeProviderProps<T> {
   theme: T;
-  colorMode?: string | null;
 }
 
 declare global {

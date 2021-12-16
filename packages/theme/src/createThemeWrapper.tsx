@@ -33,7 +33,7 @@ export const createThemeWrapper = <T,>(Context: React.Context<ThemeContextType<T
       isClassComponent(WrappedComponent) || isRefComponent(WrappedComponent);
 
     const Component = (props: any, ref: any) => {
-      const { children, ...rest } = props as any;
+      const { children, ...rest } = props;
       const newProps = useTheme(rest, themeKey);
       if (needForwardRef) {
         return <WrappedComponent ref={ref} {...newProps} children={children} />;
