@@ -4,14 +4,9 @@ export default function mergeProps<T extends {}>(props: T, defaultProps: any) {
   if (!defaultProps) return props;
   return deepmerge<T>(defaultProps, props, {
     clone: false,
-    customMerge: (key) => {
+    customMerge(key) {
       if (key === 'style' || key.endsWith('Style')) {
-        return (styleA, styleB) => {
-          if (Array.isArray(styleB)) {
-            return [styleA, styleB];
-          }
-          return deepmerge(styleA, styleB);
-        };
+        return (styleA, styleB) => [].concat(styleA, styleB);
       }
       return undefined;
     },
