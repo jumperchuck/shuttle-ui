@@ -2,17 +2,23 @@ import { Dimensions } from 'react-native';
 
 import { Transform } from './style';
 
-export const getValueByColorMode = (value: any, colorMode: any) => {
+export const getColorModeValue = (value: any, colorMode: any) => {
   if (typeof value !== 'object' || value == null) {
     return value;
   }
-  if (colorMode && value.hasOwnProperty(colorMode)) {
+  if (value.hasOwnProperty(colorMode)) {
     return value[colorMode];
   }
-  return value.hasOwnProperty('main') ? value.main : value;
+  if (value.hasOwnProperty('main')) {
+    return value.main;
+  }
+  if (value.hasOwnProperty('light')) {
+    return value.light;
+  }
+  return value;
 };
 
-export const getValueByBreakpoints = (value: any, breakpoints: any) => {
+export const getBreakpointsValue = (value: any, breakpoints: any) => {
   if (typeof value !== 'object' || value == null) {
     return value;
   }
@@ -38,5 +44,8 @@ export const colorTransform: Transform<string> = (value, props) => {
   if (typeof value !== 'object' || value === null) {
     return undefined;
   }
-  return getValueByColorMode(value, props.colorMode);
+  return getColorModeValue(
+    value,
+    props.colorMode || props.theme.colorMode || props.theme.colors.mode,
+  );
 };

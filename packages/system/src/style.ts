@@ -1,7 +1,7 @@
 import { TextStyle, ViewStyle } from 'react-native';
 import { getPath, getValue } from '@shuttle-ui/utils';
 
-import { getValueByBreakpoints } from './utils';
+import { getBreakpointsValue } from './utils';
 
 export type StyleValue = number | string | undefined | ViewStyle | TextStyle;
 
@@ -36,9 +36,9 @@ export default function style<T = PropType>(options: StyleOptions<T>) {
     }
     const themeMapping = getPath(props.theme, themeKey) || {};
 
-    let value = getValue<T | undefined>(
+    let value = getValue(
       themeMapping,
-      getValueByBreakpoints(propValue, props.theme.breakpoints),
+      getBreakpointsValue(propValue, props.theme.breakpoints),
     );
 
     if (transform) {

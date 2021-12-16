@@ -41,6 +41,7 @@ export type BoxProps<
   forwardedRef?: React.LegacyRef<any>;
   children?: React.ReactNode | ((props: BoxProps<P, S>) => React.ReactNode);
   theme?: ShuttleUI.Theme;
+  colorMode?: string | null;
 } & P &
   S;
 
