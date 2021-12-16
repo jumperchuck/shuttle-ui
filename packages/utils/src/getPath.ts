@@ -1,14 +1,21 @@
-export default function getPath(obj: any, path: unknown) {
+function get(obj: any, path: unknown) {
+  if (typeof obj !== 'object' || obj === null) {
+    return undefined;
+  }
   if (typeof path === 'number') {
-    return obj?.[path] || null;
+    return obj[path];
   }
-
-  if (path && typeof path === 'string') {
-    return (
-      obj?.[path] ||
-      path.split('.').reduce((acc, item) => (acc && acc[item] ? acc[item] : null), obj)
-    );
+  if (typeof path === 'string') {
+    if (Object.prototype.hasOwnProperty.call(obj, path)) {
+      return obj[path];
+    } else {
+      return path.split('.').reduce((acc, item) => (acc ? acc[item] : undefined), obj);
+    }
   }
+  return undefined;
+}
 
-  return null;
+export default function getPath(obj: any, path: unknown, defaultValue?: unknown) {
+  let value = get(obj, path);
+  return value === undefined ? defaultValue : value;
 }

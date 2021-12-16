@@ -1,19 +1,19 @@
 import getPath from './getPath';
 
-export default function getValue<T = number | string>(
+export default function getValue(
   mapping: any,
-  propValue: undefined | number | string,
-  userValue: undefined | number | string = propValue,
+  propValue: unknown,
+  userValue: unknown = propValue,
 ) {
-  let value: T;
+  let value: any;
 
   if (typeof mapping === 'function') {
     value = mapping(propValue);
   } else if (Array.isArray(mapping)) {
-    value = mapping[propValue as number] || userValue;
+    value = mapping[propValue as number];
   } else {
-    value = getPath(mapping, propValue) || userValue;
+    value = getPath(mapping, propValue);
   }
 
-  return value;
+  return value === undefined ? userValue : value;
 }
