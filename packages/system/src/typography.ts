@@ -1,4 +1,4 @@
-import { TextStyle, ViewStyle } from 'react-native';
+import { TextStyle } from 'react-native';
 
 import {
   ColorPropType,
@@ -41,22 +41,22 @@ export const color = style({
   transform: colorTransform,
 });
 
-export const fontVar = style<ViewStyle>({
+export const fontVariant = style<TextStyle>({
   prop: ['fontVariant', 'variant'],
   themeKey: 'fontVariants',
 });
 
-export const fontFamily = style<ViewStyle>({
+export const fontFamily = style<TextStyle['fontFamily']>({
   prop: ['fontFamily', 'font'],
   themeKey: 'fontFamilies',
 });
 
-export const fontSize = style<FontSizePropType>({
+export const fontSize = style<TextStyle['fontSize']>({
   prop: ['fontSize', 'size'],
   themeKey: 'fontSizes',
 });
 
-export const fontWeight = style<FontWeightPropType>({
+export const fontWeight = style<TextStyle['fontWeight']>({
   prop: ['fontWeight', 'weight'],
   themeKey: 'fontWeights',
 });

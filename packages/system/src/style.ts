@@ -38,7 +38,7 @@ export default function style<T = PropType>(options: StyleOptions<T>) {
 
     let value = getValue(
       themeMapping,
-      getBreakpointsValue(propValue, props.theme.breakpoints),
+      getBreakpointsValue(propValue, props.theme?.breakpoints),
     );
 
     if (transform) {

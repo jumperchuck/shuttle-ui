@@ -46,6 +46,6 @@ export const colorTransform: Transform<string> = (value, props) => {
   }
   return getColorModeValue(
     value,
-    props.colorMode || props.theme.colorMode || props.theme.colors.mode,
+    props.colorMode || props.theme?.colorMode || props.theme?.colors?.mode,
   );
 };

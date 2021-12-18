@@ -21,22 +21,22 @@ export const zIndex = style<ViewStyle['zIndex']>({
   prop: ['zIndex'],
 });
 
-export const top = style<SpacingPropType>({
+export const top = style<ViewStyle['top']>({
   prop: ['top'],
   themeKey: 'spacings',
 });
 
-export const bottom = style<SpacingPropType>({
+export const bottom = style<ViewStyle['bottom']>({
   prop: ['bottom'],
   themeKey: 'spacings',
 });
 
-export const left = style<SpacingPropType>({
+export const left = style<ViewStyle['left']>({
   prop: ['left'],
   themeKey: 'spacings',
 });
 
-export const right = style<SpacingPropType>({
+export const right = style<ViewStyle['right']>({
   prop: ['right'],
   themeKey: 'spacings',
 });
