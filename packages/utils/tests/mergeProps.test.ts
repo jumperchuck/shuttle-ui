@@ -1,8 +1,10 @@
 import mergeProps from '../src/mergeProps';
 
+type Dict = Record<string, any>;
+
 describe('mergeProps', () => {
   it('merge primitive type', () => {
-    const defaultProps = {
+    const defaultProps: Dict = {
       a: '',
       b: 1,
       c: true,
@@ -14,7 +16,7 @@ describe('mergeProps', () => {
     };
     const copyDefaultProps = JSON.parse(JSON.stringify(defaultProps));
     const copyProps = JSON.parse(JSON.stringify(props));
-    const newProps = mergeProps(props, defaultProps);
+    const newProps = mergeProps(defaultProps, props);
 
     expect(newProps).toStrictEqual({ ...defaultProps, ...props });
     expect(defaultProps).toStrictEqual(copyDefaultProps);
@@ -22,7 +24,7 @@ describe('mergeProps', () => {
   });
 
   it('merge reference type', () => {
-    const defaultProps = {
+    const defaultProps: Dict = {
       a: [1],
       b: {
         name: '',
@@ -36,7 +38,7 @@ describe('mergeProps', () => {
     };
     const copyDefaultProps = JSON.parse(JSON.stringify(defaultProps));
     const copyProps = JSON.parse(JSON.stringify(props));
-    const newProps = mergeProps(props, defaultProps);
+    const newProps = mergeProps(defaultProps, props);
 
     expect(newProps).toStrictEqual({
       a: 2,
@@ -49,7 +51,7 @@ describe('mergeProps', () => {
   });
 
   it('merge style prop, both object', () => {
-    const defaultProps = {
+    const defaultProps: Dict = {
       style: {
         color: 'red',
       },
@@ -62,7 +64,7 @@ describe('mergeProps', () => {
     };
     const copyDefaultProps = JSON.parse(JSON.stringify(defaultProps));
     const copyProps = JSON.parse(JSON.stringify(props));
-    const newProps = mergeProps(props, defaultProps);
+    const newProps = mergeProps(defaultProps, props);
 
     expect(newProps).toStrictEqual({
       style: [defaultProps.style, props.style],
@@ -72,7 +74,7 @@ describe('mergeProps', () => {
   });
 
   it('merge style prop, both array', () => {
-    const defaultProps = {
+    const defaultProps: Dict = {
       style: [
         {
           color: 'red',
@@ -89,7 +91,7 @@ describe('mergeProps', () => {
     };
     const copyDefaultProps = JSON.parse(JSON.stringify(defaultProps));
     const copyProps = JSON.parse(JSON.stringify(props));
-    const newProps = mergeProps(props, defaultProps);
+    const newProps = mergeProps(defaultProps, props);
 
     expect(newProps).toStrictEqual({
       style: [{ color: 'red' }, { color: 'white', size: 2 }],
@@ -99,7 +101,7 @@ describe('mergeProps', () => {
   });
 
   it('merge style prop, different type', function () {
-    const defaultProps = {
+    const defaultProps: Dict = {
       style: { color: 'red' },
       aStyle: [{ color: 'red' }],
     };
@@ -114,7 +116,7 @@ describe('mergeProps', () => {
     };
     const copyDefaultProps = JSON.parse(JSON.stringify(defaultProps));
     const copyProps = JSON.parse(JSON.stringify(props));
-    const newProps = mergeProps(props, defaultProps);
+    const newProps = mergeProps(defaultProps, props);
 
     expect(newProps).toStrictEqual({
       style: [defaultProps.style, ...props.style],
