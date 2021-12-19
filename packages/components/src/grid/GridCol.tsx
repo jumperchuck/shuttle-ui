@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '@shuttle-ui/theme';
 
-import { Space, SpaceProps } from '../space';
+import { Space, SpaceProps } from '../space/Space';
 import { useSpacing } from './context';
 import styles from './styles';
 
@@ -13,14 +13,7 @@ const GridCol: React.FC<GridColProps> = (props) => {
   const { spacing } = useSpacing();
   const { theme } = useTheme();
   return (
-    <Space
-      theme={theme}
-      style={style}
-      align={null}
-      spacing={spacing}
-      {...rest}
-      direction="column"
-    >
+    <Space theme={theme} style={style} spacing={spacing} {...rest} direction="column">
       {children}
     </Space>
   );

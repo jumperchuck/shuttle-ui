@@ -1,8 +1,10 @@
-import Avatar from './Avatar';
-import AvatarBadge from './AvatarBadge';
-import AvatarGroup from './AvatarGroup';
+import Avatar, { AvatarProps } from './Avatar';
+import AvatarBadge, { AvatarBadgeProps } from './AvatarBadge';
+import AvatarGroup, { AvatarGroupProps } from './AvatarGroup';
 
 export default Object.assign(Avatar, {
   Badge: AvatarBadge,
   Group: AvatarGroup,
 });
+
+export type { AvatarProps, AvatarBadgeProps, AvatarGroupProps };

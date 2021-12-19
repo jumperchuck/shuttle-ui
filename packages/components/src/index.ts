@@ -1,8 +1,10 @@
-export { default as Provider } from './Provider';
-export type { ProviderProps } from './Provider';
+export { default as ShuttleUIProvider } from './ShuttleUIProvider';
+export * from './ShuttleUIProvider';
+
+export * from './theme';
 
 export { default as Avatar } from './avatar';
-export type { AvatarProps } from './avatar';
+export * from './avatar';
 
 export { default as Badge } from './badge';
 export type { BadgeProps } from './badge';
@@ -11,8 +13,7 @@ export { default as Box } from './box';
 export type { BoxProps } from './box';
 
 export { default as Button } from './button';
-export type { ButtonProps } from './button';
-export type { ButtonGroupProps } from './button/ButtonGroup';
+export * from './button';
 
 export { default as Card } from './card';
 export type { CardProps } from './card';
@@ -61,7 +62,7 @@ export { default as Icon } from './icon';
 export type { IconProps } from './icon';
 
 export { default as Image } from './image';
-export type { ImageProps } from './image';
+export * from './image';
 
 export { default as Input } from './input';
 export type { InputProps } from './input';
@@ -73,7 +74,7 @@ export { default as Overlay } from './overlay';
 export type { OverlayWrapper, OverlayManager } from './overlay';
 
 export { default as Space } from './space';
-export type { SpaceProps } from './space';
+export * from './space';
 
 export { default as Stepper } from './stepper';
 export type { StepperProps } from './stepper';

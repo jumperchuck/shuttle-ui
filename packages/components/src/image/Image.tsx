@@ -10,18 +10,29 @@ import {
   ViewStyle,
 } from 'react-native';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { Box, BoxProps } from '../box';
+import { ShuttleUIProps } from '../types';
 
 export interface ImageProps
   extends BoxProps,
-    Omit<RNImageProps, 'width' | 'height' | 'borderRadius'> {
+    Omit<
+      RNImageProps,
+      | 'width'
+      | 'height'
+      | 'borderRadius'
+      | 'borderTopLeftRadius'
+      | 'borderTopRightRadius'
+      | 'borderBottomLeftRadius'
+      | 'borderBottomRightRadius'
+    > {
   Placeholder?: React.ReactElement;
   containerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ImageStyle>;
 }
 
-export const Image: React.FC<ImageProps & { theme: ShuttleUI.Theme }> = (props) => {
+export const Image = (props: ShuttleUIProps<ImageProps>) => {
   const {
     Placeholder = <ActivityIndicator />,
     containerStyle,
@@ -31,6 +42,10 @@ export const Image: React.FC<ImageProps & { theme: ShuttleUI.Theme }> = (props) 
     width,
     height,
     borderRadius,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
     onLayout,
     children,
     ...rest
@@ -51,8 +66,14 @@ export const Image: React.FC<ImageProps & { theme: ShuttleUI.Theme }> = (props) 
       width={width}
       height={height}
       borderRadius={borderRadius}
+      borderTopLeftRadius={borderTopLeftRadius}
+      borderTopRightRadius={borderTopRightRadius}
+      borderBottomLeftRadius={borderBottomLeftRadius}
+      borderBottomRadius={borderBottomRightRadius}
       onLayout={onLayout}
-      style={[styles.container, containerStyle]}
+      position="relative"
+      overflow="hidden"
+      style={containerStyle}
       {...rest}
     >
       {loading ? <View style={styles.placeholder}>{Placeholder}</View> : null}
@@ -62,13 +83,9 @@ export const Image: React.FC<ImageProps & { theme: ShuttleUI.Theme }> = (props) 
   );
 };
 
-export default withTheme(Image, 'Image');
+export default withColorMode(withTheme(Image, 'Image'));
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    overflow: 'hidden',
-  },
   image: {
     width: '100%',
     height: '100%',

@@ -1,60 +1,68 @@
 import React from 'react';
 import { ImageProps, ImageSourcePropType, StyleSheet } from 'react-native';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 import { renderNode, RenderProps } from '@shuttle-ui/utils';
 
 import { Box, BoxProps } from '../box';
 import { Icon, IconProps } from '../icon';
 import { Text, TextProps } from '../text';
-import { Image } from '../image';
+import { Image } from '../image/Image';
+import { ShuttleUIProps } from '../types';
 
 export interface AvatarProps extends BoxProps {
   title?: RenderProps<TextProps>;
-  titleStyle?: TextProps['style'];
+  titleProps?: TextProps;
   icon?: RenderProps<IconProps>;
-  iconStyle?: IconProps['style'];
+  iconProps?: IconProps;
   source?: ImageSourcePropType;
   imageStyle?: ImageProps['style'];
   size?: number;
 }
 
-export const Avatar = (props: AvatarProps & { theme: ShuttleUI.Theme }) => {
+export const Avatar = (props: ShuttleUIProps<AvatarProps>) => {
   const {
     title,
-    titleStyle,
+    titleProps,
     icon,
-    iconStyle,
+    iconProps,
     source,
     imageStyle,
     size = 40,
-    style: styleProp,
+    style,
     children,
+    theme,
+    colorMode,
     ...rest
   } = props;
 
-  const style = [
-    styles.container,
-    {
-      height: size,
-      width: size,
-      borderRadius: size / 2,
-    },
-    styleProp,
-  ];
+  const borderRadius = size / 2;
+
+  const boxProps: ShuttleUIProps<BoxProps> = {
+    center: true,
+    height: size,
+    width: size,
+    borderRadius,
+    theme,
+    colorMode,
+    ...rest,
+  };
 
   const Placeholder = title
     ? renderNode(Text, title, {
-        style: titleStyle,
         color: 'white',
-        size: size / 2,
-        theme: rest.theme,
+        size: borderRadius,
+        theme,
+        colorMode,
+        ...titleProps,
       })
     : icon
     ? renderNode(Icon, typeof icon === 'string' ? { name: icon } : icon, {
-        style: iconStyle,
         color: 'white',
-        size: size / 2,
-        theme: rest.theme,
+        size: borderRadius,
+        theme,
+        colorMode,
+        ...iconProps,
       })
     : null;
 
@@ -62,12 +70,11 @@ export const Avatar = (props: AvatarProps & { theme: ShuttleUI.Theme }) => {
     return (
       <Image
         source={source}
-        resizeMode="cover"
-        containerStyle={style}
-        bgColor="grey.400"
         Placeholder={Placeholder}
-        style={[{ borderRadius: size / 2 }, imageStyle]}
-        {...rest}
+        resizeMode="cover"
+        {...boxProps}
+        containerStyle={[styles.container, style]}
+        style={[{ borderRadius }, imageStyle]}
       >
         {children}
       </Image>
@@ -75,19 +82,17 @@ export const Avatar = (props: AvatarProps & { theme: ShuttleUI.Theme }) => {
   }
 
   return (
-    <Box bgColor="grey.400" style={style} {...rest}>
+    <Box {...boxProps} style={style}>
       {Placeholder}
       {children}
     </Box>
   );
 };
 
-export default withTheme(Avatar, 'Avatar');
+export default withColorMode(withTheme(Avatar, 'Avatar'));
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
     overflow: 'visible',
   },
 });

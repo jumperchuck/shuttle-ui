@@ -7,7 +7,7 @@ import { withTheme } from '@shuttle-ui/theme';
 import { bgColor, ColorPropType } from '@shuttle-ui/system';
 
 import { Box, BoxProps } from '../box';
-import { Space } from '../space';
+import { Space } from '../space/Space';
 
 export interface DividerProps extends BoxProps {
   color?: ColorPropType;

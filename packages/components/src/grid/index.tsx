@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTheme } from '@shuttle-ui/theme';
 
-import { Space, SpaceProps } from '../space';
+import { Space, SpaceProps } from '../space/Space';
 import { GridProvider } from './context';
 import GridRow from './GridRow';
 import GridCol from './GridCol';
@@ -24,13 +24,7 @@ export const Grid = (props: GridProps & { theme: ShuttleUI.Theme }) => {
 
   return (
     <GridProvider value={{ spacing }}>
-      <Space
-        spacing={spacing}
-        padding={spacing}
-        {...reset}
-        align={null}
-        direction={direction}
-      >
+      <Space spacing={spacing} padding={spacing} {...reset} direction={direction}>
         {children}
       </Space>
     </GridProvider>
