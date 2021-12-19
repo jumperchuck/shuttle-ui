@@ -5,7 +5,7 @@ import { isClassComponent, isRefComponent } from '@shuttle-ui/utils';
 import { useColorModeProps } from './colorModeHooks';
 import { WithColorModeComponent } from './types';
 
-export const withColorMode = <C extends ComponentType>(
+export const withColorMode = <C extends ComponentType<any>>(
   WrappedComponent: C,
 ): WithColorModeComponent<C> & hoistNonReactStatics.NonReactStatics<C> => {
   const needForwardRef =

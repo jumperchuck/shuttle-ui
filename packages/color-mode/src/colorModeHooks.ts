@@ -16,9 +16,9 @@ export const useColorModeProps = <P extends {}>(userProps: P) => {
   const context = useColorMode();
   const { _light, _dark, ...props } = userProps as any;
   if (_light && context.colorMode === 'light') {
-    return mergeProps(_light, props);
+    return mergeProps(props, _light);
   } else if (_dark && context.colorMode === 'dark') {
-    return mergeProps(_dark, props);
+    return mergeProps(props, _dark);
   }
   return props;
 };
