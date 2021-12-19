@@ -7,8 +7,8 @@ export const Description = 'The group avatar';
 
 export const Example: React.FC<AvatarProps> = () => {
   return (
-    <Avatar.Group spacing={-10} max={3}>
-      <Avatar title="AA" bgColor="red.500" borderWidth={1} borderColor="white" zIndex={4}>
+    <Avatar.Group spacing={-10} max={3} center>
+      <Avatar title="AA" bgColor="red.500" borderWidth={1} borderColor="white">
         <Avatar.Badge size={10} bgColor="green.500" />
       </Avatar>
       <Avatar title="BB" bgColor="green.500" />

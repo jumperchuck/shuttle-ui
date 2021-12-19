@@ -5,7 +5,7 @@ export const Title = 'Fallback';
 
 export const Example: React.FC<AvatarProps> = () => {
   return (
-    <Space>
+    <Space center>
       <Avatar
         bgColor="amber.500"
         title="CC"

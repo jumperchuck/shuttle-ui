@@ -5,7 +5,7 @@ export const Title = 'Basic';
 
 export const Example: React.FC<AvatarProps> = () => {
   return (
-    <Space>
+    <Space center>
       <Avatar title="AA" bgColor="red.500" />
       <Avatar title="BB" bgColor="green.500" />
       <Avatar

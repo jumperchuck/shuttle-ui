@@ -1,16 +1,16 @@
 import React from 'react';
-import { I18nManager } from 'react-native';
-import { Provider } from '@shuttle-ui/components';
+import { useColorScheme } from 'react-native';
+import { ShuttleUIProvider } from '@shuttle-ui/components';
+import '@shuttle-ui/components/dist/registerRNIcons';
 
 import StorybookUIRoot from './storybook';
 import theme from './storybook/theme';
 
-I18nManager.forceRTL(false);
-
 export default function App() {
+  const colorMode = useColorScheme();
   return (
-    <Provider theme={theme}>
+    <ShuttleUIProvider theme={theme} colorMode={colorMode}>
       <StorybookUIRoot />
-    </Provider>
+    </ShuttleUIProvider>
   );
 }

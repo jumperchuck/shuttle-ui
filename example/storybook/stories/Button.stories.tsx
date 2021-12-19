@@ -32,8 +32,8 @@ export const buttonProps = () => {
     icon: object(
       'icon',
       {
-        type: 'ionicon',
-        name: 'add-circle-outline',
+        type: 'entypo',
+        name: 'app-store',
       },
       groupId,
     ) as IconProps,
@@ -55,17 +55,11 @@ storiesOf('Button', module)
   .addDecorator((getStory) => <StoryScreen>{getStory()}</StoryScreen>)
   .add('with basic', () => (
     <>
-      <UseCase demo={Basic} {...buttonProps()} />
+      <UseCase demo={require('../../../demo/button/Basic')} {...buttonProps()} />
     </>
   ))
   .add('with group', () => (
     <>
-      <UseCase title="Group" usage="The group button">
-        <Button.Group {...buttonGroupProps()} {...spaceProps()}>
-          <Button key={1}>1</Button>
-          <Button key={2}>2</Button>
-          <Button key={3}>3</Button>
-        </Button.Group>
-      </UseCase>
+      <UseCase demo={require('../../../demo/button/Group')} {...buttonGroupProps()} />
     </>
   ));

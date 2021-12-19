@@ -7,7 +7,7 @@ export const Description = 'The badge avatar';
 
 export const Example: React.FC<AvatarProps> = () => {
   return (
-    <Space>
+    <Space center>
       <Avatar title="AA" bgColor="red.500">
         <Avatar.Badge bgColor="green.500" />
       </Avatar>

@@ -1,4 +1,4 @@
-import { createTheme } from '@shuttle-ui/theme';
+import { createTheme } from '@shuttle-ui/components';
 
 export default createTheme({
   fontFamilies: {

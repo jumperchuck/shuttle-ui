@@ -68,7 +68,7 @@ storiesOf('Text', module)
   .add('with basic', () => (
     <>
       <UseCase title="Basic" usage="The basic text">
-        <Text {...textProps()} {...boxProps()}>
+        <Text bgColor={{ xs: 'red', }}>
           {text('children', 'content', groupId)}
         </Text>
       </UseCase>
