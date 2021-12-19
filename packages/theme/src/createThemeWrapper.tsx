@@ -28,7 +28,12 @@ const transformProps = (props: any, configs: any, priorities?: string[]) => {
   }
   const configKeys = orderKeys(Object.keys(configs), priorities);
   const configProps = configKeys.map((key) => {
-    if (!props.hasOwnProperty(key) || props[key] === undefined) {
+    if (
+      !props.hasOwnProperty(key) ||
+      props[key] === undefined ||
+      props[key] === null ||
+      props[key] === false
+    ) {
       return null;
     }
     const propValue = props[key];
