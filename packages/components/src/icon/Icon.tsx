@@ -5,19 +5,12 @@ import React from 'react';
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle } from 'react-native';
 import { ColorPropType, color as getColor } from '@shuttle-ui/system';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Box, BoxProps } from '../box';
-import getIconType, {
-  IconType,
-  registerIconType,
-  registerIconTypes,
-  icons
-} from './getIconType';
-import getCustomImage, {
-  registerCustomImage,
-  registerCustomImages,
-  customImages
-} from './getCustomImage';
+import { ShuttleUIProps } from '../types';
+import { Box, BoxProps } from '../box/Box';
+import getIconType, { IconType } from './getIconType';
+import getCustomImage from './getCustomImage';
 
 export interface IconProps extends BoxProps<{}> {
   type?: IconType;
@@ -27,7 +20,7 @@ export interface IconProps extends BoxProps<{}> {
   style?: StyleProp<ImageStyle & TextStyle>;
 }
 
-export const Icon = (props: IconProps & { theme: ShuttleUI.Theme }) => {
+export const Icon = (props: ShuttleUIProps<IconProps>) => {
   const {
     type,
     name,
@@ -76,12 +69,4 @@ export const Icon = (props: IconProps & { theme: ShuttleUI.Theme }) => {
   );
 };
 
-Icon.registerIconType = registerIconType;
-Icon.registerIconTypes = registerIconTypes;
-Icon.iconTypes = icons;
-
-Icon.registerCustomImage = registerCustomImage;
-Icon.registerCustomImages = registerCustomImages;
-Icon.customImages = customImages;
-
-export default withTheme(Icon, 'Icon');
+export default withColorMode(withTheme(Icon, 'Icon'));

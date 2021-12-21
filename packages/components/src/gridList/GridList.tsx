@@ -6,8 +6,6 @@ import LayoutManager from './LayoutManager';
 import GridListItem, { GridListItemProps } from './GridListItem';
 import { GridListItemLayout, GridListNodeInfo } from './types';
 
-export * from './types';
-
 export interface GridListProps<T>
   extends Omit<FlatListProps<GridListNodeInfo>, 'data' | 'renderItem' | 'getItemLayout'> {
   forwardedRef?: React.LegacyRef<FlatList>;
@@ -171,8 +169,5 @@ const GridList = <T,>(props: GridListProps<T>) => {
     />
   );
 };
-
-GridList.Item = GridListItem;
-GridList.LayoutManager = LayoutManager;
 
 export default GridList;

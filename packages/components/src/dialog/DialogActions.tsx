@@ -1,6 +1,8 @@
 import React from 'react';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
+import { ShuttleUIProps } from '../types';
 import { ButtonGroup, ButtonGroupProps } from '../button/ButtonGroup';
 import Button, { ButtonProps } from '../button';
 
@@ -12,7 +14,7 @@ export interface DialogActionsProps extends ButtonGroupProps {
   confirmProps?: ButtonProps | boolean;
 }
 
-export const DialogActions = (props: DialogActionsProps & { theme: ShuttleUI.Theme }) => {
+export const DialogActions = (props: ShuttleUIProps<DialogActionsProps>) => {
   const {
     actions,
     onCancel,
@@ -42,4 +44,4 @@ export const DialogActions = (props: DialogActionsProps & { theme: ShuttleUI.The
 
 DialogActions.displayName = 'Dialog.Actions';
 
-export default withTheme(DialogActions, 'DialogActions');
+export default withColorMode(withTheme(DialogActions, 'DialogActions'));

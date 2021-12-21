@@ -4,11 +4,11 @@ import { withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 import { renderNode, RenderProps } from '@shuttle-ui/utils';
 
-import { Box, BoxProps } from '../box';
-import { Icon, IconProps } from '../icon';
-import { Text, TextProps } from '../text';
-import { Image } from '../image/Image';
 import { ShuttleUIProps } from '../types';
+import { Box, BoxProps } from '../box/Box';
+import { Icon, IconProps } from '../icon/Icon';
+import { Text, TextProps } from '../text/Text';
+import { Image } from '../image/Image';
 
 export interface AvatarProps extends BoxProps {
   title?: RenderProps<TextProps>;

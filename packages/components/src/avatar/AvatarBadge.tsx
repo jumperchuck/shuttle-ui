@@ -2,8 +2,8 @@ import React from 'react';
 import { withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Badge, BadgeProps } from '../badge';
 import { ShuttleUIProps } from '../types';
+import { Badge, BadgeProps } from '../badge/Badge';
 
 export interface AvatarBadgeProps extends BadgeProps {}
 

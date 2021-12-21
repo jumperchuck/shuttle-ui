@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Overlay from '../overlay';
-import DialogComponent from './Dialog';
-import DialogTitle from './DialogTitle';
-import DialogContent from './DialogContent';
-import DialogInput from './DialogInput';
-import DialogActions from './DialogActions';
-import Alert from './combo/Alert';
-import Prompt from './combo/Prompt';
+import Dialog, { DialogProps } from './Dialog';
+import DialogTitle, { DialogTitleProps } from './DialogTitle';
+import DialogContent, { DialogContentProps } from './DialogContent';
+import DialogInput, { DialogInputProps } from './DialogInput';
+import DialogActions, { DialogActionsProps } from './DialogActions';
+import Alert, { AlertProps } from './combo/Alert';
+import Prompt, { PromptProps } from './combo/Prompt';
 
-const Dialog = Object.assign(DialogComponent, {
+export default Object.assign(Dialog, {
   Title: DialogTitle,
   Content: DialogContent,
   Input: DialogInput,
@@ -19,4 +19,12 @@ const Dialog = Object.assign(DialogComponent, {
     Overlay.wrap(Prompt).show(props),
 });
 
-export default Dialog;
+export type {
+  DialogProps,
+  DialogTitleProps,
+  DialogContentProps,
+  DialogInputProps,
+  DialogActionsProps,
+  AlertProps,
+  PromptProps,
+};

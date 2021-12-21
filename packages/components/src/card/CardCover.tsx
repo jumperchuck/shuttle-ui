@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, ImageBackground, ImageBackgroundProps } from 'react-native';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Box, BoxProps } from '../box';
+import { ShuttleUIProps } from '../types';
+import { Box, BoxProps } from '../box/Box';
 
 export interface CardCoverProps extends BoxProps<ImageBackgroundProps> {}
 
-export const CardCover = (props: CardCoverProps & { theme: ShuttleUI.Theme }) => {
+export const CardCover = (props: ShuttleUIProps<CardCoverProps>) => {
   const { style: styleProp, children, ...rest } = props;
   const style = [styles.container, styleProp];
   return (
@@ -16,7 +18,7 @@ export const CardCover = (props: CardCoverProps & { theme: ShuttleUI.Theme }) =>
   );
 };
 
-export default withTheme(CardCover, 'CardCover');
+export default withColorMode(withTheme(CardCover, 'CardCover'));
 
 const styles = StyleSheet.create({
   container: {

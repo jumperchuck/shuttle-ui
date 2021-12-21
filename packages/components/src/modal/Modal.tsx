@@ -4,8 +4,10 @@
 import React, { useState } from 'react';
 import { ViewStyle, StyleProp, StyleSheet, View, Dimensions } from 'react-native';
 import RNModal, { ModalProps as RNModalProps } from 'react-native-modal';
-import { useTheme } from '@shuttle-ui/theme';
+import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
+import { ShuttleUIProps } from '../types';
 import { OverlayManager } from '../overlay';
 import Button, { ButtonProps } from '../button';
 
@@ -24,7 +26,7 @@ export interface ModalProps extends Partial<RNModalProps> {
 
 const noop = () => {};
 
-const Modal = (props: ModalProps) => {
+const Modal = (props: ShuttleUIProps<ModalProps>) => {
   const {
     overlayManager,
     isVisible,
@@ -35,7 +37,7 @@ const Modal = (props: ModalProps) => {
     closeProps,
     children,
     ...rest
-  } = useTheme(props, 'Modal');
+  } = props;
 
   const [visible, setVisible] = useState(!!overlayManager);
   const style = [styles.wrap, styleProp];
@@ -85,7 +87,7 @@ const Modal = (props: ModalProps) => {
   );
 };
 
-export default Modal;
+export default withColorMode(withTheme(Modal, 'Modal'));
 
 const styles = StyleSheet.create({
   wrap: {

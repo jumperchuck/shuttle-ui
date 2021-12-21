@@ -22,13 +22,13 @@ import { withColorMode } from '@shuttle-ui/color-mode';
 import { withTheme } from '@shuttle-ui/theme';
 
 import { ShuttleUIProps } from '../types';
-import { Text, TextProps } from '../text';
-import { Icon, IconProps } from '../icon';
+import { Text, TextProps } from '../text/Text';
+import { Icon, IconProps } from '../icon/Icon';
 import { Space, SpaceProps } from '../space/Space';
 
 export interface ButtonProps extends SpaceProps {
-  type?: 'solid' | 'text' | 'outline';
-  color?: ColorPropType;
+  type?: ResponsiveValue<'solid' | 'text' | 'outline'>;
+  color?: ResponsiveValue<ColorPropType>;
   size?: ResponsiveValue<'xs' | 'sm' | 'md' | 'lg'>;
   textStyle?: StyleProp<TextStyle>;
   disabledStyle?: StyleProp<ViewStyle>;
@@ -75,12 +75,11 @@ export const Button = (props: ShuttleUIProps<ButtonProps>) => {
   const spaceProps: ShuttleUIProps<SpaceProps> = {
     Component: TouchableOpacity,
     activeOpacity: 0.5,
-    flexDirection: 'row',
+    direction: 'row',
     center: true,
-    spacing: 10,
     borderColor: color,
     style: [styleProp, disabled && disabledStyleProp],
-    onPress: isLoading ? onPress : undefined,
+    onPress: isLoading ? undefined : onPress,
     disabled,
     theme,
     colorMode,

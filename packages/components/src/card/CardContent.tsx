@@ -1,11 +1,13 @@
 import React from 'react';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Box, BoxProps } from '../box';
+import { ShuttleUIProps } from '../types';
+import { Box, BoxProps } from '../box/Box';
 
 export interface CardContentProps extends BoxProps {}
 
-export const CardContent = (props: CardContentProps & { theme: ShuttleUI.Theme }) => {
+export const CardContent = (props: ShuttleUIProps<CardContentProps>) => {
   return (
     <Box paddingX="md" paddingY="sm" {...props}>
       {props.children}
@@ -13,4 +15,4 @@ export const CardContent = (props: CardContentProps & { theme: ShuttleUI.Theme }
   );
 };
 
-export default withTheme(CardContent, 'CardContent');
+export default withColorMode(withTheme(CardContent, 'CardContent'));

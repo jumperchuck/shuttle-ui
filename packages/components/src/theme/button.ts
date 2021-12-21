@@ -1,5 +1,4 @@
-import { StyleSheet } from 'react-native';
-import { getColorModeValue } from '@shuttle-ui/system';
+import { getColorModeValue } from '@shuttle-ui/utils';
 
 import { ButtonProps } from '../button';
 
@@ -10,6 +9,7 @@ const button: ButtonTheme = {
     type: 'solid',
     color: 'primary',
     size: 'md',
+    spacing: 'md',
   },
   propConfigs: {
     type: {
@@ -33,7 +33,7 @@ const button: ButtonTheme = {
       outline: (props) => {
         const { color } = props;
         return {
-          borderWidth: StyleSheet.hairlineWidth,
+          borderWidth: 1,
           textProps: {
             color,
           },
@@ -44,6 +44,7 @@ const button: ButtonTheme = {
       xs: {
         px: 'xs',
         py: 'xs',
+        spacing: 'xs',
         textProps: {
           size: 'xs',
         },
@@ -51,6 +52,7 @@ const button: ButtonTheme = {
       sm: {
         px: 'sm',
         py: 'xs',
+        spacing: 'sm',
         textProps: {
           size: 'sm',
         },
@@ -58,6 +60,7 @@ const button: ButtonTheme = {
       md: {
         px: 'md',
         py: 'sm',
+        spacing: 'sm',
         textProps: {
           size: 'md',
         },
@@ -65,6 +68,7 @@ const button: ButtonTheme = {
       lg: {
         px: 'lg',
         py: 'lg',
+        spacing: 'md',
         textProps: {
           size: 'lg',
         },

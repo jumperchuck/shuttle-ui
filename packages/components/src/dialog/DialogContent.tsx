@@ -1,12 +1,14 @@
 import React from 'react';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Box } from '../box';
-import Text, { TextProps } from '../text';
+import { ShuttleUIProps } from '../types';
+import { Box } from '../box/Box';
+import { Text, TextProps } from '../text/Text';
 
 export interface DialogContentProps extends TextProps {}
 
-export const DialogContent = (props: DialogContentProps & { theme: ShuttleUI.Theme }) => {
+export const DialogContent = (props: ShuttleUIProps<DialogContentProps>) => {
   if (typeof props.children === 'string') {
     return (
       <Text paddingY="md" paddingX="lg" {...props}>
@@ -23,4 +25,4 @@ export const DialogContent = (props: DialogContentProps & { theme: ShuttleUI.The
 
 DialogContent.displayName = 'Dialog.Content';
 
-export default withTheme(DialogContent, 'DialogContent');
+export default withColorMode(withTheme(DialogContent, 'DialogContent'));

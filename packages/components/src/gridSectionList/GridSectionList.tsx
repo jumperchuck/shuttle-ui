@@ -245,6 +245,4 @@ const GridSectionList = <T, SectionT = DefaultSectionT>(
   );
 };
 
-GridSectionList.LayoutManager = LayoutManager;
-
 export default GridSectionList;

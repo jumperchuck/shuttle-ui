@@ -12,8 +12,8 @@ import {
 import { withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Box, BoxProps } from '../box';
 import { ShuttleUIProps } from '../types';
+import { Box, BoxProps } from '../box/Box';
 
 export interface ImageProps
   extends BoxProps,

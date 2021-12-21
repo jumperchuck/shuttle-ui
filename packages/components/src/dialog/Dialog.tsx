@@ -2,7 +2,8 @@
  * Dialog
  */
 import React from 'react';
-import { useTheme } from '@shuttle-ui/theme';
+import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
 import Modal, { ModalProps } from '../modal';
 import DialogContent from './DialogContent';
@@ -11,7 +12,7 @@ import DialogActions from './DialogActions';
 export interface DialogProps extends ModalProps {}
 
 const Dialog = (props: DialogProps) => {
-  const { children, ...rest } = useTheme(props, 'Dialog');
+  const { children, ...rest } = props;
   return (
     <Modal closeProps {...rest}>
       {(params) =>
@@ -44,4 +45,4 @@ const Dialog = (props: DialogProps) => {
   );
 };
 
-export default Dialog;
+export default withColorMode(withTheme(Dialog, 'Dialog'));

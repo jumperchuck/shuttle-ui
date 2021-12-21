@@ -7,14 +7,16 @@ import {
   TextStyle,
 } from 'react-native';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Box, BoxProps } from '../box';
+import { ShuttleUIProps } from '../types';
+import { Box, BoxProps } from '../box/Box';
 
 export interface InputProps extends BoxProps<TextInputProps> {
   style?: StyleProp<TextStyle>;
 }
 
-export const Input = (props: InputProps & { theme: ShuttleUI.Theme }) => {
+export const Input = (props: ShuttleUIProps<InputProps>) => {
   const { style: styleProp, ...rest } = props;
   return <Box Component={TextInput} style={[styles.container, styleProp]} {...rest} />;
 };
@@ -26,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(Input, 'Input');
+export default withColorMode(withTheme(Input, 'Input'));

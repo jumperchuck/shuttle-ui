@@ -2,9 +2,9 @@ import React from 'react';
 import { withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
+import { ShuttleUIProps } from '../types';
 import { Space, SpaceProps } from '../space/Space';
 import Avatar, { AvatarProps } from './Avatar';
-import { ShuttleUIProps } from '../types';
 
 export interface AvatarGroupProps extends SpaceProps {
   max?: number;
@@ -16,12 +16,11 @@ export const AvatarGroup = (props: ShuttleUIProps<AvatarGroupProps>) => {
 
   const content = React.Children.toArray(children)
     .filter((child) => child != null && typeof child !== 'boolean')
-    .map((child, index, arr) => {
+    .map((child, index) => {
       if (React.isValidElement(child)) {
         return React.cloneElement(child, {
           key: index,
           ...avatarProps,
-          zIndex: arr.length - index,
           ...child.props,
         });
       }

@@ -6,7 +6,6 @@ const avatarGroup: AvatarGroupTheme = {
   defaultProps: {
     direction: 'row',
     spacing: -10,
-    max: 4,
     avatarProps: {
       borderWidth: 1,
       borderColor: 'white',

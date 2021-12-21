@@ -1,12 +1,11 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
+import { ShuttleUIProps } from '../types';
 import { Space, SpaceProps } from '../space/Space';
 import { ButtonProps } from './Button';
-import { ShuttleUIProps } from '../types';
-import { mergeProps } from '@shuttle-ui/utils';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
 export interface ButtonGroupProps extends Omit<SpaceProps, keyof TouchableOpacityProps> {
   selectedKeys?: string[];
@@ -32,14 +31,11 @@ export const ButtonGroup = (props: ShuttleUIProps<ButtonGroupProps>) => {
       return child;
     }
     const key = child.key as string;
-    const propsList = [{ ...buttonProps }];
-    if (selectedKeys?.includes(key) && selectedProps) {
-      propsList.push(selectedProps);
-    }
-    if (child.props) {
-      propsList.push(child.props);
-    }
-    const childProps = mergeProps.all(propsList);
+    const childProps = {
+      ...buttonProps,
+      ...(selectedKeys?.includes(key) && selectedProps ? selectedProps : undefined),
+      ...child.props,
+    };
     if (onPress) {
       childProps.onPress = () => {
         const index = selectedKeys ? selectedKeys.indexOf(key) : -1;

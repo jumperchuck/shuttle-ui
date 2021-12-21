@@ -1,12 +1,14 @@
 import React from 'react';
 import { withTheme } from '@shuttle-ui/theme';
+import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Input, InputProps } from '../input';
+import { ShuttleUIProps } from '../types';
+import { Input, InputProps } from '../input/Input';
 
 export interface DialogInputProps extends InputProps {}
 
-const DialogInput: React.FC<DialogInputProps & { theme: ShuttleUI.Theme }> = (props) => {
+const DialogInput = (props: ShuttleUIProps<DialogInputProps>) => {
   return <Input {...props} />;
 };
 
-export default withTheme(DialogInput, 'DialogInput');
+export default withColorMode(withTheme(DialogInput, 'DialogInput'));

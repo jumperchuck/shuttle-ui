@@ -2,29 +2,31 @@
  * Space
  */
 import React from 'react';
+import { ViewStyle } from 'react-native';
 import { SpacingPropType } from '@shuttle-ui/system';
 import { ResponsiveValue, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { Box, BoxProps } from '../box';
 import { ShuttleUIProps } from '../types';
+import { Box, BoxProps } from '../box/Box';
+import { Divider, DividerProps } from '../divider/Divider';
 
 export interface SpaceProps extends BoxProps {
   align?: 'start' | 'end' | 'center';
-  direction?: 'row' | 'column';
+  direction?: ViewStyle['flexDirection'];
   spacing?: ResponsiveValue<SpacingPropType>;
-  divideProps?: BoxProps;
+  dividerProps?: DividerProps;
 }
 
 export const Space = (props: ShuttleUIProps<SpaceProps>) => {
   const {
     align,
-    direction,
+    direction = 'row',
     spacing,
-    style: styleProp,
-    divideProps,
+    dividerProps,
     children,
     theme,
+    colorMode,
     ...rest
   } = props;
 
@@ -32,28 +34,29 @@ export const Space = (props: ShuttleUIProps<SpaceProps>) => {
 
   const boxProps: ShuttleUIProps<BoxProps> = {
     flexDirection: direction,
-    style: styleProp,
     theme,
+    colorMode,
     ...rest,
   };
 
-  const childProps: ShuttleUIProps<BoxProps> = {
-    ...divideProps,
+  const childProps: ShuttleUIProps<DividerProps> = {
     theme,
+    colorMode,
+    color: 'transparent',
+    ...{
+      ml: direction?.startsWith('row') ? spacing : undefined,
+      mt: direction?.startsWith('column') ? spacing : undefined,
+    },
+    thickness: 0,
+    ...dividerProps,
   };
-
-  if (direction === 'row') {
-    childProps.ml = spacing;
-  } else {
-    childProps.mt = spacing;
-  }
 
   const content = React.Children.toArray(children)
     .filter((child) => child != null && typeof child !== 'boolean')
     .map((child, index) =>
       index > 0 ? (
         <React.Fragment key={index}>
-          <Box {...childProps} />
+          <Divider {...childProps} />
           {child}
         </React.Fragment>
       ) : (
