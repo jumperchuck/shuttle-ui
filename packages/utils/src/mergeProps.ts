@@ -20,5 +20,9 @@ export default function mergeProps<T>(defaultProps?: Partial<T>, props?: Partial
   return deepmerge(defaultProps, props, options);
 }
 
-mergeProps.all = <T>(array: Partial<T>[]) =>
-  array.reduce((prev, next) => mergeProps(prev, next));
+mergeProps.all = <T>(array: Partial<T>[]) => {
+  if (array.length) {
+    return array.reduce((prev, next) => mergeProps(prev, next));
+  }
+  return {} as Partial<T>;
+};
