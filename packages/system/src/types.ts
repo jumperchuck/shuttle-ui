@@ -2,8 +2,8 @@ import { FontVariant, TextStyle } from 'react-native';
 
 export type ResponsiveValue<T> = T | { [key in keyof ShuttleUI.ThemeBreakpoints]?: T };
 
-export type ResponsiveProps<T extends {}> = {
-  [key in keyof T]?: ResponsiveValue<T[key]>;
+export type WithResponsiveProps<P extends {}> = {
+  [key in keyof P]?: ResponsiveValue<P[key]>;
 };
 
 export type ColorPropType = keyof ShuttleUI.ThemeColors | string;

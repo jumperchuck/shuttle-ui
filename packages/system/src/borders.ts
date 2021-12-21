@@ -1,11 +1,16 @@
 import { ViewStyle } from 'react-native';
 
-import { BorderPropType, ColorPropType, RadiusPropType, ResponsiveProps } from './types';
+import {
+  BorderPropType,
+  ColorPropType,
+  RadiusPropType,
+  WithResponsiveProps,
+} from './types';
 import style from './style';
 import compose from './compose';
 import { colorTransform } from './utils';
 
-export type BordersStyleProps = ResponsiveProps<{
+export type BordersStyleProps = WithResponsiveProps<{
   border: BorderPropType;
   borderTop: BorderPropType;
   borderBottom: BorderPropType;
@@ -23,7 +28,15 @@ export type BordersStyleProps = ResponsiveProps<{
   borderLeftRadius: RadiusPropType;
   borderRightRadius: RadiusPropType;
   borderColor: ColorPropType;
+  borderTopColor: ColorPropType;
+  borderBottomColor: ColorPropType;
+  borderLeftColor: ColorPropType;
+  borderRightColor: ColorPropType;
   borderWidth: number;
+  borderTopWidth: number;
+  borderBottomWidth: number;
+  borderLeftWidth: number;
+  borderRightWidth: number;
   borderStyle: ViewStyle['borderStyle'];
 }>;
 
@@ -122,8 +135,48 @@ export const borderColor = style<string>({
   transform: colorTransform,
 });
 
+export const borderTopColor = style<string>({
+  prop: ['borderTopColor'],
+  themeKey: 'colors',
+  transform: colorTransform,
+});
+
+export const borderBottomColor = style<string>({
+  prop: ['borderBottomColor'],
+  themeKey: 'colors',
+  transform: colorTransform,
+});
+
+export const borderLeftColor = style<string>({
+  prop: ['borderLeftColor'],
+  themeKey: 'colors',
+  transform: colorTransform,
+});
+
+export const borderRightColor = style<string>({
+  prop: ['borderRightColor'],
+  themeKey: 'colors',
+  transform: colorTransform,
+});
+
 export const borderWidth = style<number>({
   prop: ['borderWidth'],
+});
+
+export const borderTopWidth = style<number>({
+  prop: ['borderTopWidth'],
+});
+
+export const borderBottomWidth = style<number>({
+  prop: ['borderBottomWidth'],
+});
+
+export const borderLeftWidth = style<number>({
+  prop: ['borderLeftWidth'],
+});
+
+export const borderRightWidth = style<number>({
+  prop: ['borderRightWidth'],
 });
 
 export const borderStyle = style<ViewStyle['borderStyle']>({
@@ -148,6 +201,14 @@ export default compose(
   borderLeftRadius,
   borderRightRadius,
   borderColor,
+  borderTopColor,
+  borderBottomColor,
+  borderLeftColor,
+  borderRightColor,
   borderWidth,
+  borderTopWidth,
+  borderBottomWidth,
+  borderLeftWidth,
+  borderRightWidth,
   borderStyle,
 );

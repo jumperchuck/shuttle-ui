@@ -2,9 +2,9 @@ import { ViewStyle } from 'react-native';
 
 import style from './style';
 import compose from './compose';
-import { ResponsiveProps } from './types';
+import { WithResponsiveProps } from './types';
 
-export type FlexboxStyleProps = ResponsiveProps<{
+export type FlexboxStyleProps = WithResponsiveProps<{
   center: boolean;
   flex: ViewStyle['flex'];
   flexWrap: ViewStyle['flexWrap'];

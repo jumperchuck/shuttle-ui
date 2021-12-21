@@ -1,12 +1,12 @@
 import React from 'react';
 import { ImageBackground, ImageSourcePropType, StyleSheet } from 'react-native';
 
-import { ColorPropType, ResponsiveProps } from './types';
+import { ColorPropType, WithResponsiveProps } from './types';
 import { colorTransform } from './utils';
 import style from './style';
 import compose from './compose';
 
-export type BackgroundStyleProps = ResponsiveProps<{
+export type BackgroundStyleProps = WithResponsiveProps<{
   backgroundColor: ColorPropType;
   bgColor: ColorPropType;
   backgroundImage: ImageSourcePropType;

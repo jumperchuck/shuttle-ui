@@ -1,10 +1,10 @@
 import { ShadowStyleIOS, TextStyle } from 'react-native';
 
 import style from './style';
-import { ResponsiveProps, ShadowPropType } from './types';
+import { WithResponsiveProps, ShadowPropType } from './types';
 import compose from './compose';
 
-export type ShadowStyleProps = ResponsiveProps<{
+export type ShadowStyleProps = WithResponsiveProps<{
   boxShadow: ShadowPropType | BoxShadowStyle;
   textShadow: ShadowPropType | TextShadowStyle;
   elevation: number;

@@ -2,9 +2,9 @@ import { ViewStyle } from 'react-native';
 
 import style from './style';
 import compose from './compose';
-import { ResponsiveProps } from './types';
+import { WithResponsiveProps } from './types';
 
-export type DisplaysStyleProps = ResponsiveProps<{
+export type DisplaysStyleProps = WithResponsiveProps<{
   display: ViewStyle['display'];
   overflow: ViewStyle['overflow'];
   opacity: number;

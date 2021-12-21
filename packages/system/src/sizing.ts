@@ -1,51 +1,44 @@
 import style, { PropType } from './style';
 import compose from './compose';
-import { ResponsiveProps } from './types';
+import { WithResponsiveProps } from './types';
 
-export type SizingStyleProps = ResponsiveProps<{
+export type SizingStyleProps = WithResponsiveProps<{
   w: PropType;
   width: PropType;
+  maxW: PropType;
   maxWidth: PropType;
+  minW: PropType;
   minWidth: PropType;
   h: PropType;
   height: PropType;
+  maxH: PropType;
   maxHeight: PropType;
+  minH: PropType;
   minHeight: PropType;
 }>;
 
-function transform(value: any) {
-  if (value < 0) return undefined;
-  return value <= 1 ? `${value * 100}%` : value;
-}
-
 export const width = style<string | number>({
   prop: ['width', 'w'],
-  transform,
 });
 
 export const maxWidth = style<string | number>({
-  prop: ['maxWidth'],
-  transform,
+  prop: ['maxWidth', 'maxW'],
 });
 
 export const minWidth = style<string | number>({
-  prop: ['minWidth'],
-  transform,
+  prop: ['minWidth', 'minW'],
 });
 
 export const height = style<string | number>({
   prop: ['height', 'h'],
-  transform,
 });
 
 export const maxHeight = style<string | number>({
-  prop: ['maxHeight'],
-  transform,
+  prop: ['maxHeight', 'maxH'],
 });
 
 export const minHeight = style<string | number>({
-  prop: ['minHeight'],
-  transform,
+  prop: ['minHeight', 'minH'],
 });
 
 export default compose(width, maxWidth, minWidth, height, maxHeight, minHeight);

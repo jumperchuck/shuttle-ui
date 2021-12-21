@@ -2,9 +2,9 @@ import { ViewStyle } from 'react-native';
 
 import style from './style';
 import compose from './compose';
-import { ResponsiveProps } from './types';
+import { WithResponsiveProps } from './types';
 
-export type TransformStyleProps = ResponsiveProps<{
+export type TransformStyleProps = WithResponsiveProps<{
   perspective: number;
   rotate: string;
   rotateX: string;

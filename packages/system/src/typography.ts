@@ -6,13 +6,13 @@ import {
   FontSizePropType,
   FontVariantPropType,
   FontWeightPropType,
-  ResponsiveProps,
+  WithResponsiveProps,
 } from './types';
 import { colorTransform } from './utils';
 import style from './style';
 import compose from './compose';
 
-export type TypographyStyleProps = ResponsiveProps<{
+export type TypographyStyleProps = WithResponsiveProps<{
   color: ColorPropType;
   fontVariant: FontVariantPropType;
   variant: FontVariantPropType;

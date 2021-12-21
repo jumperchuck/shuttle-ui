@@ -1,10 +1,10 @@
 import { ViewStyle } from 'react-native';
 
-import { ResponsiveProps, SpacingPropType } from './types';
+import { WithResponsiveProps, SpacingPropType } from './types';
 import style from './style';
 import compose from './compose';
 
-export type PositionsStyleProps = ResponsiveProps<{
+export type PositionsStyleProps = WithResponsiveProps<{
   position: ViewStyle['position'];
   zIndex: ViewStyle['zIndex'];
   top: SpacingPropType;

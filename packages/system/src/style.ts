@@ -1,7 +1,5 @@
 import { TextStyle, ViewStyle } from 'react-native';
-import { getPath, getValue } from '@shuttle-ui/utils';
-
-import { getBreakpointsValue } from './utils';
+import { getPath, getValue, getBreakpointsValue } from '@shuttle-ui/utils';
 
 export type StyleValue = number | string | undefined | ViewStyle | TextStyle;
 

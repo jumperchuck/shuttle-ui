@@ -1,8 +1,8 @@
-import { ResponsiveProps, SpacingPropType } from './types';
+import { WithResponsiveProps, SpacingPropType } from './types';
 import style from './style';
 import compose from './compose';
 
-export type SpacingStyleProps = ResponsiveProps<{
+export type SpacingStyleProps = WithResponsiveProps<{
   m: SpacingPropType;
   margin: SpacingPropType;
   mt: SpacingPropType;
