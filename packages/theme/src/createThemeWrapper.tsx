@@ -19,36 +19,50 @@ const orderKeys = (keys: string[], priorities?: string[]) => {
   });
 };
 
-const transformProps = (props: any, configs: any, priorities?: string[]) => {
-  if (!props) {
-    return {};
+const getConfigProps = (props: any, configs: any, configKey: string) => {
+  if (
+    !props.hasOwnProperty(configKey) ||
+    props[configKey] === undefined ||
+    props[configKey] === null ||
+    props[configKey] === false
+  ) {
+    return null;
   }
-  if (!configs) {
-    return props;
+  const propValue = props[configKey];
+  const configValue = configs[configKey];
+  const handle =
+    typeof configValue === 'function'
+      ? configValue
+      : configValue?.[propValue] || configValue;
+  if (typeof handle === 'function') {
+    return handle(props);
+  } else {
+    return handle;
   }
-  const configKeys = orderKeys(Object.keys(configs), priorities);
-  const configProps = configKeys.map((key) => {
-    if (
-      !props.hasOwnProperty(key) ||
-      props[key] === undefined ||
-      props[key] === null ||
-      props[key] === false
-    ) {
-      return null;
-    }
-    const propValue = props[key];
-    const configValue = configs[key];
-    const handle =
-      typeof configValue === 'function'
-        ? configValue
-        : configValue?.[propValue] || configValue;
-    if (typeof handle === 'function') {
-      return handle(props);
-    } else {
-      return handle;
+};
+
+const transformProps = (
+  defaultProps: any,
+  userProps: any,
+  theme: any,
+  component: Partial<ShuttleUI.ThemeComponent>,
+) => {
+  const { propConfigs, configPriorities } = component;
+  const newProps: any = mergeProps({ ...defaultProps, theme }, userProps);
+  if (!propConfigs) {
+    return newProps;
+  }
+  const configResults: any[] = [];
+  orderKeys(Object.keys(propConfigs), configPriorities).forEach((key) => {
+    const configProps = getConfigProps(newProps, propConfigs, key);
+    if (configProps) {
+      configResults.push(configProps);
     }
   });
-  return mergeProps.all([...configProps, props]);
+
+  return configResults.length
+    ? mergeProps.all([defaultProps, ...configResults, userProps])
+    : newProps;
 };
 
 export const createThemeWrapper = <T,>(Context: React.Context<ThemeContextType<T>>) => {
@@ -75,8 +89,11 @@ export const createThemeWrapper = <T,>(Context: React.Context<ThemeContextType<T
   ): ThemeContextType<T> & P {
     const { defaultProps, propConfigs, configPriorities, theme } =
       useThemeComponent<P>(componentKey);
-    const newProps = mergeProps<{}, P>(defaultProps, props);
-    return transformProps({ ...newProps, theme }, propConfigs, configPriorities);
+    return transformProps(defaultProps, props, theme, {
+      defaultProps,
+      propConfigs,
+      configPriorities,
+    });
   }
 
   function withTheme<C extends ComponentType<any>>(
