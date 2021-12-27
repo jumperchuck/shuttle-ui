@@ -1,9 +1,9 @@
 import React from 'react';
-import { Space, Avatar, AvatarProps } from '@shuttle-ui/components';
+import { Space, Avatar } from '@shuttle-ui/components';
 
 export const Title = 'Size';
 
-export const Example: React.FC<AvatarProps> = () => {
+export const Example = () => {
   return (
     <Space center>
       <Avatar title="AA" bgColor="red.500" size={20} />

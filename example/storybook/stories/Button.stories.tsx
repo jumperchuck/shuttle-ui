@@ -2,12 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { array, boolean, object, radios, select } from '@storybook/addon-knobs';
-import { Button, IconProps } from '@shuttle-ui/components';
 
-import * as Basic from '../../../demo/button/Basic';
 import { StoryScreen, UseCase } from '../views';
 import { colorOptions } from './knbos';
-import { spaceProps } from './Space.stories';
 
 export const buttonProps = () => {
   const groupId = 'button';
@@ -29,14 +26,7 @@ export const buttonProps = () => {
     disabledTextStyle: object('disabledTextStyle', {}, groupId),
     loading: boolean('loading', false, groupId),
     onPress: action('button clicked'),
-    icon: object(
-      'icon',
-      {
-        type: 'entypo',
-        name: 'app-store',
-      },
-      groupId,
-    ) as IconProps,
+    icon: object('icon', undefined, groupId),
   };
 };
 
@@ -53,13 +43,13 @@ export const buttonGroupProps = () => {
 
 storiesOf('Button', module)
   .addDecorator((getStory) => <StoryScreen>{getStory()}</StoryScreen>)
-  .add('with basic', () => (
+  .add('usage', () => (
     <>
       <UseCase demo={require('../../../demo/button/Basic')} {...buttonProps()} />
-    </>
-  ))
-  .add('with group', () => (
-    <>
+      <UseCase demo={require('../../../demo/button/Color')} {...buttonProps()} />
+      <UseCase demo={require('../../../demo/button/Size')} {...buttonProps()} />
+      <UseCase demo={require('../../../demo/button/Loading')} {...buttonProps()} />
+      <UseCase demo={require('../../../demo/button/Icon')} {...buttonProps()} />
       <UseCase demo={require('../../../demo/button/Group')} {...buttonGroupProps()} />
     </>
   ));

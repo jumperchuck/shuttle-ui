@@ -1,11 +1,11 @@
 import React from 'react';
-import { Avatar, AvatarProps } from '@shuttle-ui/components';
+import { Avatar } from '@shuttle-ui/components';
 
 export const Title = 'Group';
 
 export const Description = 'The group avatar';
 
-export const Example: React.FC<AvatarProps> = () => {
+export const Example = () => {
   return (
     <Avatar.Group spacing={-10} max={3} center>
       <Avatar title="AA" bgColor="red.500" borderWidth={1} borderColor="white">

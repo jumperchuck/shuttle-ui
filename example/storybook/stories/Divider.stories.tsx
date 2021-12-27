@@ -9,7 +9,7 @@ storiesOf('Divider', module)
   .add('with basic', () => (
     <>
       <UseCase title="Basic" usage="The basic divider">
-        <Space direction="column" align={null}>
+        <Space direction="column">
           <Divider />
           <Divider color="red" />
           <Divider color="green" />
@@ -17,7 +17,7 @@ storiesOf('Divider', module)
         </Space>
       </UseCase>
       <UseCase title="Containing Children" usage="">
-        <Space direction="column" align={null}>
+        <Space direction="column">
           <Divider />
           <Divider color="red">
             <Button.Group>

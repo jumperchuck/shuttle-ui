@@ -1,6 +1,5 @@
 import React from 'react';
-import { Space, Avatar, Icon, AvatarProps } from '@shuttle-ui/components';
-// @ts-ignore
+import { Space, Avatar, Icon } from '@shuttle-ui/components';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 
 Icon.registerIconTypes({
@@ -12,7 +11,7 @@ export const Title = 'Icon';
 
 export const Description = 'The icon avatar';
 
-export const Example: React.FC<AvatarProps> = () => {
+export const Example = () => {
   return (
     <Space center>
       <Avatar icon={{ type: 'antd', name: 'android1' }} bgColor="red.500" />
