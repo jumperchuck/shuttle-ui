@@ -1,3 +1,4 @@
+import Color from 'color';
 import { getColorModeValue } from '@shuttle-ui/utils';
 
 import { ButtonProps } from '../button';
@@ -81,7 +82,7 @@ const button: ButtonTheme = {
           borderColor: type === 'outline' ? disabledColor : undefined,
         },
         disabledTextStyle: {
-          color: type === 'solid' ? 'white' : disabledColor,
+          color: Color(disabledColor).darken(0.2).string(),
         },
       };
     },

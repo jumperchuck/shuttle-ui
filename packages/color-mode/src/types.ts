@@ -13,7 +13,7 @@ export interface ColorModeProviderProps {
 }
 
 export type WithColorModeComponent<C extends ComponentType> = FC<
-  WithColorModeProps<ComponentProps<C>>
+  WithColorModeProps<Omit<ComponentProps<C>, keyof ColorModeContextType>>
 >;
 
 export type WithColorModeProps<P> = P & {
