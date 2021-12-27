@@ -1,6 +1,6 @@
 {
   "name": "@shuttle-ui/color-mode",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Using color mode in React",
   "author": "Dennis Chuck <ck_125s@163.com>",
   "homepage": "https://jumperchuck.github.io/shuttle-ui",
@@ -35,7 +35,7 @@
     "react": "*"
   },
   "dependencies": {
-    "@shuttle-ui/utils": "^0.1.0",
+    "@shuttle-ui/utils": "^0.2.0",
     "@types/hoist-non-react-statics": "^3.3.1",
     "hoist-non-react-statics": "^3.3.2"
   },
