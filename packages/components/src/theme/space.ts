@@ -3,10 +3,7 @@ import { SpaceProps } from '../space';
 export type SpaceTheme = ShuttleUI.ThemeComponent<SpaceProps>;
 
 const spaceTheme: SpaceTheme = {
-  defaultProps: {
-    direction: 'row',
-    spacing: 'md',
-  },
+  defaultProps: {},
   propConfigs: {
     align: {
       start: (props) => {

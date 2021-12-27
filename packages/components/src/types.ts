@@ -20,8 +20,12 @@ import { InputProps } from './input';
 import { ModalProps } from './modal';
 import { SpaceProps } from './space';
 import { TextProps } from './text';
+import { ToastProps } from './toast';
 
-export type ShuttleUIProps<T> = T & { theme: ShuttleUI.Theme; colorMode?: string | null };
+export type ShuttleUIProps<T> = T & {
+  theme: ShuttleUI.Theme;
+  colorMode: string | null | undefined;
+};
 
 export type ShuttleUIComponent<T> = React.FC<ShuttleUIProps<T>>;
 
@@ -57,6 +61,7 @@ declare global {
         Modal: ModalProps;
         Space: SpaceProps;
         Text: TextProps;
+        Toast: ToastProps;
       }> {}
   }
 }

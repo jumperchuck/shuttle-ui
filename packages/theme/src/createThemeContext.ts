@@ -12,16 +12,11 @@ export const createThemeContext = <T>(defaultTheme: T) => {
   });
   const ThemeProvider = createThemeProvider(ThemeContext);
   const ThemeConsumer = ThemeContext.Consumer;
-  const { useTheme, useThemeComponent, useThemeProps, withTheme } =
-    createThemeWrapper(ThemeContext);
   return {
     ThemeContext,
     ThemeProvider,
     ThemeConsumer,
-    useTheme,
-    useThemeComponent,
-    useThemeProps,
-    withTheme,
+    ...createThemeWrapper(ThemeContext),
   };
 };
 

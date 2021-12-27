@@ -3,18 +3,23 @@
  */
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
 import { Text, TextProps } from '../text/Text';
 
 export interface BadgeProps extends TextProps {
   size?: number;
 }
 
-export const Badge = (props: ShuttleUIProps<BadgeProps>) => {
-  const { size = 25, style: styleProp, children, ...rest } = props;
+export const Badge: ShuttleUIComponent<BadgeProps> = (props) => {
+  const {
+    size = 25,
+    style: styleProp,
+    children,
+    ...rest
+  } = useThemeConfigProps('Badge', props);
 
   const fontSize = size * 0.5;
   const borderRadius = size / 2;
@@ -23,6 +28,7 @@ export const Badge = (props: ShuttleUIProps<BadgeProps>) => {
     <Text
       numberOfLines={1}
       borderWidth={1}
+      bgColor="red.600"
       borderColor="white"
       px={2}
       fontSize={fontSize}

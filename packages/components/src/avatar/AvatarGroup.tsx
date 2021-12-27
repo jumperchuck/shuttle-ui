@@ -1,8 +1,8 @@
 import React from 'react';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
 import { Space, SpaceProps } from '../space/Space';
 import Avatar, { AvatarProps } from './Avatar';
 
@@ -11,8 +11,16 @@ export interface AvatarGroupProps extends SpaceProps {
   avatarProps?: AvatarProps;
 }
 
-export const AvatarGroup = (props: ShuttleUIProps<AvatarGroupProps>) => {
-  const { max = 4, avatarProps, children, ...rest } = props;
+export const AvatarGroup: ShuttleUIComponent<AvatarGroupProps> = (props) => {
+  const {
+    max = 4,
+    avatarProps = {
+      borderWidth: 1,
+      borderColor: 'white',
+    },
+    children,
+    ...rest
+  } = useThemeConfigProps('AvatarGroup', props);
 
   const content = React.Children.toArray(children)
     .filter((child) => child != null && typeof child !== 'boolean')
@@ -41,7 +49,11 @@ export const AvatarGroup = (props: ShuttleUIProps<AvatarGroupProps>) => {
     );
   }
 
-  return <Space {...rest}>{content}</Space>;
+  return (
+    <Space direction="row" spacing={-10} {...rest}>
+      {content}
+    </Space>
+  );
 };
 
 export default withColorMode(withTheme(AvatarGroup, 'AvatarGroup'));

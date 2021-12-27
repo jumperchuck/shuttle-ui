@@ -1,7 +1,9 @@
-export { default as ShuttleUIProvider } from './ShuttleUIProvider';
-export * from './ShuttleUIProvider';
+export * from '@shuttle-ui/color-mode';
 
 export * from './theme';
+
+export { default as ShuttleUIProvider } from './ShuttleUIProvider';
+export * from './ShuttleUIProvider';
 
 export { default as Avatar } from './avatar';
 export * from './avatar';
@@ -58,3 +60,4 @@ export { default as Text } from './text';
 export * from './text';
 
 export { default as Toast } from './toast';
+export * from './toast';

@@ -19,9 +19,9 @@ import {
 } from '@shuttle-ui/system';
 import { renderNode, RenderProps } from '@shuttle-ui/utils';
 import { withColorMode } from '@shuttle-ui/color-mode';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent, ShuttleUIProps } from '../types';
 import { Text, TextProps } from '../text/Text';
 import { Icon, IconProps } from '../icon/Icon';
 import { Space, SpaceProps } from '../space/Space';
@@ -43,7 +43,7 @@ export interface ButtonProps extends SpaceProps {
   children?: React.ReactNode;
 }
 
-export const Button = (props: ShuttleUIProps<ButtonProps>) => {
+export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
   const {
     type,
     color,
@@ -65,7 +65,9 @@ export const Button = (props: ShuttleUIProps<ButtonProps>) => {
     theme,
     colorMode,
     ...rest
-  } = props;
+  } = useThemeConfigProps('Button', props, {
+    resolveProps: ['type', 'color', 'size'],
+  });
 
   type;
   size;
@@ -148,6 +150,12 @@ export const Button = (props: ShuttleUIProps<ButtonProps>) => {
         renderNode(ActivityIndicator, rightLoadingNode, itemDefaultProps)}
     </Space>
   );
+};
+
+Button.defaultProps = {
+  type: 'solid',
+  color: 'primary',
+  size: 'md',
 };
 
 export default withColorMode(withTheme(Button, 'Button'));

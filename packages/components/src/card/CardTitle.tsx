@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -9,9 +9,10 @@ import { Text, TextProps } from '../text/Text';
 export interface CardTitleProps extends TextProps {}
 
 export const CardTitle = (props: ShuttleUIProps<CardTitleProps>) => {
+  const { children, ...rest } = useThemeConfigProps('CardTitle', props);
   return (
-    <Text padding="sm" size="lg" style={styles.container} {...props}>
-      {props.children}
+    <Text padding="sm" size="lg" style={styles.container} {...rest}>
+      {children}
     </Text>
   );
 };

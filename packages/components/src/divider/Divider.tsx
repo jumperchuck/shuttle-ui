@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
-import { ResponsiveValue, withTheme } from '@shuttle-ui/theme';
+import { ResponsiveValue, useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 import { ColorPropType, SpacingPropType } from '@shuttle-ui/system';
 
@@ -25,7 +25,7 @@ export const Divider = (props: ShuttleUIProps<DividerProps>) => {
     theme,
     colorMode,
     ...rest
-  } = props;
+  } = useThemeConfigProps('Divider', props);
 
   const width = direction?.startsWith('column') ? thickness : undefined;
   const height = direction?.startsWith('row') ? thickness : undefined;

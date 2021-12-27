@@ -6,7 +6,7 @@ import {
   TextInputProps,
   TextStyle,
 } from 'react-native';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -17,7 +17,7 @@ export interface InputProps extends BoxProps<TextInputProps> {
 }
 
 export const Input = (props: ShuttleUIProps<InputProps>) => {
-  const { style: styleProp, ...rest } = props;
+  const { style: styleProp, ...rest } = useThemeConfigProps('Input', props);
   return <Box Component={TextInput} style={[styles.container, styleProp]} {...rest} />;
 };
 

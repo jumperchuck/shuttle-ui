@@ -9,7 +9,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -49,7 +49,7 @@ export const Image = (props: ShuttleUIProps<ImageProps>) => {
     onLayout,
     children,
     ...rest
-  } = props;
+  } = useThemeConfigProps('Image', props);
 
   const [loading, setLoading] = useState(true);
 

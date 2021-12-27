@@ -4,7 +4,7 @@
 import React from 'react';
 import { ViewStyle } from 'react-native';
 import { SpacingPropType } from '@shuttle-ui/system';
-import { ResponsiveValue, withTheme } from '@shuttle-ui/theme';
+import { ResponsiveValue, useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -22,13 +22,13 @@ export const Space = (props: ShuttleUIProps<SpaceProps>) => {
   const {
     align,
     direction = 'row',
-    spacing,
+    spacing = 'md',
     dividerProps,
     children,
     theme,
     colorMode,
     ...rest
-  } = props;
+  } = useThemeConfigProps('Space', props);
 
   align;
 

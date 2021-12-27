@@ -2,20 +2,23 @@
  * Modal
  */
 import React, { useState } from 'react';
-import { ViewStyle, StyleProp, StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import RNModal, { ModalProps as RNModalProps } from 'react-native-modal';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
+import { renderNode } from '@shuttle-ui/utils';
 
 import { ShuttleUIProps } from '../types';
 import { OverlayManager } from '../overlay';
-import Button, { ButtonProps } from '../button';
+import { Button, ButtonProps } from '../button/Button';
+import { Box, BoxProps } from '../box/Box';
 
 export interface ModalProps extends Partial<RNModalProps> {
+  visible?: boolean;
   overlayManager?: OverlayManager;
-  containerStyle?: StyleProp<ViewStyle>;
+  containerProps?: BoxProps;
   onClose?: () => void;
-  closeProps?: boolean | ButtonProps;
+  closeable?: boolean | ButtonProps;
   children?:
     | React.ReactNode
     | ((params: {
@@ -26,22 +29,23 @@ export interface ModalProps extends Partial<RNModalProps> {
 
 const noop = () => {};
 
-const Modal = (props: ShuttleUIProps<ModalProps>) => {
+export const Modal = (props: ShuttleUIProps<ModalProps>) => {
   const {
     overlayManager,
-    isVisible,
+    visible: visibleProp,
     style: styleProp,
-    containerStyle: containerStyleProp,
     onModalHide: onModalHideProp,
+    containerProps,
     onClose,
-    closeProps,
+    closeable,
     children,
+    theme,
+    colorMode,
     ...rest
-  } = props;
+  } = useThemeConfigProps('Modal', props);
 
   const [visible, setVisible] = useState(!!overlayManager);
   const style = [styles.wrap, styleProp];
-  const containerStyle = [styles.container, containerStyleProp];
   const onModalHide = overlayManager
     ? () => {
         onModalHideProp?.();
@@ -55,10 +59,13 @@ const Modal = (props: ShuttleUIProps<ModalProps>) => {
       }
     : onClose || noop;
 
+  const finalVisible =
+    typeof visibleProp === 'boolean' || !overlayManager ? visibleProp : visible;
+
   return (
     <RNModal
       style={style}
-      isVisible={overlayManager ? visible : isVisible}
+      isVisible={finalVisible}
       onModalHide={onModalHide}
       onBackButtonPress={close}
       onBackdropPress={close}
@@ -66,23 +73,29 @@ const Modal = (props: ShuttleUIProps<ModalProps>) => {
       useNativeDriver
       {...rest}
     >
-      <View style={containerStyle}>
+      <Box
+        width={Dimensions.get('window').width * 0.8}
+        bgColor="white"
+        theme={theme}
+        colorMode={colorMode}
+        {...containerProps}
+      >
         {typeof children === 'function' ? children({ close, overlayManager }) : children}
-        {closeProps && (
-          <Button
-            type="text"
-            color="black"
-            style={styles.close}
-            onPress={close}
-            {...closeProps}
-            icon={{
-              type: 'material',
-              name: 'close',
-              ...(closeProps as any).icon,
-            }}
-          />
-        )}
-      </View>
+        {renderNode(Button, closeable, {
+          type: 'text',
+          color: 'black',
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          onPress: close,
+          icon: {
+            type: 'material',
+            name: 'close',
+          },
+          theme,
+          colorMode,
+        })}
+      </Box>
     </RNModal>
   );
 };
@@ -93,14 +106,5 @@ const styles = StyleSheet.create({
   wrap: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  container: {
-    width: Dimensions.get('window').width * 0.8,
-    backgroundColor: 'white',
-  },
-  close: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
   },
 });

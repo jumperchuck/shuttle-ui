@@ -1,9 +1,9 @@
 import React from 'react';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
-import { ButtonGroup, ButtonGroupProps } from '../button/ButtonGroup';
+import ButtonGroup, { ButtonGroupProps } from '../button/ButtonGroup';
 import Button, { ButtonProps } from '../button';
 
 export interface DialogActionsProps extends ButtonGroupProps {
@@ -23,7 +23,7 @@ export const DialogActions = (props: ShuttleUIProps<DialogActionsProps>) => {
     confirmProps = false,
     children,
     ...rest
-  } = props;
+  } = useThemeConfigProps('DialogActions', props);
 
   return (
     <ButtonGroup align="end" paddingY="md" paddingX="lg" {...rest}>
@@ -31,17 +31,19 @@ export const DialogActions = (props: ShuttleUIProps<DialogActionsProps>) => {
         ? actions.map((item, index) => <Button key={index} {...item} />)
         : [
             cancelProps ? (
-              <Button key={0} text="CANCEL" onPress={onCancel} {...cancelProps} />
+              <Button key={0} onPress={onCancel} {...cancelProps}>
+                CANCEL
+              </Button>
             ) : null,
             confirmProps || onConfirm ? (
-              <Button key={1} text="OK" onPress={onConfirm} {...confirmProps} />
+              <Button key={1} onPress={onConfirm} {...confirmProps}>
+                OK
+              </Button>
             ) : null,
           ]}
       {children}
     </ButtonGroup>
   );
 };
-
-DialogActions.displayName = 'Dialog.Actions';
 
 export default withColorMode(withTheme(DialogActions, 'DialogActions'));

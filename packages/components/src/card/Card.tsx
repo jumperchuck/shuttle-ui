@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -15,7 +15,7 @@ export interface CardProps extends BoxProps {
 }
 
 export const Card = (props: ShuttleUIProps<CardProps>) => {
-  const { style, wrapperStyle, children, ...rest } = props;
+  const { style, wrapperStyle, children, ...rest } = useThemeConfigProps('Card', props);
 
   return (
     <Box style={[styles.container, style]} backgroundColor="surface" {...rest}>

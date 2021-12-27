@@ -37,6 +37,7 @@
     "react": "*"
   },
   "dependencies": {
+    "@shuttle-ui/color-mode": "^0.1.0",
     "@shuttle-ui/system": "^0.1.0",
     "@shuttle-ui/theme": "^0.1.0",
     "@shuttle-ui/utils": "^0.1.0",

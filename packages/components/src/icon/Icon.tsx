@@ -4,7 +4,7 @@
 import React from 'react';
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle } from 'react-native';
 import { ColorPropType, color as getColor } from '@shuttle-ui/system';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -29,7 +29,7 @@ export const Icon = (props: ShuttleUIProps<IconProps>) => {
     style: styleProp,
     theme,
     ...rest
-  } = props;
+  } = useThemeConfigProps('Icon', props);
 
   const color = getColor({ color: colorProp, theme });
 

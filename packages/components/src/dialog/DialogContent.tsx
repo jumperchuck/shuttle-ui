@@ -1,5 +1,5 @@
 import React from 'react';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -9,20 +9,19 @@ import { Text, TextProps } from '../text/Text';
 export interface DialogContentProps extends TextProps {}
 
 export const DialogContent = (props: ShuttleUIProps<DialogContentProps>) => {
-  if (typeof props.children === 'string') {
+  const { children, ...rest } = useThemeConfigProps('DialogContent', props);
+  if (typeof children === 'string') {
     return (
-      <Text paddingY="md" paddingX="lg" {...props}>
-        {props.children}
+      <Text paddingY="md" paddingX="lg" {...rest}>
+        {children}
       </Text>
     );
   }
   return (
-    <Box paddingY="md" paddingX="lg" {...props}>
-      {props.children}
+    <Box paddingY="md" paddingX="lg" {...rest}>
+      {children}
     </Box>
   );
 };
-
-DialogContent.displayName = 'Dialog.Content';
 
 export default withColorMode(withTheme(DialogContent, 'DialogContent'));

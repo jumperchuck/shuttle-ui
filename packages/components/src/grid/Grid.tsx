@@ -1,5 +1,5 @@
 import React from 'react';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
@@ -12,7 +12,7 @@ export interface GridProps extends SpaceProps {
 }
 
 export const Grid = (props: ShuttleUIProps<GridProps>) => {
-  const { spacing = 0, children, ...reset } = props;
+  const { spacing = 0, children, ...reset } = useThemeConfigProps('Grid', props);
 
   let direction: SpaceProps['direction'] = 'row';
   React.Children.forEach(children, (child) => {

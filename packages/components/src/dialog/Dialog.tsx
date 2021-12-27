@@ -2,7 +2,7 @@
  * Dialog
  */
 import React from 'react';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
 import Modal, { ModalProps } from '../modal';
@@ -11,10 +11,10 @@ import DialogActions from './DialogActions';
 
 export interface DialogProps extends ModalProps {}
 
-const Dialog = (props: DialogProps) => {
-  const { children, ...rest } = props;
+export const Dialog = (props: DialogProps) => {
+  const { children, ...rest } = useThemeConfigProps('Dialog', props);
   return (
-    <Modal closeProps {...rest}>
+    <Modal closeable {...rest}>
       {(params) =>
         React.Children.toArray(
           typeof children === 'function' ? children(params) : children,
@@ -30,7 +30,7 @@ const Dialog = (props: DialogProps) => {
               }
               if (isContent || isActions) {
                 if (i > 0) {
-                  override.style = [{ paddingTop: 0 }, child.props.style];
+                  override.paddingTop = 0;
                   return React.cloneElement(child, override);
                 }
                 if (isActions) {

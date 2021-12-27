@@ -27,7 +27,7 @@ export type GetPropValue<P extends {}, K extends keyof P> = P[K] extends Respons
   ? T
   : P[K];
 
-export type ComponentConfigValue<P extends {}> = Partial<P> | ((props: P) => P);
+export type ComponentConfigValue<P extends {}> = Partial<P> | ((props: P) => Partial<P>);
 
 export type ComponentConfigs<P extends {}, Props extends Required<P> = Required<P>> = {
   [Key in keyof Props]?: GetPropValue<Props, Key> extends string | number

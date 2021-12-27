@@ -5,12 +5,7 @@ import { ButtonProps } from '../button';
 export type ButtonTheme = ShuttleUI.ThemeComponent<ButtonProps>;
 
 const button: ButtonTheme = {
-  defaultProps: {
-    type: 'solid',
-    color: 'primary',
-    size: 'md',
-    spacing: 'md',
-  },
+  defaultProps: {},
   propConfigs: {
     type: {
       solid: (props) => {

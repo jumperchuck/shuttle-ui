@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
 import { Space, SpaceProps } from '../space/Space';
 import { ButtonProps } from './Button';
 
@@ -15,7 +15,7 @@ export interface ButtonGroupProps extends Omit<SpaceProps, keyof TouchableOpacit
   onPress?: (key: string) => void;
 }
 
-export const ButtonGroup = (props: ShuttleUIProps<ButtonGroupProps>) => {
+export const ButtonGroup: ShuttleUIComponent<ButtonGroupProps> = (props) => {
   const {
     selectedKeys,
     selectedProps,
@@ -24,7 +24,7 @@ export const ButtonGroup = (props: ShuttleUIProps<ButtonGroupProps>) => {
     onPress,
     children,
     ...rest
-  } = props;
+  } = useThemeConfigProps('ButtonGroup', props);
 
   const content = React.Children.map(children, (child) => {
     if (!React.isValidElement(child)) {
@@ -53,7 +53,11 @@ export const ButtonGroup = (props: ShuttleUIProps<ButtonGroupProps>) => {
     return React.cloneElement(child, childProps);
   });
 
-  return <Space {...rest}>{content}</Space>;
+  return (
+    <Space direction="row" {...rest}>
+      {content}
+    </Space>
+  );
 };
 
 export default withColorMode(withTheme(ButtonGroup, 'ButtonGroup'));

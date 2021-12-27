@@ -1,10 +1,10 @@
 import React from 'react';
 import { ImageProps, ImageSourcePropType, StyleSheet } from 'react-native';
-import { withTheme } from '@shuttle-ui/theme';
+import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 import { withColorMode } from '@shuttle-ui/color-mode';
 import { renderNode, RenderProps } from '@shuttle-ui/utils';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent, ShuttleUIProps } from '../types';
 import { Box, BoxProps } from '../box/Box';
 import { Icon, IconProps } from '../icon/Icon';
 import { Text, TextProps } from '../text/Text';
@@ -20,7 +20,7 @@ export interface AvatarProps extends BoxProps {
   size?: number;
 }
 
-export const Avatar = (props: ShuttleUIProps<AvatarProps>) => {
+export const Avatar: ShuttleUIComponent<AvatarProps> = (props) => {
   const {
     title,
     titleProps,
@@ -28,13 +28,14 @@ export const Avatar = (props: ShuttleUIProps<AvatarProps>) => {
     iconProps,
     source,
     imageStyle,
+    bgColor = 'grey.400',
     size = 40,
     style,
     children,
     theme,
     colorMode,
     ...rest
-  } = props;
+  } = useThemeConfigProps('Avatar', props);
 
   const borderRadius = size / 2;
 
@@ -42,6 +43,7 @@ export const Avatar = (props: ShuttleUIProps<AvatarProps>) => {
     center: true,
     height: size,
     width: size,
+    bgColor,
     borderRadius,
     theme,
     colorMode,
