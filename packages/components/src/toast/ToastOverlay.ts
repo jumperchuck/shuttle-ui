@@ -2,6 +2,8 @@ import Overlay from '../overlay';
 import Toast, { ToastProps } from './Toast';
 
 class ToastOverlay {
+  static instance: ToastOverlay = new ToastOverlay();
+
   constructor(props?: Partial<ToastProps>) {
     this.props = {
       duration: 2000,
@@ -45,4 +47,10 @@ class ToastOverlay {
   }
 }
 
-export default new ToastOverlay();
+/**
+ * Has error in ts build
+ * error TS4082: Default export of the module has or is using private name 'ToastOverlay'.
+ */
+// export default new ToastOverlay();
+
+export default ToastOverlay;
