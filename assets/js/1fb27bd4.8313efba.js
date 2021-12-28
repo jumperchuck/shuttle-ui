@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkdoc=self.webpackChunkdoc||[]).push([[946],{3507:function(l){l.exports=JSON.parse('{"allTagsPath":"/shuttle-ui/blog/tags","slug":"/shuttle-ui/blog/tags/hello","name":"hello","count":2,"permalink":"/shuttle-ui/blog/tags/hello"}')}}]);
