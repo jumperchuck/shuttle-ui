@@ -16,6 +16,7 @@ export type FlexboxStyleProps = WithResponsiveProps<{
   alignItems: ViewStyle['alignItems'];
   alignContent: ViewStyle['alignContent'];
   alignSelf: ViewStyle['alignSelf'];
+  aspectRatio: ViewStyle['aspectRatio'];
 }>;
 
 export const center = style<ViewStyle>({
@@ -69,6 +70,10 @@ export const alignSelf = style<ViewStyle['alignSelf']>({
   prop: ['alignSelf'],
 });
 
+export const aspectRatio = style<ViewStyle['aspectRatio']>({
+  prop: ['aspectRatio'],
+});
+
 export default compose(
   center,
   flex,
@@ -81,4 +86,5 @@ export default compose(
   alignItems,
   alignContent,
   alignSelf,
+  aspectRatio,
 );
