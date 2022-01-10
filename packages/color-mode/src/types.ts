@@ -17,6 +17,6 @@ export type WithColorModeComponent<C extends ComponentType> = FC<
 >;
 
 export type WithColorModeProps<P> = P & {
-  _light?: P;
-  _dark?: P;
+  _light?: Partial<P>;
+  _dark?: Partial<P>;
 };
