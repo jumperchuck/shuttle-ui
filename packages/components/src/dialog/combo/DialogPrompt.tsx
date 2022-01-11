@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 
-import Alert, { AlertProps } from './Alert';
+import DialogAlert, { DialogAlertProps } from './DialogAlert';
 import DialogInput, { DialogInputProps } from '../DialogInput';
 
-export interface PromptProps extends AlertProps {
+export interface DialogPromptProps extends Omit<DialogAlertProps, 'onConfirm'> {
   inputProps?: DialogInputProps;
-  onConfirm?: (value?: string) => void;
+  onConfirm?: (value: string) => void;
 }
 
-const Prompt = (props: PromptProps) => {
+const DialogPrompt = (props: DialogPromptProps) => {
   const { inputProps, onConfirm, ...alertProps } = props;
 
   const [value, setValue] = useState('');
 
   return (
-    <Alert
+    <DialogAlert
       {...alertProps}
       content={<DialogInput {...inputProps} value={value} onChangeText={setValue} />}
       onConfirm={() => onConfirm?.(value)}
@@ -22,4 +22,4 @@ const Prompt = (props: PromptProps) => {
   );
 };
 
-export default Prompt;
+export default DialogPrompt;

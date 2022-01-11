@@ -1,14 +1,14 @@
 import React from 'react';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Badge, BadgeProps } from '../badge/Badge';
 
 export interface AvatarBadgeProps extends BadgeProps {}
 
 export const AvatarBadge: ShuttleUIComponent<AvatarBadgeProps> = (props) => {
-  const { children, ...rest } = useThemeConfigProps('AvatarBadge', props);
+  const { children, ...rest } = useResolutionProps('AvatarBadge', props);
   return (
     <Badge position="absolute" right={0} bottom={0} size={10} {...rest}>
       {children}
@@ -16,4 +16,4 @@ export const AvatarBadge: ShuttleUIComponent<AvatarBadgeProps> = (props) => {
   );
 };
 
-export default withColorMode(withTheme(AvatarBadge, 'AvatarBadge'));
+export default withShuttleUI(AvatarBadge);

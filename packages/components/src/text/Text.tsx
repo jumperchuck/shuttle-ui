@@ -1,17 +1,16 @@
-import { TextProps as RNTextProps } from 'react-native';
-import { BoxFC, createText, TextProps, TextStyleProps } from '@shuttle-ui/system';
-import { DefaultTheme, withTheme } from '@shuttle-ui/theme';
-import { WithColorModeProps } from '@shuttle-ui/color-mode';
-import { ShuttleUIProps } from '../types';
+import React from 'react';
+import { createText, TextProps } from '@shuttle-ui/system';
+import { ShuttleUIComponent } from '../types';
+import { useResolutionProps } from '../hooks';
+import { withShuttleUI } from '../helper';
 
 export type { TextProps };
 
-export const Text = createText(DefaultTheme) as BoxFC<
-  RNTextProps,
-  ShuttleUIProps<RNTextProps & TextStyleProps>
->;
+const PrivateText = createText();
 
-export default withTheme(Text, 'Text') as BoxFC<
-  RNTextProps,
-  WithColorModeProps<RNTextProps & TextStyleProps>
->;
+export const Text: ShuttleUIComponent<TextProps> = (props) => {
+  const newProps = useResolutionProps('Text', props);
+  return <PrivateText {...newProps} />;
+};
+
+export default withShuttleUI(Text);

@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { DefaultSectionT, SectionList, SectionListProps } from 'react-native';
-import { useLayout } from '@shuttle-ui/utils';
 
+import { useLayout } from '../hooks';
 import { GridListItemLayout, GridListNodeInfo } from '../gridList/types';
 import GridListItem from '../gridList/GridListItem';
 import LayoutManager from './LayoutManager';

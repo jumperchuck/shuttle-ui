@@ -1,8 +1,8 @@
 import React from 'react';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Space, SpaceProps } from '../space/Space';
 import { GridProvider } from './context';
 import GridRow from './GridRow';
@@ -11,8 +11,8 @@ export interface GridProps extends SpaceProps {
   children?: React.ReactNode;
 }
 
-export const Grid = (props: ShuttleUIProps<GridProps>) => {
-  const { spacing = 0, children, ...reset } = useThemeConfigProps('Grid', props);
+export const Grid: ShuttleUIComponent<GridProps> = (props) => {
+  const { spacing = 0, children, ...reset } = useResolutionProps('Grid', props);
 
   let direction: SpaceProps['direction'] = 'row';
   React.Children.forEach(children, (child) => {
@@ -32,4 +32,4 @@ export const Grid = (props: ShuttleUIProps<GridProps>) => {
   );
 };
 
-export default withColorMode(withTheme(Grid, 'Grid'));
+export default withShuttleUI(Grid);

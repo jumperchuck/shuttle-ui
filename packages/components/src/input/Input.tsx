@@ -6,10 +6,10 @@ import {
   TextInputProps,
   TextStyle,
 } from 'react-native';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box, BoxProps } from '../box/Box';
 
 export interface InputProps extends BoxProps<TextInputProps> {
@@ -17,7 +17,7 @@ export interface InputProps extends BoxProps<TextInputProps> {
 }
 
 export const Input: ShuttleUIComponent<InputProps> = (props) => {
-  const { style: styleProp, ...rest } = useThemeConfigProps('Input', props);
+  const { style: styleProp, ...rest } = useResolutionProps('Input', props);
   return (
     <Box<TextInputProps>
       Component={TextInput}
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withColorMode(withTheme(Input, 'Input'));
+export default withShuttleUI(Input);

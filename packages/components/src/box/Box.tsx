@@ -1,18 +1,20 @@
+import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { createBox, BoxProps, BoxStyleProps, BoxFC } from '@shuttle-ui/system';
-import { DefaultTheme, withTheme } from '@shuttle-ui/theme';
-import { withColorMode, WithColorModeProps } from '@shuttle-ui/color-mode';
+import { createBox, BoxProps } from '@shuttle-ui/system';
 
 import { ShuttleUIProps } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 
 export type { BoxProps };
 
-export const Box = createBox(DefaultTheme) as BoxFC<
-  TouchableOpacityProps,
-  ShuttleUIProps<TouchableOpacityProps & BoxStyleProps>
->;
+const PrivateBox = createBox();
 
-export default withColorMode(withTheme(Box, 'Box')) as BoxFC<
-  TouchableOpacityProps,
-  WithColorModeProps<TouchableOpacityProps & BoxStyleProps>
->;
+export const Box = <P extends {} = TouchableOpacityProps>(
+  props: ShuttleUIProps<BoxProps<P>>,
+) => {
+  const newProps = useResolutionProps('Box', props);
+  return <PrivateBox {...newProps} />;
+};
+
+export default withShuttleUI(Box) as typeof Box;

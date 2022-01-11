@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box, BoxProps } from '../box/Box';
 
 export interface CardProps extends BoxProps {
@@ -14,17 +14,17 @@ export interface CardProps extends BoxProps {
   children: React.ReactNode;
 }
 
-export const Card = (props: ShuttleUIProps<CardProps>) => {
-  const { style, wrapperStyle, children, ...rest } = useThemeConfigProps('Card', props);
+export const Card: ShuttleUIComponent<CardProps> = (props: CardProps) => {
+  const { style, wrapperStyle, children, ...rest } = useResolutionProps('Card', props);
 
   return (
-    <Box style={[styles.container, style]} backgroundColor="surface" {...rest}>
+    <Box style={[styles.container, style]} bgColor="surface" {...rest}>
       <View style={[styles.wrapper, wrapperStyle]}>{children}</View>
     </Box>
   );
 };
 
-export default withColorMode(withTheme(Card, 'Card'));
+export default withShuttleUI(Card);
 
 const styles = StyleSheet.create({
   container: {

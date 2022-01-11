@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { FlatList, FlatListProps } from 'react-native';
-import { useLayout } from '@shuttle-ui/utils';
 
+import { useLayout } from '../hooks';
 import LayoutManager from './LayoutManager';
 import GridListItem, { GridListItemProps } from './GridListItem';
 import { GridListItemLayout, GridListNodeInfo } from './types';

@@ -1,27 +1,25 @@
-/**
- * Badge
- */
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
+import { fontSize as getSize } from '@shuttle-ui/system';
 
 import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Text, TextProps } from '../text/Text';
 
-export interface BadgeProps extends TextProps {
-  size?: number;
-}
+export interface BadgeProps extends TextProps {}
 
 export const Badge: ShuttleUIComponent<BadgeProps> = (props) => {
   const {
-    size = 25,
+    size: sizeProp,
     style: styleProp,
     children,
     ...rest
-  } = useThemeConfigProps('Badge', props);
+  } = useResolutionProps('Badge', props);
 
-  const fontSize = size * 0.5;
+  const size = getSize({ size: sizeProp, ...rest }) || 25;
+
+  const fontSize = size / 2;
   const borderRadius = size / 2;
 
   return (
@@ -45,7 +43,7 @@ export const Badge: ShuttleUIComponent<BadgeProps> = (props) => {
   );
 };
 
-export default withColorMode(withTheme(Badge, 'Badge'));
+export default withShuttleUI(Badge);
 
 const styles = StyleSheet.create({
   container: {

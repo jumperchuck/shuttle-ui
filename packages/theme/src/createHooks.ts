@@ -43,9 +43,8 @@ const getConfigProps = (props: any, configs: any, configKey: string) => {
 const transformResponsiveProps = <T extends {}>(
   props: T,
   theme: any,
-  config: { resolveProps?: string[] },
+  resolveProps?: string[],
 ) => {
-  const { resolveProps } = config;
   if (!resolveProps?.length) {
     return props;
   }
@@ -79,6 +78,23 @@ const transformProps = (
 };
 
 export const createHooks = <T>(Context: React.Context<ThemeContextType<T>>) => {
+  function getThemeConfigProps<P extends {}>(
+    props: P,
+    component: ReturnType<typeof useThemeComponent>,
+    config?: { responsiveProps?: string[] },
+  ) {
+    const { theme, propConfigs, configPriorities, defaultProps } = component;
+    const newProps = config?.responsiveProps
+      ? transformResponsiveProps(props, theme, config.responsiveProps)
+      : props;
+
+    return transformProps({ ...newProps, theme }, theme, {
+      propConfigs,
+      configPriorities,
+      defaultProps,
+    });
+  }
+
   function useTheme() {
     return useContext(Context);
   }
@@ -99,32 +115,57 @@ export const createHooks = <T>(Context: React.Context<ThemeContextType<T>>) => {
   function useThemeDefaultProps<P extends {}>(
     componentKey?: string,
     props?: P,
-  ): ThemeContextType<T> & P {
-    const { defaultProps, ...context } = useThemeComponent<P>(componentKey);
+  ): { theme: T } & P {
+    const { defaultProps, theme } = useThemeComponent<P>(componentKey);
     // @ts-ignore
-    return { ...mergeProps(defaultProps, props), ...context };
+    return { ...mergeProps(defaultProps, props), theme };
   }
 
   function useThemeConfigProps<P extends {}>(
     componentKey: string,
     props: P,
-    responsiveConfig?: { resolveProps?: string[] },
-  ): ThemeContextType<T> & P {
-    const { theme, propConfigs, configPriorities, defaultProps } =
-      useThemeComponent(componentKey);
+    config?: { responsiveProps?: string[] },
+  ): { theme: T } & P {
+    const component = useThemeComponent(componentKey);
 
-    const newProps = responsiveConfig
-      ? transformResponsiveProps(props, theme, responsiveConfig)
-      : props;
-
-    return transformProps(newProps, theme, {
-      propConfigs,
-      configPriorities,
-      defaultProps,
-    });
+    return getThemeConfigProps(props, component, config);
   }
 
-  return { useTheme, useThemeComponent, useThemeDefaultProps, useThemeConfigProps };
+  function useThemeProps<P extends {}>(
+    componentKey: string,
+    props: P,
+    config?: {
+      useDefaultProps?: boolean;
+      useConfigProps?: boolean;
+      responsiveProps?: string[];
+    },
+  ): { theme: T } & P {
+    const component = useThemeComponent<P>(componentKey);
+    const { theme, defaultProps } = component;
+    const useDefaultProps =
+      (props as any).useDefaultProps ?? config?.useDefaultProps ?? true;
+    const useConfigProps =
+      (props as any).useConfigProps ?? config?.useConfigProps ?? true;
+    const newProps = useDefaultProps
+      ? // @ts-ignore
+        { ...mergeProps(defaultProps, props), theme }
+      : { ...props, theme };
+    const finalProps = useConfigProps
+      ? getThemeConfigProps(newProps, component, config)
+      : newProps;
+    // remove useDefaultProps & useConfigProps
+    delete (finalProps as any).useDefaultProps;
+    delete (finalProps as any).useConfigProps;
+    return finalProps;
+  }
+
+  return {
+    useTheme,
+    useThemeComponent,
+    useThemeDefaultProps,
+    useThemeConfigProps,
+    useThemeProps,
+  };
 };
 
 export default createHooks;

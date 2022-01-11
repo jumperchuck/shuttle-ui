@@ -4,10 +4,11 @@
 import React from 'react';
 import { ViewStyle } from 'react-native';
 import { SpacingPropType } from '@shuttle-ui/system';
-import { ResponsiveValue, useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
+import { ResponsiveValue } from '@shuttle-ui/theme';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box, BoxProps } from '../box/Box';
 import { Divider, DividerProps } from '../divider/Divider';
 
@@ -18,7 +19,7 @@ export interface SpaceProps extends BoxProps {
   dividerProps?: DividerProps;
 }
 
-export const Space = (props: ShuttleUIProps<SpaceProps>) => {
+export const Space: ShuttleUIComponent<SpaceProps> = (props) => {
   const {
     align,
     direction = 'row',
@@ -28,18 +29,18 @@ export const Space = (props: ShuttleUIProps<SpaceProps>) => {
     theme,
     colorMode,
     ...rest
-  } = useThemeConfigProps('Space', props);
+  } = useResolutionProps('Space', props);
 
   align;
 
-  const boxProps: ShuttleUIProps<BoxProps> = {
+  const boxProps: BoxProps = {
     flexDirection: direction,
     theme,
     colorMode,
     ...rest,
   };
 
-  const childProps: ShuttleUIProps<DividerProps> = {
+  const childProps: DividerProps = {
     theme,
     colorMode,
     color: 'transparent',
@@ -67,4 +68,4 @@ export const Space = (props: ShuttleUIProps<SpaceProps>) => {
   return <Box {...boxProps}>{content}</Box>;
 };
 
-export default withColorMode(withTheme(Space, 'Space'));
+export default withShuttleUI(Space);

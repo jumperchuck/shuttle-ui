@@ -23,8 +23,10 @@ import { TextProps } from './text';
 import { ToastProps } from './toast';
 
 export type ShuttleUIProps<T> = T & {
-  theme: ShuttleUI.Theme;
-  colorMode: string | null | undefined;
+  theme?: ShuttleUI.Theme;
+  colorMode?: string | null;
+  useDefaultProps?: boolean;
+  useConfigProps?: boolean;
 };
 
 export type ShuttleUIComponent<T> = React.FC<ShuttleUIProps<T>>;

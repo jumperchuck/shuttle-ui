@@ -1,15 +1,15 @@
 import React from 'react';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIProps } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Input, InputProps } from '../input/Input';
 
 export interface DialogInputProps extends InputProps {}
 
 export const DialogInput = (props: ShuttleUIProps<DialogInputProps>) => {
-  const newProps = useThemeConfigProps('DialogInput', props);
+  const newProps = useResolutionProps('DialogInput', props);
   return <Input {...newProps} />;
 };
 
-export default withColorMode(withTheme(DialogInput, 'DialogInput'));
+export default withShuttleUI(DialogInput);

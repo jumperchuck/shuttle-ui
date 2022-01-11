@@ -18,10 +18,10 @@ import {
   ResponsiveValue,
 } from '@shuttle-ui/system';
 import { renderNode, RenderProps } from '@shuttle-ui/utils';
-import { withColorMode } from '@shuttle-ui/color-mode';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
 
-import { ShuttleUIComponent, ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Text, TextProps } from '../text/Text';
 import { Icon, IconProps } from '../icon/Icon';
 import { Space, SpaceProps } from '../space/Space';
@@ -30,6 +30,7 @@ export interface ButtonProps extends SpaceProps {
   type?: ResponsiveValue<'solid' | 'text' | 'outline'>;
   color?: ResponsiveValue<ColorPropType>;
   size?: ResponsiveValue<'xs' | 'sm' | 'md' | 'lg'>;
+  text?: string;
   textStyle?: StyleProp<TextStyle>;
   disabledStyle?: StyleProp<ViewStyle>;
   disabledTextStyle?: StyleProp<TextStyle>;
@@ -49,6 +50,7 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
     color,
     size,
     style: styleProp,
+    text,
     textStyle: textStyleProp,
     disabledStyle: disabledStyleProp,
     disabledTextStyle: disabledTextStyleProp,
@@ -62,11 +64,9 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
     onPress,
     disabled,
     children,
-    theme,
-    colorMode,
     ...rest
-  } = useThemeConfigProps('Button', props, {
-    resolveProps: ['type', 'color', 'size'],
+  } = useResolutionProps('Button', props, {
+    responsiveProps: ['type', 'color', 'size'],
   });
 
   type;
@@ -74,7 +74,7 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
 
   const isLoading = loading || leftLoading || rightLoading;
 
-  const spaceProps: ShuttleUIProps<SpaceProps> = {
+  const spaceProps: SpaceProps = {
     Component: TouchableOpacity,
     activeOpacity: 0.5,
     direction: 'row',
@@ -83,8 +83,6 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
     style: [styleProp, disabled && disabledStyleProp],
     onPress: isLoading ? undefined : onPress,
     disabled,
-    theme,
-    colorMode,
     ...rest,
   };
 
@@ -94,24 +92,20 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
     disabled && disabledTextStyleProp,
   ]);
 
-  const textProps: ShuttleUIProps<TextProps> = {
+  const textProps: TextProps = {
     color: 'text',
-    theme,
-    colorMode,
     ...textPropsProp,
     style: textStyle,
   };
 
   const fontSize = getFontSize({
     size: textStyle.fontSize ?? textProps.size ?? textProps.fontSize,
-    theme,
-    colorMode,
+    ...rest,
   });
 
   const textColor = getColor({
     color: textStyle.color ?? textProps.color,
-    theme,
-    colorMode,
+    ...rest,
   });
 
   const leftLoadingNode = loading || leftLoading;
@@ -123,8 +117,6 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
   const itemDefaultProps = {
     color: textColor,
     size: fontSize,
-    theme,
-    colorMode,
   };
 
   return (
@@ -138,7 +130,7 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
           typeof leftIconNode === 'string' ? { name: leftIconNode } : leftIconNode,
           itemDefaultProps,
         )}
-      {renderNode(Text, children, textProps)}
+      {renderNode(Text, children ?? text, textProps)}
       {!rightLoadingNode &&
         rightIconNode &&
         renderNode(
@@ -158,4 +150,4 @@ Button.defaultProps = {
   size: 'md',
 };
 
-export default withColorMode(withTheme(Button, 'Button'));
+export default withShuttleUI(Button);

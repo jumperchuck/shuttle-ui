@@ -1,15 +1,15 @@
 import React from 'react';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box } from '../box/Box';
 import { Text, TextProps } from '../text/Text';
 
 export interface DialogTitleProps extends TextProps {}
 
-export const DialogTitle = (props: ShuttleUIProps<DialogTitleProps>) => {
-  const { children, ...rest } = useThemeConfigProps('DialogTitle', props);
+export const DialogTitle: ShuttleUIComponent<DialogTitleProps> = (props) => {
+  const { children, ...rest } = useResolutionProps('DialogTitle', props);
   if (typeof children === 'string') {
     return (
       <Text marginX="lg" marginTop="lg" marginBottom="md" {...rest}>
@@ -24,4 +24,4 @@ export const DialogTitle = (props: ShuttleUIProps<DialogTitleProps>) => {
   );
 };
 
-export default withColorMode(withTheme(DialogTitle, 'DialogTitle'));
+export default withShuttleUI(DialogTitle);

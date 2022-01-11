@@ -3,11 +3,12 @@
  */
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
-import { ResponsiveValue, useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
+import { ResponsiveValue } from '@shuttle-ui/theme';
 import { ColorPropType, SpacingPropType } from '@shuttle-ui/system';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box, BoxProps } from '../box/Box';
 
 export interface DividerProps extends BoxProps {
@@ -16,7 +17,7 @@ export interface DividerProps extends BoxProps {
   thickness?: ResponsiveValue<SpacingPropType>;
 }
 
-export const Divider = (props: ShuttleUIProps<DividerProps>) => {
+export const Divider: ShuttleUIComponent<DividerProps> = (props) => {
   const {
     color = 'grey.400',
     direction = 'row',
@@ -25,19 +26,19 @@ export const Divider = (props: ShuttleUIProps<DividerProps>) => {
     theme,
     colorMode,
     ...rest
-  } = useThemeConfigProps('Divider', props);
+  } = useResolutionProps('Divider', props);
 
   const width = direction?.startsWith('column') ? thickness : undefined;
   const height = direction?.startsWith('row') ? thickness : undefined;
 
-  const boxProps: ShuttleUIProps<BoxProps> = {
+  const boxProps: BoxProps = {
     theme,
     colorMode,
     ...rest,
   };
 
   if (React.isValidElement(children)) {
-    const childProps: ShuttleUIProps<DividerProps> = {
+    const childProps: DividerProps = {
       flex: 1,
       color,
       direction,
@@ -56,4 +57,4 @@ export const Divider = (props: ShuttleUIProps<DividerProps>) => {
   return <Box bgColor={color} width={width} height={height} {...boxProps} />;
 };
 
-export default withColorMode(withTheme(Divider, 'Divider'));
+export default withShuttleUI(Divider);

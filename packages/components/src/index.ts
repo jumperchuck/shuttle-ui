@@ -2,8 +2,13 @@ export * from '@shuttle-ui/color-mode';
 
 export * from './theme';
 
+export * from './hooks';
+
 export { default as ShuttleUIProvider } from './ShuttleUIProvider';
 export * from './ShuttleUIProvider';
+
+export { default as ActionSheet } from './actionSheet';
+export * from './actionSheet';
 
 export { default as Avatar } from './avatar';
 export * from './avatar';
@@ -19,6 +24,9 @@ export * from './button';
 
 export { default as Card } from './card';
 export * from './card';
+
+export { default as Collapse } from './collapse';
+export * from './collapse';
 
 export { default as Dialog } from './dialog';
 export * from './dialog';

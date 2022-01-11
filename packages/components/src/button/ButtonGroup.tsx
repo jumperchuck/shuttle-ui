@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Space, SpaceProps } from '../space/Space';
 import { ButtonProps } from './Button';
 
@@ -24,7 +24,7 @@ export const ButtonGroup: ShuttleUIComponent<ButtonGroupProps> = (props) => {
     onPress,
     children,
     ...rest
-  } = useThemeConfigProps('ButtonGroup', props);
+  } = useResolutionProps('ButtonGroup', props);
 
   const content = React.Children.map(children, (child) => {
     if (!React.isValidElement(child)) {
@@ -60,4 +60,4 @@ export const ButtonGroup: ShuttleUIComponent<ButtonGroupProps> = (props) => {
   );
 };
 
-export default withColorMode(withTheme(ButtonGroup, 'ButtonGroup'));
+export default withShuttleUI(ButtonGroup);

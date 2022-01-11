@@ -1,23 +1,21 @@
 import React from 'react';
-import { withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Space, SpaceProps } from '../space/Space';
 import { useSpacing } from './context';
-import styles from './styles';
 
 export interface GridColProps extends Omit<SpaceProps, 'direction'> {}
 
 export const GridCol: ShuttleUIComponent<GridColProps> = (props) => {
-  const { style: styleProp, children, ...rest } = props;
-  const style = [styles.container, styleProp];
+  const { children, ...rest } = useResolutionProps('GridCol', props);
   const { spacing } = useSpacing();
   return (
-    <Space style={style} spacing={spacing} {...rest} direction="column">
+    <Space flex={1} spacing={spacing} {...rest} direction="column">
       {children}
     </Space>
   );
 };
 
-export default withColorMode(withTheme(GridCol));
+export default withShuttleUI(GridCol);

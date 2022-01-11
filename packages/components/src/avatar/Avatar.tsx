@@ -1,10 +1,10 @@
 import React from 'react';
 import { ImageProps, ImageSourcePropType, StyleSheet } from 'react-native';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 import { renderNode, RenderProps } from '@shuttle-ui/utils';
 
-import { ShuttleUIComponent, ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box, BoxProps } from '../box/Box';
 import { Icon, IconProps } from '../icon/Icon';
 import { Text, TextProps } from '../text/Text';
@@ -32,21 +32,17 @@ export const Avatar: ShuttleUIComponent<AvatarProps> = (props) => {
     size = 40,
     style,
     children,
-    theme,
-    colorMode,
     ...rest
-  } = useThemeConfigProps('Avatar', props);
+  } = useResolutionProps('Avatar', props);
 
   const borderRadius = size / 2;
 
-  const boxProps: ShuttleUIProps<BoxProps> = {
+  const boxProps: BoxProps = {
     center: true,
     height: size,
     width: size,
     bgColor,
     borderRadius,
-    theme,
-    colorMode,
     ...rest,
   };
 
@@ -54,16 +50,12 @@ export const Avatar: ShuttleUIComponent<AvatarProps> = (props) => {
     ? renderNode(Text, title, {
         color: 'white',
         size: borderRadius,
-        theme,
-        colorMode,
         ...titleProps,
       })
     : icon
     ? renderNode(Icon, typeof icon === 'string' ? { name: icon } : icon, {
         color: 'white',
         size: borderRadius,
-        theme,
-        colorMode,
         ...iconProps,
       })
     : null;
@@ -75,8 +67,8 @@ export const Avatar: ShuttleUIComponent<AvatarProps> = (props) => {
         Placeholder={Placeholder}
         resizeMode="cover"
         {...boxProps}
-        containerStyle={[styles.container, style]}
-        style={[{ borderRadius }, imageStyle]}
+        style={[styles.container, style]}
+        imageStyle={[{ borderRadius }, imageStyle]}
       >
         {children}
       </Image>
@@ -91,7 +83,7 @@ export const Avatar: ShuttleUIComponent<AvatarProps> = (props) => {
   );
 };
 
-export default withColorMode(withTheme(Avatar, 'Avatar'));
+export default withShuttleUI(Avatar);
 
 const styles = StyleSheet.create({
   container: {

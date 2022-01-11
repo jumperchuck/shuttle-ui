@@ -1,8 +1,8 @@
 import React from 'react';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
 import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Space, SpaceProps } from '../space/Space';
 import Avatar, { AvatarProps } from './Avatar';
 
@@ -20,7 +20,7 @@ export const AvatarGroup: ShuttleUIComponent<AvatarGroupProps> = (props) => {
     },
     children,
     ...rest
-  } = useThemeConfigProps('AvatarGroup', props);
+  } = useResolutionProps('AvatarGroup', props);
 
   const content = React.Children.toArray(children)
     .filter((child) => child != null && typeof child !== 'boolean')
@@ -56,4 +56,4 @@ export const AvatarGroup: ShuttleUIComponent<AvatarGroupProps> = (props) => {
   );
 };
 
-export default withColorMode(withTheme(AvatarGroup, 'AvatarGroup'));
+export default withShuttleUI(AvatarGroup);

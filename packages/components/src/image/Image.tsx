@@ -9,10 +9,10 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box, BoxProps } from '../box/Box';
 
 export interface ImageProps
@@ -26,17 +26,18 @@ export interface ImageProps
       | 'borderTopRightRadius'
       | 'borderBottomLeftRadius'
       | 'borderBottomRightRadius'
+      | 'style'
     > {
   Placeholder?: React.ReactElement;
-  containerStyle?: StyleProp<ViewStyle>;
-  style?: StyleProp<ImageStyle>;
+  style?: StyleProp<ViewStyle>;
+  imageStyle?: StyleProp<ImageStyle>;
 }
 
-export const Image = (props: ShuttleUIProps<ImageProps>) => {
+export const Image: ShuttleUIComponent<ImageProps> = (props) => {
   const {
     Placeholder = <ActivityIndicator />,
-    containerStyle,
     style,
+    imageStyle,
     onLoad: onLoadProp,
     source,
     width,
@@ -49,7 +50,7 @@ export const Image = (props: ShuttleUIProps<ImageProps>) => {
     onLayout,
     children,
     ...rest
-  } = useThemeConfigProps('Image', props);
+  } = useResolutionProps('Image', props);
 
   const [loading, setLoading] = useState(true);
 
@@ -73,17 +74,22 @@ export const Image = (props: ShuttleUIProps<ImageProps>) => {
       onLayout={onLayout}
       position="relative"
       overflow="hidden"
-      style={containerStyle}
+      style={style}
       {...rest}
     >
       {loading ? <View style={styles.placeholder}>{Placeholder}</View> : null}
-      <RNImage style={[styles.image, style]} source={source} onLoad={onLoad} {...rest} />
+      <RNImage
+        style={[styles.image, imageStyle]}
+        source={source}
+        onLoad={onLoad}
+        {...rest}
+      />
       {children}
     </Box>
   );
 };
 
-export default withColorMode(withTheme(Image, 'Image'));
+export default withShuttleUI(Image);
 
 const styles = StyleSheet.create({
   image: {

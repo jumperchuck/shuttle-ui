@@ -3,11 +3,16 @@
  */
 import React from 'react';
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle } from 'react-native';
-import { ColorPropType, color as getColor } from '@shuttle-ui/system';
-import { useThemeConfigProps, withTheme } from '@shuttle-ui/theme';
-import { withColorMode } from '@shuttle-ui/color-mode';
+import {
+  ColorPropType,
+  FontSizePropType,
+  color as getColor,
+  fontSize as getSize,
+} from '@shuttle-ui/system';
 
-import { ShuttleUIProps } from '../types';
+import { ShuttleUIComponent } from '../types';
+import { withShuttleUI } from '../helper';
+import { useResolutionProps } from '../hooks';
 import { Box, BoxProps } from '../box/Box';
 import getIconType, { IconType } from './getIconType';
 import getCustomImage from './getCustomImage';
@@ -15,23 +20,23 @@ import getCustomImage from './getCustomImage';
 export interface IconProps extends BoxProps<{}> {
   type?: IconType;
   name: string;
-  size?: number;
+  size?: FontSizePropType;
   color?: ColorPropType;
   style?: StyleProp<ImageStyle & TextStyle>;
 }
 
-export const Icon = (props: ShuttleUIProps<IconProps>) => {
+export const Icon: ShuttleUIComponent<IconProps> = (props) => {
   const {
     type,
     name,
-    size = 18,
-    color: colorProp = 'text',
+    size: sizeProp,
+    color: colorProp,
     style: styleProp,
-    theme,
     ...rest
-  } = useThemeConfigProps('Icon', props);
+  } = useResolutionProps('Icon', props);
 
-  const color = getColor({ color: colorProp, theme });
+  const color = getColor({ color: colorProp, ...rest }) || 'text';
+  const size = getSize({ size: sizeProp, ...rest }) || 18;
 
   const IconComp = type ? getIconType(type) : null;
 
@@ -50,7 +55,6 @@ export const Icon = (props: ShuttleUIProps<IconProps>) => {
         resizeMode="contain"
         source={getCustomImage(name)}
         style={style}
-        theme={theme}
         {...(rest as any)}
       />
     );
@@ -63,10 +67,9 @@ export const Icon = (props: ShuttleUIProps<IconProps>) => {
       size={size}
       color={color}
       style={styleProp}
-      theme={theme}
       {...rest}
     />
   );
 };
 
-export default withColorMode(withTheme(Icon, 'Icon'));
+export default withShuttleUI(Icon);
