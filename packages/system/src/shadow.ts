@@ -1,4 +1,5 @@
 import { ShadowStyleIOS, TextStyle } from 'react-native';
+import { getColorModeValue } from '@shuttle-ui/utils';
 
 import style from './style';
 import { WithResponsiveProps, ShadowPropType } from './types';
@@ -57,7 +58,7 @@ export const elevation = style<BoxShadowStyle>({
       return undefined;
     }
     const { theme } = props;
-    const SHADOW_COLOR = theme?.colors?.black || '#000';
+    const SHADOW_COLOR = getColorModeValue(theme?.colors?.black, props) || '#000';
     const SHADOW_OPACITY = 0.3;
 
     let height, radius;

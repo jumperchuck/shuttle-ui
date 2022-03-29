@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { deepmerge, RecursivePartial } from '@shuttle-ui/utils';
+import { deepMerge, RecursivePartial } from '@shuttle-ui/utils';
 
 import { ThemeContextType, ThemeProviderProps } from './types';
 
@@ -9,14 +9,14 @@ export const createThemeProvider = <T,>(Context: React.Context<ThemeContextType<
 
     const updateTheme = useCallback(
       (updates: RecursivePartial<T>) => {
-        setTheme(deepmerge(theme, updates as T));
+        setTheme(deepMerge(theme, updates as T));
       },
       [theme],
     );
 
     const replaceTheme = useCallback(
       (updates: RecursivePartial<T>) => {
-        setTheme(deepmerge(props.theme, updates as T));
+        setTheme(deepMerge(props.theme, updates as T));
       },
       [props.theme],
     );

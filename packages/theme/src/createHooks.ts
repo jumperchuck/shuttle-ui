@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { getBreakpointsValue, getPath, mergeProps } from '@shuttle-ui/utils';
+import { getBreakpointsValue, getValue, mergeProps } from '@shuttle-ui/utils';
 
 import { ThemeContextType } from './types';
 
@@ -74,7 +74,9 @@ const transformProps = (
       configResults.push(configProps);
     }
   });
-  return configResults.length ? mergeProps.all([...configResults, props]) : props;
+  return configResults.length
+    ? [...configResults, props].reduce((prev, next) => mergeProps(prev, next))
+    : props;
 };
 
 export const createHooks = <T>(Context: React.Context<ThemeContextType<T>>) => {
@@ -106,7 +108,7 @@ export const createHooks = <T>(Context: React.Context<ThemeContextType<T>>) => {
     if (componentKey) {
       return {
         ...context,
-        ...getPath(context.theme, `components.${componentKey}`),
+        ...getValue(context.theme, `components.${componentKey}`),
       };
     }
     return context;
