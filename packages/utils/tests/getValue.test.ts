@@ -1,6 +1,22 @@
 import getValue from '../src/getValue';
 
 describe('getValue', () => {
+  it('get exist value', () => {
+    expect(getValue({ a: 1 }, 'a')).toBe(1);
+    expect(getValue({ a: { b: 1 } }, 'a.b')).toBe(1);
+    expect(getValue({ a: { b: 1 }, 'a.b.c': 2 }, 'a.b.c')).toBe(2);
+    expect(getValue({ 0: 1 }, 0)).toBe(1);
+    expect(getValue([1], 0)).toBe(1);
+  });
+
+  it('get no exist input value', () => {
+    expect(getValue({ a: 1 }, 'b')).toBe(undefined);
+    expect(getValue({ a: { b: 1 } }, 'a.a')).toBe(undefined);
+    expect(getValue([1], -1)).toBe(undefined);
+    expect(getValue({ a: 1 }, 'b', '')).toBe('');
+    expect(getValue([1], -1, null)).toBe(null);
+  });
+
   it('get exist for function', () => {
     expect(getValue(() => 1, 'a')).toBe(1);
     expect(getValue((value: any) => value, 'a')).toBe('a');

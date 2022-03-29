@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native';
 
-import { isObject } from './types';
+import { isObject } from './is';
 
 export default function getBreakpointsValue(value: any, breakpoints: any) {
   if (!isObject(value)) {

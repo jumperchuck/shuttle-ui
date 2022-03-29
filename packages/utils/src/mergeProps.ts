@@ -1,7 +1,8 @@
-import deepmerge from 'deepmerge';
+import deepMerge, { DeepMergeOptions } from './deepMerge';
 
-const options: deepmerge.Options = {
-  clone: false,
+const options: DeepMergeOptions = {
+  clone: true,
+  arrayMerge: (target, source) => source,
   customMerge(key) {
     if (key === 'style' || key.endsWith('Style')) {
       return (styleA, styleB) => [].concat(styleA, styleB);
@@ -10,19 +11,11 @@ const options: deepmerge.Options = {
   },
 };
 
-export default function mergeProps<T1, T2>(
-  defaultProps?: Partial<T1>,
-  props?: Partial<T2>,
-): T1 & T2;
-export default function mergeProps<T>(defaultProps?: Partial<T>, props?: Partial<T>) {
-  if (!defaultProps) return props || {};
-  if (!props) return defaultProps || {};
-  return deepmerge(defaultProps, props, options);
+export default function mergeProps<T1, T2, R = T1 & T2>(
+  defaultProps?: T1,
+  props?: T2,
+): R {
+  if (!defaultProps) return props || ({} as any);
+  if (!props) return defaultProps || ({} as any);
+  return deepMerge(defaultProps, props, options);
 }
-
-mergeProps.all = <T>(array: Partial<T>[]) => {
-  if (array.length) {
-    return array.reduce((prev, next) => mergeProps(prev, next));
-  }
-  return {} as Partial<T>;
-};

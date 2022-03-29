@@ -34,9 +34,7 @@
   "peerDependencies": {
     "react": "*"
   },
-  "dependencies": {
-    "deepmerge": "^4.2.2"
-  },
+  "dependencies": {},
   "publishConfig": {
     "access": "public"
   }

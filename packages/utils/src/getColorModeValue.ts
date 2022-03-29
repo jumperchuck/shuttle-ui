@@ -1,4 +1,4 @@
-import { isObject } from './types';
+import { isObject } from './is';
 
 export default function getColorModeValue(value: any, colorMode: any) {
   if (!isObject(value)) {
