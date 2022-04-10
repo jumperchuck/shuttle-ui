@@ -1,8 +1,17 @@
 import deepMerge, { DeepMergeOptions } from './deepMerge';
+import { isArray, isPlainObject, isReactElement, isRefObject } from './is';
 
 const options: DeepMergeOptions = {
   clone: true,
-  arrayMerge: (target, source) => source,
+  isMergeable: (value) => {
+    return (
+      isArray(value) ||
+      (isPlainObject(value) && !isReactElement(value) && !isRefObject(value))
+    );
+  },
+  arrayMerge: (target, source) => {
+    return source;
+  },
   customMerge(key) {
     if (key === 'style' || key.endsWith('Style')) {
       return (styleA, styleB) => [].concat(styleA, styleB);

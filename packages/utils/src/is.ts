@@ -14,7 +14,7 @@ export const isReactElement = (value: any): value is ReactElement => {
 };
 
 export const isRefObject = (ref: any): ref is RefObject<any> => {
-  return isObject(ref) && Object.prototype.hasOwnProperty.call(ref, 'current');
+  return isPlainObject(ref) && Object.prototype.hasOwnProperty.call(ref, 'current');
 };
 
 export const isPlainObject = (value: any): value is Record<any, any> => {
@@ -49,7 +49,7 @@ export const isEmpty = (value: any): value is undefined | null | '' | [] | {} =>
       return true;
     }
   }
-  if (isObject(value)) {
+  if (isPlainObject(value)) {
     if (Object.keys(value).length <= 0) {
       return true;
     }

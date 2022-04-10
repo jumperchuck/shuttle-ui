@@ -3,6 +3,7 @@ import { Dict } from './types';
 
 export interface DeepMergeOptions {
   clone?: boolean;
+  isMergeable?: (value: any) => boolean;
   arrayMerge?: (target: any[], source: any[], options?: DeepMergeOptions) => any[];
   objectMerge?: (target: Dict, source: Dict, options?: DeepMergeOptions) => Dict;
   customMerge?: (
@@ -12,7 +13,7 @@ export interface DeepMergeOptions {
 }
 
 const isMergeable = (value: any) => {
-  return (isPlainObject(value) && !isReactElement(value)) || isArray(value);
+  return isArray(value) || (isPlainObject(value) && !isReactElement(value));
 };
 
 const getMergeFunction = (key: string, options?: DeepMergeOptions) => {
@@ -24,7 +25,7 @@ const getMergeFunction = (key: string, options?: DeepMergeOptions) => {
 };
 
 const cloneObject = (value: any, options?: DeepMergeOptions) => {
-  if (options?.clone !== false && !isReactElement(value)) {
+  if (options?.clone !== false && (options?.isMergeable || isMergeable)(value)) {
     if (isArray(value)) {
       return [...value];
     }
@@ -39,7 +40,10 @@ const mergeObject = (target: any, source: any, options?: DeepMergeOptions) => {
   const result = cloneObject(target, options);
 
   Object.keys(source).forEach((key) => {
-    if (isMergeable(source[key]) && Object.prototype.hasOwnProperty.call(target, key)) {
+    if (
+      (options?.isMergeable || isMergeable)(source[key]) &&
+      Object.prototype.hasOwnProperty.call(target, key)
+    ) {
       result[key] = getMergeFunction(key, options)(target[key], source[key], options);
     } else {
       result[key] = cloneObject(source[key], options);
@@ -60,5 +64,5 @@ export default function deepMerge<T1, T2, R = T1 & T2>(
   if (isArray(target) && isArray(source)) {
     return (options?.arrayMerge || mergeObject)(target, source, options);
   }
-  return target as any;
+  return source as any;
 }
