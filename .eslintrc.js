@@ -5,5 +5,11 @@ module.exports = {
   },
   rules: {
     curly: 'off',
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        additionalHooks: 'usePrivateState',
+      },
+    ],
   },
 };
