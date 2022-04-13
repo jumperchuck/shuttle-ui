@@ -6,9 +6,9 @@ module.exports = {
   rules: {
     curly: 'off',
     'react-hooks/exhaustive-deps': [
-      'warn',
+      0,
       {
-        additionalHooks: 'usePrivateState',
+        additionalHooks: '(usePrivateState|useForceUpdate)',
       },
     ],
   },
