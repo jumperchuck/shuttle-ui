@@ -1,8 +1,10 @@
 import GridSectionList, { GridSectionListProps } from './GridSectionList';
 import LayoutManager from './LayoutManager';
+import useLayoutManager from './useLayoutManager';
 
 export default Object.assign(GridSectionList, {
-  LayoutManager: LayoutManager,
+  LayoutManager,
+  useLayoutManager,
 });
 
 export type { GridSectionListProps };

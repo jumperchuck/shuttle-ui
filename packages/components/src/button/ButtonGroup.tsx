@@ -5,57 +5,53 @@ import { ShuttleUIComponent } from '../types';
 import { withShuttleUI } from '../helper';
 import { useResolutionProps } from '../hooks';
 import { Space, SpaceProps } from '../space/Space';
-import { ButtonProps } from './Button';
+import Button, { ButtonProps } from './Button';
 
 export interface ButtonGroupProps extends Omit<SpaceProps, keyof TouchableOpacityProps> {
-  selectedKeys?: string[];
-  selectedProps?: ButtonProps;
+  value?: string[];
   buttonProps?: ButtonProps;
-  onChange?: (keys: string[]) => void;
-  onPress?: (key: string) => void;
+  activeProps?: ButtonProps;
+  onChange?: (value: string[]) => void;
+  onPress?: (value: string) => void;
 }
 
 export const ButtonGroup: ShuttleUIComponent<ButtonGroupProps> = (props) => {
-  const {
-    selectedKeys,
-    selectedProps,
-    buttonProps,
-    onChange,
-    onPress,
-    children,
-    ...rest
-  } = useResolutionProps('ButtonGroup', props);
+  const { value, buttonProps, activeProps, onChange, onPress, children, ...rest } =
+    useResolutionProps('ButtonGroup', props);
 
-  const content = React.Children.map(children, (child) => {
-    if (!React.isValidElement(child)) {
+  const transformChild: SpaceProps['transformChild'] = (child, index) => {
+    if (!React.isValidElement(child) || child.type !== Button) {
       return child;
     }
-    const key = child.key as string;
+    const childValue =
+      child.props.value ||
+      (typeof child.props.children === 'string' ? child.props.children : `${index}`);
+    const included = value?.includes(childValue);
     const childProps = {
       ...buttonProps,
-      ...(selectedKeys?.includes(key) && selectedProps ? selectedProps : undefined),
+      ...(included ? activeProps : undefined),
       ...child.props,
     };
-    if (onPress) {
+    if (onPress || onChange) {
       childProps.onPress = () => {
-        const index = selectedKeys ? selectedKeys.indexOf(key) : -1;
-        const newSelectedKeys = selectedKeys ? [...selectedKeys] : [];
-        if (index > -1) {
-          newSelectedKeys.splice(index, 1);
-        } else if (key) {
-          newSelectedKeys.push(key);
+        const valueIndex = value ? value.indexOf(childValue) : -1;
+        const newValue = value ? [...value] : [];
+        if (valueIndex > -1) {
+          newValue.splice(valueIndex, 1);
+        } else if (childValue) {
+          newValue.push(childValue);
         }
-        onChange?.(newSelectedKeys);
-        onPress?.(key);
+        onChange?.(newValue);
+        onPress?.(childValue);
         child.props.onPress?.();
       };
     }
     return React.cloneElement(child, childProps);
-  });
+  };
 
   return (
-    <Space direction="row" {...rest}>
-      {content}
+    <Space direction="row" transformChild={transformChild} {...rest}>
+      {children}
     </Space>
   );
 };

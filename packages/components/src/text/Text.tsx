@@ -9,8 +9,8 @@ export type { TextProps };
 const PrivateText = createText();
 
 export const Text: ShuttleUIComponent<TextProps> = (props) => {
-  const newProps = useResolutionProps('Text', props);
-  return <PrivateText {...newProps} />;
+  const { color = 'text', ...rest } = useResolutionProps('Text', props);
+  return <PrivateText color={color} {...rest} />;
 };
 
 export default withShuttleUI(Text);

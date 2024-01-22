@@ -1,8 +1,6 @@
 import React from 'react';
-import { TextInput, TextInputProps } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 import { number, radios, select } from '@storybook/addon-knobs';
-import { Box } from '@shuttle-ui/components';
 
 import { colorOptions, radiusOptions, spacingOptions } from './knbos';
 import { StoryScreen, UseCase } from '../views';
@@ -83,17 +81,15 @@ export const boxProps = () => {
 
 storiesOf('Box', module)
   .addDecorator((getStory) => <StoryScreen>{getStory()}</StoryScreen>)
-  .add('with basic', () => (
+  .add('usage', () => (
     <>
-      <UseCase title="Basic" usage="The basic box">
-        <Box height={100} {...boxProps()} />
-      </UseCase>
-    </>
-  ))
-  .add('with customize', () => (
-    <>
-      <UseCase title="Customize" usage="The customize component (TextInput)">
-        <Box<TextInputProps> Component={TextInput} {...boxProps()} />
-      </UseCase>
+      <UseCase demo={require('../../../demo/box/Basic')} {...boxProps()} />
     </>
   ));
+// .add('with customize', () => (
+//   <>
+//     <UseCase title="Customize" usage="The customize component (TextInput)">
+//       <Box<TextInputProps> Component={TextInput} {...boxProps()} />
+//     </UseCase>
+//   </>
+// ));

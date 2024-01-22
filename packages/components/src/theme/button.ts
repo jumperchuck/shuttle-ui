@@ -63,7 +63,7 @@ const button: ButtonTheme = {
       },
       lg: {
         px: 'lg',
-        py: 'lg',
+        py: 'md',
         spacing: 'md',
         textProps: {
           size: 'lg',

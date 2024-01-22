@@ -4,7 +4,7 @@ import { ShuttleUIComponent } from '../types';
 import { withShuttleUI } from '../helper';
 import { useResolutionProps } from '../hooks';
 import { Button, ButtonProps } from '../button/Button';
-import { useModal } from './context';
+import { useModalContext } from './context';
 
 export interface ModalCloseProps extends ButtonProps {}
 
@@ -15,7 +15,7 @@ export const ModalClose: ShuttleUIComponent<ModalCloseProps> = (props) => {
     ...rest
   } = useResolutionProps('ModalClose', props);
 
-  const { close } = useModal();
+  const { close } = useModalContext();
 
   return (
     <Button

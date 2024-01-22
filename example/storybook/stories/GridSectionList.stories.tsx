@@ -49,7 +49,6 @@ const VerticalList = () => {
         JUMP TO SECTION INDEX 200
       </Button>
       <GridSectionList
-        // @ts-ignore
         forwardedRef={ref}
         sections={sections}
         row={3}

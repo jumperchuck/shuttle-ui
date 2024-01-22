@@ -1,6 +1,3 @@
-/**
- * Icon
- */
 import React from 'react';
 import { Image, ImageProps, ImageStyle, StyleProp, TextStyle } from 'react-native';
 import {
@@ -29,14 +26,14 @@ export const Icon: ShuttleUIComponent<IconProps> = (props) => {
   const {
     type,
     name,
-    size: sizeProp,
-    color: colorProp,
+    size: sizeProp = 18,
+    color: colorProp = 'text',
     style: styleProp,
     ...rest
   } = useResolutionProps('Icon', props);
 
-  const color = getColor({ color: colorProp, ...rest }) || 'text';
-  const size = getSize({ size: sizeProp, ...rest }) || 18;
+  const color = getColor({ color: colorProp, ...rest });
+  const size = getSize({ size: sizeProp, ...rest });
 
   const IconComp = type ? getIconType(type) : null;
 

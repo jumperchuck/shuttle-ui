@@ -35,7 +35,7 @@ const transform = (ast) => {
         node.specifiers.forEach((s) => {
           if (s.imported.name === 'Box') {
             isBoxImported = true;
-          } else if (s.imported.name === 'Provider') {
+          } else if (s.imported.name === 'ShuttleUIProvider') {
             isProviderImported = true;
           }
         });
@@ -44,7 +44,7 @@ const transform = (ast) => {
           node.specifiers.push(getImportSpecifier('Box'));
         }
         if (!isProviderImported) {
-          node.specifiers.push(getImportSpecifier('Provider'));
+          node.specifiers.push(getImportSpecifier('ShuttleUIProvider'));
         }
       }
     },
@@ -71,11 +71,11 @@ const transform = (ast) => {
 const endingTemplate = `
 export default () => {
   return (
-    <Provider>
+    <ShuttleUIProvider>
       <Box flex={1} center>
         <Example/>
       </Box>
-    </Provider>
+    </ShuttleUIProvider>
   )
 }
 `;

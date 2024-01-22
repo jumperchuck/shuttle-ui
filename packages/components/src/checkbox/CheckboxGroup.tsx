@@ -11,7 +11,7 @@ export interface CheckboxGroupProps extends SpaceProps {
   defaultValue?: string[];
   onChange?: (value: string[]) => void;
   checkboxProps?: CheckboxProps;
-  activatedProps?: CheckboxProps;
+  activeProps?: CheckboxProps;
 }
 
 export const CheckboxGroup: ShuttleUIComponent<CheckboxGroupProps> = (props) => {
@@ -20,7 +20,7 @@ export const CheckboxGroup: ShuttleUIComponent<CheckboxGroupProps> = (props) => 
     defaultValue,
     onChange,
     checkboxProps,
-    activatedProps,
+    activeProps,
     children,
     ...rest
   } = useResolutionProps('CheckboxGroup', props);
@@ -40,7 +40,7 @@ export const CheckboxGroup: ShuttleUIComponent<CheckboxGroupProps> = (props) => 
     const included = value.includes(childValue);
     const childProps = {
       ...checkboxProps,
-      ...(included ? activatedProps : undefined),
+      ...(included ? activeProps : undefined),
       checked: included,
       ...child.props,
     };

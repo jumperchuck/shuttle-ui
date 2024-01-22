@@ -6,19 +6,24 @@ import { StoryScreen, UseCase } from '../views';
 
 const BasicDialog = () => {
   const [visible, setVisible] = useState(false);
+  const show = () => setVisible(true);
+  const hide = () => setVisible(false);
   return (
     <>
-      <Button onPress={() => setVisible(true)}>SHOW DIALOG</Button>
-      <Dialog isVisible={visible}>
-        <Dialog.Title>Title</Dialog.Title>
-        <Dialog.Content>Content</Dialog.Content>
-        <Dialog.Content>
-          <Dialog.Input />
-        </Dialog.Content>
-        <Dialog.Actions>
-          <Button onPress={() => setVisible(false)}>CANCEL</Button>
-          <Button onPress={() => setVisible(false)}>OK</Button>
-        </Dialog.Actions>
+      <Button onPress={show}>SHOW DIALOG</Button>
+      <Dialog visible={visible}>
+        <Dialog.Container>
+          <Dialog.Close onPress={hide} />
+          <Dialog.Title>Title</Dialog.Title>
+          <Dialog.Content>Content</Dialog.Content>
+          <Dialog.Content>
+            <Dialog.Input />
+          </Dialog.Content>
+          <Dialog.Actions onPress={hide}>
+            <Button>CANCEL</Button>
+            <Button>OK</Button>
+          </Dialog.Actions>
+        </Dialog.Container>
       </Dialog>
     </>
   );
@@ -35,7 +40,7 @@ storiesOf('Dialog', module)
   ))
   .add('static method', () => (
     <UseCase title="Static" usage="The static method">
-      <Space direction="column" align={null}>
+      <Space direction="column">
         <Button
           onPress={() => {
             Dialog.alert({
@@ -51,6 +56,7 @@ storiesOf('Dialog', module)
             Dialog.prompt({
               title: 'Title',
               onConfirm: (value) => {
+                // @ts-ignore
                 alert(value);
               },
             });

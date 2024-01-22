@@ -1,6 +1,3 @@
-/**
- * Button
- */
 import React from 'react';
 import {
   ActivityIndicator,
@@ -27,6 +24,7 @@ import { Icon, IconProps } from '../icon/Icon';
 import { Space, SpaceProps } from '../space/Space';
 
 export interface ButtonProps extends SpaceProps {
+  value?: string;
   type?: ResponsiveValue<'solid' | 'text' | 'outline'>;
   color?: ResponsiveValue<ColorPropType>;
   size?: ResponsiveValue<'xs' | 'sm' | 'md' | 'lg'>;
@@ -46,6 +44,7 @@ export interface ButtonProps extends SpaceProps {
 
 export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
   const {
+    value,
     type,
     color,
     size,
@@ -64,11 +63,13 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
     onPress,
     disabled,
     children,
+    forwardedRef,
     ...rest
   } = useResolutionProps('Button', props, {
     responsiveProps: ['type', 'color', 'size'],
   });
 
+  value;
   type;
   size;
 
@@ -83,6 +84,7 @@ export const Button: ShuttleUIComponent<ButtonProps> = (props) => {
     style: [styleProp, disabled && disabledStyleProp],
     onPress: isLoading ? undefined : onPress,
     disabled,
+    forwardedRef,
     ...rest,
   };
 

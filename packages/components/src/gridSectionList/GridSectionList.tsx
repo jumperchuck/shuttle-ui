@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { DefaultSectionT, SectionList, SectionListProps } from 'react-native';
 
 import { useLayout } from '../hooks';
@@ -10,6 +10,7 @@ import {
   GridSectionListRenderItem,
   GridSectionListRenderNoItem,
 } from './types';
+import useLayoutManager from './useLayoutManager';
 
 export interface GridSectionListProps<T, SectionT = DefaultSectionT>
   extends Omit<
@@ -29,7 +30,6 @@ export interface GridSectionListProps<T, SectionT = DefaultSectionT>
   pageHeight?: number;
   cellWidth?: number | ((pageWidth: number) => number);
   cellHeight?: number | ((pageHeight: number) => number);
-  LayoutManager?: typeof LayoutManager;
   layoutManager?: LayoutManager<T, SectionT>;
   renderItem: GridSectionListRenderItem<T, SectionT>;
   renderNoItem?: GridSectionListRenderNoItem<T, SectionT>;
@@ -61,7 +61,6 @@ const GridSectionList = <T, SectionT = DefaultSectionT>(
     pageHeight: initPageHeight = 0,
     cellWidth: CW = 0,
     cellHeight: CH = 0,
-    LayoutManager: LM = LayoutManager,
     layoutManager: lm,
     renderItem,
     renderNoItem,
@@ -123,52 +122,36 @@ const GridSectionList = <T, SectionT = DefaultSectionT>(
     }
   }
 
-  const layoutManager = useMemo(() => {
-    const manager =
-      lm ||
-      new LM(
-        row,
-        col,
-        cellWidth,
-        cellHeight,
-        pageWidth,
-        pageHeight,
-        spacing,
-        !!horizontal,
-        fnRef.current.renderItem,
-        fnRef.current.renderNoItem,
-        fnRef.current.getItemLayout ?? (() => ({ row: 1, col: 1 })),
-        fnRef.current.getSectionHeaderLayout,
-        fnRef.current.getSectionFooterLayout,
-      );
-    manager.row = row;
-    manager.col = col;
-    manager.cellWidth = cellWidth;
-    manager.cellHeight = cellHeight;
-    manager.pageWidth = pageWidth;
-    manager.pageHeight = pageHeight;
-    manager.spacing = spacing;
-    manager.horizontal = !!horizontal;
-    manager.initialNumToRender = 0;
-    manager.renderItem = fnRef.current.renderItem;
-    manager.renderNoItem = fnRef.current.renderNoItem;
-    manager.getItemLayout = fnRef.current.getItemLayout ?? (() => ({ row: 1, col: 1 }));
-    manager.getSectionHeaderLayout = fnRef.current.getSectionHeaderLayout;
-    manager.getSectionFooterLayout = fnRef.current.getSectionFooterLayout;
-    manager.nodeSections = [];
-    manager.indexLayouts = [];
+  const layoutManager = useLayoutManager(lm);
+
+  useEffect(() => {
+    layoutManager.row = row;
+    layoutManager.col = col;
+    layoutManager.cellWidth = cellWidth;
+    layoutManager.cellHeight = cellHeight;
+    layoutManager.pageWidth = pageWidth;
+    layoutManager.pageHeight = pageHeight;
+    layoutManager.spacing = spacing;
+    layoutManager.horizontal = !!horizontal;
+    layoutManager.initialNumToRender = 0;
+    layoutManager.renderItem = fnRef.current.renderItem;
+    layoutManager.renderNoItem = fnRef.current.renderNoItem;
+    layoutManager.getItemLayout =
+      fnRef.current.getItemLayout ?? (() => ({ row: 1, col: 1 }));
+    layoutManager.getSectionHeaderLayout = fnRef.current.getSectionHeaderLayout;
+    layoutManager.getSectionFooterLayout = fnRef.current.getSectionFooterLayout;
+    layoutManager.nodeSections = [];
+    layoutManager.indexLayouts = [];
 
     if (cellWidth <= 0 || cellHeight <= 0 || pageWidth <= 0 || pageHeight <= 0) {
-      return manager;
+      return;
     }
 
     sections.forEach((section) => {
-      manager.addSection(section);
+      layoutManager.addSection(section);
     });
 
-    manager.calculateNodeSections();
-
-    return manager;
+    layoutManager.calculateNodeSections();
   }, [
     row,
     col,
@@ -178,9 +161,8 @@ const GridSectionList = <T, SectionT = DefaultSectionT>(
     pageHeight,
     spacing,
     horizontal,
-    LM,
-    lm,
     sections,
+    layoutManager,
   ]);
 
   return (

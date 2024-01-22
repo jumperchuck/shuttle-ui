@@ -11,7 +11,7 @@ export interface RadioGroupProps extends SpaceProps {
   defaultValue?: string;
   onChange?: (value: string) => void;
   radioProps?: RadioProps;
-  activatedProps?: RadioProps;
+  activeProps?: RadioProps;
 }
 
 export const RadioGroup: ShuttleUIComponent<RadioGroupProps> = (props) => {
@@ -20,7 +20,7 @@ export const RadioGroup: ShuttleUIComponent<RadioGroupProps> = (props) => {
     defaultValue,
     onChange,
     radioProps,
-    activatedProps,
+    activeProps,
     children,
     ...rest
   } = useResolutionProps('RadioGroup', props);
@@ -37,7 +37,7 @@ export const RadioGroup: ShuttleUIComponent<RadioGroupProps> = (props) => {
     const checked = value === childValue;
     const childProps = {
       ...radioProps,
-      ...(checked ? activatedProps : undefined),
+      ...(checked ? activeProps : undefined),
       ...child.props,
       checked,
       onChange: (newChecked: boolean) => {

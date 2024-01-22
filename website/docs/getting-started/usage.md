@@ -4,21 +4,21 @@ sidebar_position: 2
 
 # 使用
 
-先教你怎么用
+在程序入口用ShuttleUIProvider包裹，使用context来实现theme和colorMode的传递
 
-## 快速入门
+## 设置ShuttleUIProvider
 
-```SnackPlayer name=App.js
+```SnackPlayer
 import React from 'react';
-import { Provider, Box, Button } from '@shuttle-ui/components';
+import { ShuttleUIProvider, Box, Button } from '@shuttle-ui/components';
 
 const App = () => {
   return (
-    <Provider>
+    <ShuttleUIProvider>
       <Box flex={1} center>
         <Button>Hello World</Button>
       </Box>
-    </Provider>
+    </ShuttleUIProvider>
   )
 }
 
@@ -27,20 +27,42 @@ export default App;
 
 ## 自定义主题（可选）
 
-```SnackPlayer name=App.js
+```SnackPlayer
 import React from 'react';
-import { Provider, Box, Button } from '@shuttle-ui/components';
-import { createTheme } from '@shuttle-ui/theme'
+import { ShuttleUIProvider, Box, Button, createTheme } from '@shuttle-ui/components';
 
 const theme = createTheme({ colors: { primary: 'red' } });
 
 const App = () => {
   return (
-    <Provider theme={theme}>
+    <ShuttleUIProvider theme={theme}>
       <Box flex={1} center>
         <Button>Hello World</Button>
       </Box>
-    </Provider>
+    </ShuttleUIProvider>
+  )
+}
+
+export default App;
+```
+
+## 自定义颜色模式（可选）
+
+```SnackPlayer
+import React from 'react';
+import { useColorScheme } from 'react-native';
+import { ShuttleUIProvider, Box, Button, createTheme } from '@shuttle-ui/components';
+
+const theme = createTheme({ colors: {} });
+
+const App = () => {
+  const colorMode = useColorScheme();
+  return (
+    <ShuttleUIProvider theme={theme} colorMode={colorMode}>
+      <Box flex={1} center>
+        <Button>Hello World</Button>
+      </Box>
+    </ShuttleUIProvider>
   )
 }
 
@@ -49,7 +71,7 @@ export default App;
 
 ## Provider Props
 
-| Name       | Type   | Description                | Default       |
-| ---------- | ------ | -------------------------- | ------------- |
-| theme      | Object | 主题配置                    | Default Theme |
-| colorMode  | String | 颜色模式,light亮色,dark暗黑  | -             |
+| 参数        | 类型     | 说明   | 默认值           |
+| --------- | ------ | ---- | ------------- |
+| theme     | object | 主题配置 | Default Theme |
+| colorMode | string | 颜色模式 | -             |

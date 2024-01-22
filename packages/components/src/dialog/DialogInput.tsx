@@ -9,6 +9,7 @@ export interface DialogInputProps extends InputProps {}
 
 export const DialogInput = (props: ShuttleUIProps<DialogInputProps>) => {
   const newProps = useResolutionProps('DialogInput', props);
+
   return <Input {...newProps} />;
 };
 

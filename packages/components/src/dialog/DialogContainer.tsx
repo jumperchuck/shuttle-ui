@@ -11,6 +11,7 @@ export interface DialogContainerProps extends ModalContainerProps {}
 
 export const DialogContainer: ShuttleUIComponent<DialogContainerProps> = (props) => {
   const { children, ...rest } = useResolutionProps('DialogContainer', props);
+
   return (
     <ModalContainer {...rest}>
       {React.Children.toArray(children)

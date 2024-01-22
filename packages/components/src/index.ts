@@ -1,6 +1,6 @@
 export * from '@shuttle-ui/color-mode';
 
-export * from './theme';
+export * from '@shuttle-ui/theme';
 
 export * from './hooks';
 
@@ -25,6 +25,9 @@ export * from './button';
 export { default as Card } from './card';
 export * from './card';
 
+export { default as Checkbox } from './checkbox';
+export * from './checkbox';
+
 export { default as Collapse } from './collapse';
 export * from './collapse';
 
@@ -33,6 +36,9 @@ export * from './dialog';
 
 export { default as Divider } from './divider';
 export * from './divider';
+
+export { default as Form } from './form';
+export * from './form';
 
 export { default as Grid } from './grid';
 export * from './grid';
@@ -55,14 +61,32 @@ export * from './input';
 export { default as Modal } from './modal';
 export * from './modal';
 
+export { default as NavBar } from './navBar';
+export * from './navBar';
+
 export { default as Overlay } from './overlay';
 export * from './overlay';
+
+export { default as Popover } from './popover';
+export * from './popover';
+
+export { default as Radio } from './radio';
+export * from './radio';
 
 export { default as Space } from './space';
 export * from './space';
 
 export { default as Stepper } from './stepper';
 export * from './stepper';
+
+export { default as TabBar } from './tabBar';
+export * from './tabBar';
+
+export { default as Table } from './table';
+export * from './table';
+
+export { default as TabView } from './tabView';
+export * from './tabView';
 
 export { default as Text } from './text';
 export * from './text';

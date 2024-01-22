@@ -27,7 +27,7 @@ const spaceTheme: SpaceTheme = {
         return {
           justifyContent: 'center',
           alignItems: 'center',
-          flexWrap: direction === 'row' ? 'nowrap' : 'wrap',
+          flexWrap: direction === 'row' ? 'wrap' : 'nowrap',
         };
       },
       end: (props) => {

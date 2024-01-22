@@ -10,6 +10,7 @@ export interface DialogContentProps extends TextProps {}
 
 export const DialogContent: ShuttleUIComponent<DialogContentProps> = (props) => {
   const { children, ...rest } = useResolutionProps('DialogContent', props);
+
   if (typeof children === 'string') {
     return (
       <Text paddingY="md" paddingX="lg" {...rest}>
@@ -17,6 +18,7 @@ export const DialogContent: ShuttleUIComponent<DialogContentProps> = (props) => 
       </Text>
     );
   }
+
   return (
     <Box paddingY="md" paddingX="lg" {...rest}>
       {children}

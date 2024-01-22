@@ -1,6 +1,3 @@
-/**
- * Space
- */
 import React from 'react';
 import { ViewStyle } from 'react-native';
 import { SpacingPropType } from '@shuttle-ui/system';
@@ -17,17 +14,20 @@ export interface SpaceProps extends BoxProps {
   direction?: ViewStyle['flexDirection'];
   spacing?: ResponsiveValue<SpacingPropType>;
   dividerProps?: DividerProps;
+  transformChild?: (
+    child: React.ReactChild | React.ReactFragment | React.ReactPortal,
+    index: number,
+  ) => React.ReactNode;
 }
 
 export const Space: ShuttleUIComponent<SpaceProps> = (props) => {
   const {
     align,
-    direction = 'row',
-    spacing = 'md',
-    dividerProps,
+    direction,
+    spacing,
+    dividerProps: dividerPropsProp,
+    transformChild,
     children,
-    theme,
-    colorMode,
     ...rest
   } = useResolutionProps('Space', props);
 
@@ -35,37 +35,37 @@ export const Space: ShuttleUIComponent<SpaceProps> = (props) => {
 
   const boxProps: BoxProps = {
     flexDirection: direction,
-    theme,
-    colorMode,
     ...rest,
   };
 
-  const childProps: DividerProps = {
-    theme,
-    colorMode,
+  const dividerProps: DividerProps = {
     color: 'transparent',
-    ...{
-      ml: direction?.startsWith('row') ? spacing : undefined,
-      mt: direction?.startsWith('column') ? spacing : undefined,
-    },
-    thickness: 0,
-    ...dividerProps,
+    direction: direction?.startsWith('row') ? 'column' : 'row',
+    thickness: spacing,
+    ...dividerPropsProp,
   };
 
-  const content = React.Children.toArray(children)
-    .filter((child) => child != null && typeof child !== 'boolean')
-    .map((child, index) =>
-      index > 0 ? (
-        <React.Fragment key={index}>
-          <Divider {...childProps} />
-          {child}
-        </React.Fragment>
-      ) : (
-        child
-      ),
-    );
+  const content = React.Children.toArray(children).map((child, index) => {
+    const item = transformChild ? transformChild(child, index) : child;
+    if (item !== undefined && item != null && typeof item !== 'boolean') {
+      if (index > 0) {
+        return (
+          <React.Fragment key={index}>
+            <Divider {...dividerProps} />
+            {item}
+          </React.Fragment>
+        );
+      }
+    }
+    return item;
+  });
 
   return <Box {...boxProps}>{content}</Box>;
+};
+
+Space.defaultProps = {
+  direction: 'row',
+  spacing: 'md',
 };
 
 export default withShuttleUI(Space);

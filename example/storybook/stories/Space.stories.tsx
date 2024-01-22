@@ -41,10 +41,18 @@ storiesOf('Space', module)
   .add('with base', () => (
     <>
       <UseCase title="Base" usage="The base space">
-        <Space {...spaceProps()} {...boxProps()}>
-          <Button>德玛西亚</Button>
-          <Button>德玛西亚</Button>
-          <Button>德玛西亚</Button>
+        {/*<Space {...spaceProps()} {...boxProps()}>*/}
+        {/*  <Button>德玛西亚</Button>*/}
+        {/*  <Button>德玛西亚</Button>*/}
+        {/*  <Button>德玛西亚</Button>*/}
+        {/*</Space>*/}
+
+        <Space mt={10} align="center">
+          {[
+            <Button>德玛西亚</Button>,
+            [<Button>德玛西亚</Button>, <Button>德玛西亚</Button>, <Button>123</Button>],
+            <Button>德玛西亚</Button>,
+          ]}
         </Space>
       </UseCase>
     </>

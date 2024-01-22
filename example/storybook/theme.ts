@@ -4,5 +4,5 @@ export default createTheme({
   fontFamilies: {
     cochin: 'Cochin',
   },
-  props: {},
+  components: {},
 });

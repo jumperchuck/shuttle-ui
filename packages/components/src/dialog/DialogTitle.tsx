@@ -10,6 +10,7 @@ export interface DialogTitleProps extends TextProps {}
 
 export const DialogTitle: ShuttleUIComponent<DialogTitleProps> = (props) => {
   const { children, ...rest } = useResolutionProps('DialogTitle', props);
+
   if (typeof children === 'string') {
     return (
       <Text marginX="lg" marginTop="lg" marginBottom="md" {...rest}>
@@ -17,6 +18,7 @@ export const DialogTitle: ShuttleUIComponent<DialogTitleProps> = (props) => {
       </Text>
     );
   }
+
   return (
     <Box marginX="lg" marginTop="lg" marginBottom="md" {...rest}>
       {children}

@@ -16,6 +16,9 @@ export const Example = () => {
       children: 'UPDATE',
     });
   };
+  const hide = () => {
+    Toast.hide();
+  };
   const destroy = () => {
     Toast.destroy();
   };
@@ -26,6 +29,9 @@ export const Example = () => {
       </Button>
       <Button type="solid" onPress={update}>
         UPDATE
+      </Button>
+      <Button type="solid" onPress={hide}>
+        HIDE
       </Button>
       <Button type="solid" onPress={destroy}>
         DESTROY

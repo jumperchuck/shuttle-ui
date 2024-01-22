@@ -10,6 +10,4 @@ export const ModalContext = createContext<ModalContextType>({
   close: () => {},
 });
 
-export function useModal() {
-  return useContext(ModalContext);
-}
+export const useModalContext = () => useContext(ModalContext);

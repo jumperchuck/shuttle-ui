@@ -1,10 +1,7 @@
-/**
- * Divider
- */
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { ResponsiveValue } from '@shuttle-ui/theme';
-import { ColorPropType, SpacingPropType } from '@shuttle-ui/system';
+import { margin as getMargin, ColorPropType, SpacingPropType } from '@shuttle-ui/system';
 
 import { ShuttleUIComponent } from '../types';
 import { withShuttleUI } from '../helper';
@@ -23,30 +20,24 @@ export const Divider: ShuttleUIComponent<DividerProps> = (props) => {
     direction = 'row',
     thickness = StyleSheet.hairlineWidth,
     children,
-    theme,
-    colorMode,
     ...rest
-  } = useResolutionProps('Divider', props);
+  } = useResolutionProps('Divider', props, {
+    responsiveProps: ['thickness'],
+  });
 
-  const width = direction?.startsWith('column') ? thickness : undefined;
-  const height = direction?.startsWith('row') ? thickness : undefined;
+  const distance = getMargin({ margin: thickness, ...rest });
 
-  const boxProps: BoxProps = {
-    theme,
-    colorMode,
-    ...rest,
-  };
+  const width = direction?.startsWith('column') ? distance : undefined;
+  const height = direction?.startsWith('row') ? distance : undefined;
 
   if (React.isValidElement(children)) {
     const childProps: DividerProps = {
       flex: 1,
       color,
       direction,
-      theme,
-      colorMode,
     };
     return (
-      <Box flexDirection={direction} center {...boxProps}>
+      <Box flexDirection={direction} center {...rest}>
         <Divider {...childProps} mr={10} />
         {React.cloneElement(children, { color })}
         <Divider {...childProps} ml={10} />
@@ -54,7 +45,7 @@ export const Divider: ShuttleUIComponent<DividerProps> = (props) => {
     );
   }
 
-  return <Box bgColor={color} width={width} height={height} {...boxProps} />;
+  return <Box bgColor={color} width={width} height={height} {...rest} />;
 };
 
 export default withShuttleUI(Divider);

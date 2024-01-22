@@ -7,7 +7,7 @@ export default function () {
         className="snack-player"
         data-snack-name="react-native demo"
         data-snack-code={demoCode}
-        data-snack-dependencies="@shuttle-ui/components,@shuttle-ui/theme"
+        data-snack-dependencies="@shuttle-ui/components"
       />
     </div>
   );
@@ -15,7 +15,7 @@ export default function () {
 
 const demoCode = `
 import React from 'react';
-import { Provider, Box, Button, Divider, Dialog, Text, Space } from '@shuttle-ui/components';
+import { ShuttleUIProvider, Box, Button, Divider, Dialog, Text, Space } from '@shuttle-ui/components';
 
 const App = () => {
   const confirm = () => {
@@ -25,9 +25,9 @@ const App = () => {
     })
   }
   return (
-    <Provider>
+    <ShuttleUIProvider>
       <Box flex={1} center>
-        <Box width={0.5} borderRadius={10} boxShadow="2" p={10}>
+        <Box width={200} borderRadius={10} boxShadow="2" p={10}>
           <Space flex={1} spacing={5} direction="column" align={null}>
             <Text size="xl">标题</Text>
             <Divider>
@@ -42,7 +42,7 @@ const App = () => {
           </Space>
         </Box>
       </Box>
-    </Provider>
+    </ShuttleUIProvider>
   )
 }
 

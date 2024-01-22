@@ -11,10 +11,10 @@ Shuttle UI是用于React Native和Web的移动端UI框架，提供组件包，�
 
 ```bash
 // 使用npm
-npm install @shuttle-ui/components @shuttle-ui/theme
+npm install @shuttle-ui/components
 
 // 使用yarn
-yarn add @shuttle-ui/components @shuttle-ui/theme
+yarn add @shuttle-ui/components
 ```
 
 ## 安装react-native-vector-icons

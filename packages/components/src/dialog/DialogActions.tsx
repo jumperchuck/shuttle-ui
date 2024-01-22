@@ -3,7 +3,7 @@ import React from 'react';
 import { ShuttleUIComponent } from '../types';
 import { withShuttleUI } from '../helper';
 import { useResolutionProps } from '../hooks';
-import { useModal } from '../modal/context';
+import { useModalContext } from '../modal/context';
 import ButtonGroup, { ButtonGroupProps } from '../button/ButtonGroup';
 import Button, { ButtonProps } from '../button';
 
@@ -26,7 +26,7 @@ export const DialogActions: ShuttleUIComponent<DialogActionsProps> = (props) => 
     ...rest
   } = useResolutionProps('DialogActions', props);
 
-  const { close } = useModal();
+  const { close } = useModalContext();
 
   return (
     <ButtonGroup align="end" paddingY="md" paddingX="lg" onPress={close} {...rest}>

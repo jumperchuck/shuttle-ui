@@ -106,10 +106,10 @@ const processNode = (node, parent) => {
         parent[0].children.splice(index, 0, blockquote);
       }
 
-      if (pathContent && pathContent.title) {
-        const heading = getMarkdownHeading(pathContent.title, 3);
-        parent[0].children.splice(index, 0, heading);
-      }
+      // if (pathContent && pathContent.title) {
+      //   const heading = getMarkdownHeading(pathContent.title, 3);
+      //   parent[0].children.splice(index, 0, heading);
+      // }
     } catch (e) {
       return reject(e);
     }

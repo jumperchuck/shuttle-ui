@@ -1,10 +1,11 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FlatList, FlatListProps } from 'react-native';
 
 import { useLayout } from '../hooks';
 import LayoutManager from './LayoutManager';
 import GridListItem, { GridListItemProps } from './GridListItem';
 import { GridListItemLayout, GridListNodeInfo } from './types';
+import useLayoutManager from './useLayoutManager';
 
 export interface GridListProps<T>
   extends Omit<FlatListProps<GridListNodeInfo>, 'data' | 'renderItem' | 'getItemLayout'> {
@@ -17,7 +18,6 @@ export interface GridListProps<T>
   pageHeight?: number;
   cellWidth?: number | ((pageWidth: number) => number);
   cellHeight?: number | ((pageHeight: number) => number);
-  LayoutManager?: typeof LayoutManager;
   layoutManager?: LayoutManager;
   renderItem: GridListItemProps<T>['renderItem'];
   renderNoItem?: GridListItemProps<T>['renderNoItem'];
@@ -35,7 +35,6 @@ const GridList = <T,>(props: GridListProps<T>) => {
     pageHeight: initPageHeight = 0,
     cellWidth: CW = 0,
     cellHeight: CH = 0,
-    LayoutManager: LM = LayoutManager,
     layoutManager: lm,
     renderItem,
     renderNoItem,
@@ -76,45 +75,33 @@ const GridList = <T,>(props: GridListProps<T>) => {
     }
   }
 
-  const layoutManager = useMemo(() => {
-    const manager =
-      lm ||
-      new LM(
-        row,
-        col,
-        cellWidth,
-        cellHeight,
-        pageWidth,
-        pageHeight,
-        spacing,
-        !!horizontal,
-      );
-    manager.row = row;
-    manager.col = col;
-    manager.cellWidth = cellWidth;
-    manager.cellHeight = cellHeight;
-    manager.pageWidth = pageWidth;
-    manager.pageHeight = pageHeight;
-    manager.spacing = spacing;
-    manager.horizontal = !!horizontal;
-    manager.initialNumToRender = 0;
-    manager.nodeData = [];
-    manager.topNodes.clear();
+  const layoutManager = useLayoutManager(lm);
+
+  useEffect(() => {
+    layoutManager.row = row;
+    layoutManager.col = col;
+    layoutManager.cellWidth = cellWidth;
+    layoutManager.cellHeight = cellHeight;
+    layoutManager.pageWidth = pageWidth;
+    layoutManager.pageHeight = pageHeight;
+    layoutManager.spacing = spacing;
+    layoutManager.horizontal = !!horizontal;
+    layoutManager.initialNumToRender = 0;
+    layoutManager.nodeData = [];
+    layoutManager.topNodes.clear();
 
     if (cellWidth <= 0 || cellHeight <= 0 || pageWidth <= 0 || pageHeight <= 0) {
-      return manager;
+      return;
     }
 
     data.forEach((item, index) => {
       const itemLayout = getItemLayoutRef.current
         ? getItemLayoutRef.current(data, index)
         : { row: 1, col: 1 };
-      manager.addItemLayout(itemLayout, index);
+      layoutManager.addItemLayout(itemLayout, index);
     });
 
-    manager.calculateNodeData();
-
-    return manager;
+    layoutManager.calculateNodeData();
   }, [
     row,
     col,
@@ -124,9 +111,8 @@ const GridList = <T,>(props: GridListProps<T>) => {
     pageHeight,
     spacing,
     horizontal,
-    LM,
-    lm,
     data,
+    layoutManager,
   ]);
 
   return (
